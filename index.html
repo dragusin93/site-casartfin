@@ -10,21 +10,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --dark:#1a1a1a; --anth:#2C2C2C; --anth2:#3a3a3a; --anth3:#444;
+  --dark:#1a1a1a; --anth:#2D3748; --anth2:#4A5568; --anth3:#718096;
   --white:#fff; --or:#FF6B00; --ord:#d95a00; --orl:#ff8c33;
   --lgray:#8A8782; --lgray2:#6b6864;
-  --gbg:#f6f5f4; --gm:#e0dedd; --gt:#6b6864;
+  --gbg:#F8FAFC; --gm:#E2E8F0; --gt:#64748B;
   --f:'Poppins',sans-serif;
   --tr:.32s cubic-bezier(.4,0,.2,1);
   --r:14px; --rl:20px;
-  --sh:0 24px 64px rgba(0,0,0,.13);
-  --sh2:0 8px 32px rgba(0,0,0,.08);
+  --sh:0 24px 64px rgba(0,0,0,.08);
+  --sh2:0 8px 32px rgba(0,0,0,.05);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:var(--f);color:var(--anth);background:var(--white);overflow-x:hidden;}
+body{font-family:var(--f);color:var(--anth2);background:var(--white);overflow-x:hidden;}
+h2,h3,h4{color:var(--anth);}
+.dpc h3,.fond-card-main h3,.arh-visual h3{color:var(--white);}
+#hdr h3,footer h3{color:inherit;}
 ::-webkit-scrollbar{width:5px;}
-::-webkit-scrollbar-track{background:var(--dark);}
+::-webkit-scrollbar-track{background:var(--gbg);}
 ::-webkit-scrollbar-thumb{background:var(--or);border-radius:3px;}
 a{text-decoration:none;color:inherit;}
 img{display:block;max-width:100%;}
@@ -159,10 +162,10 @@ nav a:hover::after{width:100%;}
 .sc2 .stag{display:inline-block;margin-top:.9rem;font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--or);background:rgba(255,107,0,.08);padding:.25rem .7rem;border-radius:4px;}
 
 /* ═══ GALERIE ═══ */
-#galerie{background:var(--anth);padding:8rem 6%;}
+#galerie{background:var(--gbg);padding:8rem 6%;}
 .gg{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
-.gi{border-radius:10px;overflow:hidden;position:relative;cursor:pointer;transition:var(--tr);background:var(--anth2);}
-.gi:hover{transform:scale(1.025);z-index:2;box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.gi{border-radius:10px;overflow:hidden;position:relative;cursor:pointer;transition:var(--tr);background:#E2E8F0;}
+.gi:hover{transform:scale(1.025);z-index:2;box-shadow:0 20px 50px rgba(0,0,0,.15);}
 .gi:nth-child(1){grid-column:span 2;}
 .gi:nth-child(10){grid-column:span 2;}
 .gi img{width:100%;height:100%;object-fit:cover;display:block;transition:var(--tr);aspect-ratio:4/3;}
@@ -226,22 +229,22 @@ nav a:hover::after{width:100%;}
 .fond-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--or);flex-shrink:0;margin-top:.45rem;}
 
 /* ═══ PARTENERI ═══ */
-#parteneri{background:var(--dark);padding:6rem 6%;position:relative;overflow:hidden;}
-#parteneri::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,107,0,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,0,.02) 1px,transparent 1px);background-size:70px 70px;}
+#parteneri{background:var(--gbg);padding:6rem 6%;position:relative;overflow:hidden;}
+#parteneri::before{content:none;}
 .part-inner{position:relative;z-index:1;}
-.part-subtitle{font-size:.9rem;color:rgba(255,255,255,.45);text-align:center;max-width:560px;margin:.8rem auto 3.5rem;line-height:1.7;}
+.part-subtitle{font-size:.9rem;color:var(--gt);text-align:center;max-width:560px;margin:.8rem auto 3.5rem;line-height:1.7;}
 .part-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;max-width:1100px;margin:0 auto;}
 .part-card{
-  background:rgba(255,255,255,.03);border:1px solid rgba(255,107,0,.08);
+  background:var(--white);border:1px solid var(--gm);
   border-radius:var(--r);padding:2rem 1.8rem;
   display:flex;flex-direction:column;align-items:flex-start;gap:.8rem;
   transition:var(--tr);
 }
-.part-card:hover{background:rgba(255,107,0,.05);border-color:rgba(255,107,0,.2);transform:translateY(-4px);}
-.part-ico{width:42px;height:42px;border-radius:10px;background:rgba(255,107,0,.12);display:flex;align-items:center;justify-content:center;}
+.part-card:hover{background:var(--white);border-color:rgba(255,107,0,.2);transform:translateY(-4px);box-shadow:var(--sh2);}
+.part-ico{width:42px;height:42px;border-radius:10px;background:rgba(255,107,0,.09);display:flex;align-items:center;justify-content:center;}
 .part-ico svg{width:20px;height:20px;color:var(--or);}
-.part-card h4{font-size:.9rem;font-weight:700;color:var(--white);}
-.part-card p{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.55;}
+.part-card h4{font-size:.9rem;font-weight:700;color:var(--anth);}
+.part-card p{font-size:.78rem;color:var(--gt);line-height:1.55;}
 
 /* ═══ ARHITECTI ═══ */
 #arhitecti{background:var(--white);padding:8rem 6%;}
@@ -261,17 +264,17 @@ nav a:hover::after{width:100%;}
 .arh-tag{background:rgba(255,107,0,.15);border:1px solid rgba(255,107,0,.2);border-radius:20px;padding:.35rem .9rem;font-size:.72rem;font-weight:600;color:var(--orl);letter-spacing:.5px;}
 
 /* ═══ INVESTITORI ═══ */
-#investitori{background:var(--dark);padding:8rem 6%;position:relative;overflow:hidden;}
-#investitori::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,107,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,0,.025) 1px,transparent 1px);background-size:70px 70px;}
+#investitori{background:var(--white);padding:8rem 6%;position:relative;overflow:hidden;}
+#investitori::before{content:none;}
 .ii{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;position:relative;z-index:1;}
 .if2{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;}
-.if3{display:flex;gap:1.1rem;align-items:flex-start;padding:1.2rem 1.4rem;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,107,0,.08);transition:var(--tr);}
-.if3:hover{background:rgba(255,107,0,.05);border-color:rgba(255,107,0,.2);transform:translateX(4px);}
-.iic{width:38px;height:38px;border-radius:9px;background:rgba(255,107,0,.13);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.if3{display:flex;gap:1.1rem;align-items:flex-start;padding:1.2rem 1.4rem;border-radius:10px;background:var(--gbg);border:1px solid var(--gm);transition:var(--tr);}
+.if3:hover{background:var(--white);border-color:rgba(255,107,0,.2);transform:translateX(4px);box-shadow:var(--sh2);}
+.iic{width:38px;height:38px;border-radius:9px;background:rgba(255,107,0,.09);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .iic svg{width:18px;height:18px;color:var(--or);}
-.if3 h4{font-size:.85rem;font-weight:700;color:var(--white);margin-bottom:.25rem;}
-.if3 p{font-size:.78rem;color:rgba(255,255,255,.42);line-height:1.55;}
-.iform{background:var(--white);border-radius:var(--rl);padding:2.5rem;}
+.if3 h4{font-size:.85rem;font-weight:700;color:var(--anth);margin-bottom:.25rem;}
+.if3 p{font-size:.78rem;color:var(--gt);line-height:1.55;}
+.iform{background:var(--white);border-radius:var(--rl);padding:2.5rem;border:1px solid var(--gm);box-shadow:var(--sh2);}
 .iform h3{font-size:1.25rem;font-weight:800;margin-bottom:.4rem;}
 .iform > p{font-size:.82rem;color:var(--gt);margin-bottom:2rem;line-height:1.6;}
 
@@ -466,12 +469,12 @@ footer{background:rgba(10,10,10,1);color:var(--white);padding:5rem 6% 2.5rem;}
 </section>
 
 <!-- ═══ GALERIE ═══ -->
-<section id="galerie" style="background:var(--anth);padding:8rem 6%;">
+<section id="galerie" style="padding:8rem 6%;">
   <div class="w12">
     <div class="sh">
       <span class="slb rv">Portofoliu</span>
-      <h2 class="stl rv d1" style="color:var(--white)">Lucrări Realizate<br>de Echipa Noastră.</h2>
-      <p class="ssb rv d2" style="color:rgba(255,255,255,.42)">Fotografii reale din lucrările executate de echipa CASARTFIN — gips carton, tavane false, finisaje și tencuieli mecanizate.</p>
+      <h2 class="stl rv d1">Lucrări Realizate<br>de Echipa Noastră.</h2>
+      <p class="ssb rv d2">Fotografii reale din lucrările executate de echipa CASARTFIN — gips carton, tavane false, finisaje și tencuieli mecanizate.</p>
     </div>
     <div class="gg">
       <div class="gi rv">
@@ -622,7 +625,7 @@ footer{background:rgba(10,10,10,1);color:var(--white);padding:5rem 6% 2.5rem;}
   <div class="part-inner">
     <div class="sh ctr">
       <span class="slb rv" style="text-align:center">Ecosistemul nostru</span>
-      <h2 class="stl rv d1" style="color:var(--white)">Parteneri care<br>garantează calitatea</h2>
+      <h2 class="stl rv d1">Parteneri care<br>garantează calitatea</h2>
     </div>
     <p class="part-subtitle rv d2">Colaborăm cu furnizori majori din piața materialelor de construcție, ceea ce ne permite să oferim prețuri competitive, livrare rapidă și trasabilitate completă a materialelor utilizate.</p>
     <div class="part-grid">
@@ -712,8 +715,8 @@ footer{background:rgba(10,10,10,1);color:var(--white);padding:5rem 6% 2.5rem;}
   <div class="ii">
     <div>
       <span class="slb rv">Oportunitate de Parteneriat</span>
-      <h2 class="stl rv d1" style="color:var(--white)">Investește în<br>construcții cu cerere garantată</h2>
-      <p class="ssb rv d2" style="color:rgba(255,255,255,.48)">CASARTFIN este o firmă de familie cu rădăcini solide și un plan concret de creștere. Avem portofoliu dovedit, o echipă stabilă și o piață în expansiune — baza ideală pentru un parteneriat pe termen lung.</p>
+      <h2 class="stl rv d1">Investește în<br>construcții cu cerere garantată</h2>
+      <p class="ssb rv d2">CASARTFIN este o firmă de familie cu rădăcini solide și un plan concret de creștere. Avem portofoliu dovedit, o echipă stabilă și o piață în expansiune — baza ideală pentru un parteneriat pe termen lung.</p>
       <div class="if2">
         <div class="if3 rv d1">
           <div class="iic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
