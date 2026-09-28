@@ -1,0 +1,76 @@
+---
+/** Iconuri de linie pentru servicii. Pur decorative, deci aria-hidden. */
+interface Props {
+  nume: string;
+  size?: number;
+}
+
+const { nume, size = 26 } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.5"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    nume === 'perete' && (
+      <>
+        <path d="M3 4v16M9 4v16M15 4v16M21 4v16" />
+        <path d="M3 12h18" />
+      </>
+    )
+  }
+  {
+    nume === 'schela' && (
+      <>
+        <path d="M4 21V5M20 21V5M4 9h16M4 15h16" />
+        <path d="M4 5h16" />
+        <path d="M8 21v-6M16 21v-6" />
+      </>
+    )
+  }
+  {
+    nume === 'tavan' && (
+      <>
+        <rect x="3" y="4" width="18" height="10" rx="1" />
+        <path d="M3 9h18M9 4v10M15 4v10" />
+        <path d="M8 18v2M16 18v2M12 17v3" />
+      </>
+    )
+  }
+  {
+    nume === 'pompa' && (
+      <>
+        <path d="M6 20h7v-6H6z" />
+        <path d="M9.5 14V9h5V5" />
+        <path d="M14.5 5h4l1.5 3-1.5 3h-4z" />
+        <path d="M4 20h11" />
+      </>
+    )
+  }
+  {
+    nume === 'driscă' && (
+      <>
+        <rect x="3" y="13" width="18" height="4" rx="1" />
+        <path d="M9 13V9a3 3 0 0 1 6 0v4" />
+      </>
+    )
+  }
+  {
+    nume === 'plan' && (
+      <>
+        <path d="M4 3h11l5 5v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
+        <path d="M14 3v6h6" />
+        <path d="M7 13h8M7 17h5" />
+      </>
+    )
+  }
+</svg>

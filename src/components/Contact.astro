@@ -1,0 +1,237 @@
+---
+import { FIRMA, WHATSAPP_URL } from '~/data/firma';
+
+const hartaSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
+  `${FIRMA.adresa.strada}, ${FIRMA.adresa.oras}`,
+)}&output=embed&hl=ro&z=16`;
+---
+
+<section class="sectiune contact" id="contact">
+  <div class="container">
+    <div class="cap-sectiune">
+      <p class="eticheta apare">Contact</p>
+      <h2 class="apare i1">Hai să vorbim<br />despre lucrarea ta</h2>
+      <p class="subtitlu apare i2">
+        Răspundem la telefon în timpul programului și la mesaje în maximum 24 de ore.
+      </p>
+    </div>
+
+    <div class="contact__grila">
+      <div class="contact__detalii apare i1">
+        <ul class="contact__lista">
+          <li>
+            <span class="eticheta eticheta--simplu">Telefon / WhatsApp</span>
+            <a href={`tel:${FIRMA.telefon}`} class="contact__valoare">{FIRMA.telefonAfisat}</a>
+          </li>
+          <li>
+            <span class="eticheta eticheta--simplu">Email</span>
+            <a href={`mailto:${FIRMA.email}`} class="contact__valoare">{FIRMA.email}</a>
+          </li>
+          <li>
+            <span class="eticheta eticheta--simplu">Adresă</span>
+            <span class="contact__valoare contact__valoare--mic">
+              {FIRMA.adresa.strada}<br />
+              {FIRMA.adresa.oras}, jud. {FIRMA.adresa.judet}
+            </span>
+          </li>
+          <li>
+            <span class="eticheta eticheta--simplu">Program</span>
+            <span class="contact__valoare contact__valoare--mic">{FIRMA.program}</span>
+          </li>
+        </ul>
+
+        <a href={WHATSAPP_URL} class="btn btn--terra btn--plin" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+          </svg>
+          Scrie pe WhatsApp
+        </a>
+
+        <div class="contact__harta">
+          <iframe
+            src={hartaSrc}
+            title={`Locația ${FIRMA.nume} pe hartă`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="contact__formular apare i2">
+        <form id="form-contact" novalidate>
+          <div class="camp-randuri">
+            <div class="camp">
+              <label for="ct-nume">Nume *</label>
+              <input type="text" id="ct-nume" name="nume" placeholder="Numele dvs." required />
+            </div>
+            <div class="camp">
+              <label for="ct-telefon">Telefon *</label>
+              <input type="tel" id="ct-telefon" name="telefon" placeholder="07xx xxx xxx" required />
+            </div>
+          </div>
+
+          <div class="camp">
+            <label for="ct-email">Email</label>
+            <input type="email" id="ct-email" name="email" placeholder="email@exemplu.com" />
+          </div>
+
+          <div class="camp">
+            <label for="ct-subiect">Subiect</label>
+            <input
+              type="text"
+              id="ct-subiect"
+              name="subiect"
+              placeholder="Ex: Compartimentare birouri, 120 m²"
+            />
+          </div>
+
+          <div class="camp">
+            <label for="ct-mesaj">Mesaj *</label>
+            <textarea
+              id="ct-mesaj"
+              name="mesaj"
+              placeholder="Descrie pe scurt lucrarea: tip spațiu, suprafață aproximativă, termen dorit..."
+              required></textarea>
+          </div>
+
+          <div class="capcana" aria-hidden="true">
+            <label for="ct-website">Nu completa acest câmp</label>
+            <input type="text" id="ct-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="camp-acord">
+            <input type="checkbox" id="ct-acord" name="acord" value="da" required />
+            <label for="ct-acord">
+              Sunt de acord ca datele mele să fie folosite pentru a primi un răspuns, conform
+              <a href="/politica-confidentialitate">politicii de confidențialitate</a>.
+            </label>
+          </div>
+
+          <div class="contact__butoane">
+            <button type="submit" class="btn btn--primar btn--plin" data-trimite>
+              Trimite mesajul
+            </button>
+            <a
+              href={`https://wa.me/${FIRMA.telefon.replace(/\D/g, '')}`}
+              class="btn btn--contur btn--plin"
+              target="_blank"
+              rel="noopener"
+              data-whatsapp
+            >
+              Trimite pe WhatsApp
+            </a>
+          </div>
+
+          <p class="form-raspuns" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initFormular } from '~/scripts/formular';
+
+  initFormular({
+    formId: 'form-contact',
+    sursa: 'Contact',
+    titluWhatsApp: 'V-am scris de pe site-ul CASARTFIN.',
+  });
+</script>
+
+<style>
+  .contact {
+    background: var(--stone-2);
+    border-top: 1px solid var(--line);
+  }
+
+  .contact__grila {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .contact__lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact__lista li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.15rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .contact__lista li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .contact__valoare {
+    font-family: var(--f-display);
+    font-size: 1.22rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
+  a.contact__valoare:hover {
+    color: var(--indigo);
+  }
+
+  .contact__valoare--mic {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .contact__harta {
+    margin-top: 1.5rem;
+    border: 1px solid var(--line);
+    background: var(--stone-3);
+    aspect-ratio: 4 / 3;
+  }
+
+  .contact__harta iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .contact__formular {
+    background: var(--stone);
+    border: 1px solid var(--line);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  }
+
+  .contact__butoane {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+
+  .capcana {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 900px) {
+    .contact__grila {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .contact__butoane {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

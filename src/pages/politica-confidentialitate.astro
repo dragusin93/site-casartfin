@@ -1,0 +1,147 @@
+---
+import PaginaText from '~/layouts/PaginaText.astro';
+import { FIRMA } from '~/data/firma';
+---
+
+<PaginaText
+  titlu="Politica de confidențialitate — CASARTFIN CONSTRUCT"
+  descriere="Cum colectează, folosește și protejează CASARTFIN CONSTRUCT S.R.L. datele personale transmise prin formularele de pe site."
+  cale="/politica-confidentialitate"
+  antet="Politica de confidențialitate"
+  actualizat="28 septembrie 2026"
+>
+  <p class="nota-revizuire">
+    <strong>De verificat înainte de publicare.</strong> Acest document acoperă situația reală
+    a site-ului (trei formulare care trimit un email), dar nu înlocuiește avizul unui jurist.
+    Înainte de a-l publica, completează datele de identificare ale firmei și confirmă
+    perioada de păstrare a datelor.
+  </p>
+
+  <h2>1. Cine suntem</h2>
+  <p>
+    Operatorul datelor este <strong>{FIRMA.nume}</strong>, cu sediul în {FIRMA.adresa.strada},
+    {FIRMA.adresa.oras}, județul {FIRMA.adresa.judet}, CUI {FIRMA.cui}, înregistrată la
+    Registrul Comerțului sub numărul {FIRMA.regCom}.
+  </p>
+  <p>
+    Pentru orice întrebare legată de datele tale personale ne poți scrie la
+    <a href={`mailto:${FIRMA.email}`}>{FIRMA.email}</a> sau ne poți suna la
+    <a href={`tel:${FIRMA.telefon}`}>{FIRMA.telefonAfisat}</a>.
+  </p>
+
+  <h2>2. Ce date colectăm</h2>
+  <p>
+    Colectăm exclusiv datele pe care le completezi tu în formularele de pe site. În funcție
+    de formular, acestea pot fi:
+  </p>
+  <ul>
+    <li><strong>Nume sau denumirea firmei</strong> — ca să știm cui ne adresăm;</li>
+    <li><strong>Număr de telefon</strong> — ca să te putem contacta cu oferta;</li>
+    <li><strong>Adresă de email</strong> — opțională, dacă preferi răspunsul în scris;</li>
+    <li>
+      <strong>Detalii despre lucrare</strong> — tipul serviciului, suprafața, descrierea
+      proiectului;
+    </li>
+    <li><strong>Mesajul tău</strong>, cu orice ai ales să incluzi în el.</li>
+  </ul>
+  <p>
+    Nu colectăm date sensibile, nu cerem CNP, date de card sau copii ale actelor de
+    identitate prin acest site.
+  </p>
+
+  <h2>3. De ce le folosim și pe ce temei</h2>
+  <p>
+    Folosim aceste date <strong>exclusiv pentru a răspunde solicitării tale</strong>: să
+    pregătim o ofertă, să programăm o măsurătoare sau să răspundem la o întrebare.
+  </p>
+  <p>
+    Temeiul legal este <strong>consimțământul tău</strong> (art. 6 alin. 1 lit. a din
+    Regulamentul UE 2016/679), exprimat prin bifarea căsuței din formular, respectiv
+    <strong>demersurile precontractuale</strong> (art. 6 alin. 1 lit. b) atunci când
+    solicitarea duce la o ofertă sau un contract.
+  </p>
+  <p>
+    Nu folosim datele tale pentru marketing, nu îți trimitem newslettere și nu îți afișăm
+    reclame pe baza lor.
+  </p>
+
+  <h2>4. Cine mai are acces la ele</h2>
+  <p>
+    Nu vindem și nu închiriem date personale nimănui. Pentru funcționarea site-ului folosim
+    următorii furnizori, care prelucrează datele strict în numele nostru:
+  </p>
+  <ul>
+    <li>
+      <strong>Vercel Inc.</strong> — găzduiește site-ul și rulează funcția care trimite
+      formularele.
+    </li>
+    <li>
+      <strong>Resend</strong> — serviciul prin care mesajul din formular ne ajunge pe email.
+    </li>
+    <li>
+      <strong>Google LLC</strong> — harta încorporată în pagina de contact este servită de
+      Google Maps. Harta se încarcă doar când ajungi în dreptul ei.
+    </li>
+  </ul>
+  <p>
+    Putem divulga date și autorităților publice, atunci când legea ne obligă.
+  </p>
+
+  <h2>5. Cât timp le păstrăm</h2>
+  <p>
+    Păstrăm mesajele primite prin formular <strong>cel mult 24 de luni</strong> de la ultima
+    comunicare cu tine, ca să avem istoricul discuțiilor dacă revii cu o solicitare. Dacă din
+    solicitare rezultă un contract, documentele aferente se păstrează pe durata prevăzută de
+    legislația fiscală și contabilă.
+  </p>
+  <p>Poți cere ștergerea lor oricând, mai devreme de acest termen.</p>
+
+  <h2>6. Ce drepturi ai</h2>
+  <p>Conform GDPR, ai dreptul:</p>
+  <ul>
+    <li>să afli ce date avem despre tine și să primești o copie;</li>
+    <li>să ceri corectarea datelor inexacte;</li>
+    <li>să ceri ștergerea lor („dreptul de a fi uitat”);</li>
+    <li>să ceri restricționarea prelucrării;</li>
+    <li>să te opui prelucrării;</li>
+    <li>să ceri portarea datelor către alt operator;</li>
+    <li>să îți retragi consimțământul oricând, fără să afectezi prelucrarea de dinainte.</li>
+  </ul>
+  <p>
+    Pentru oricare dintre ele, scrie-ne la <a href={`mailto:${FIRMA.email}`}>{FIRMA.email}</a>.
+    Răspundem în cel mult 30 de zile.
+  </p>
+  <p>
+    Dacă nu ești mulțumit de răspuns, te poți adresa
+    <strong>Autorității Naționale de Supraveghere a Prelucrării Datelor cu Caracter Personal</strong>
+    (ANSPDCP), B-dul G-ral. Gheorghe Magheru 28-30, București, <a
+      href="https://www.dataprotection.ro"
+      target="_blank"
+      rel="noopener noreferrer">dataprotection.ro</a
+    >.
+  </p>
+
+  <h2>7. Cookie-uri</h2>
+  <p>
+    Site-ul <strong>nu folosește cookie-uri de urmărire, analiză sau publicitate</strong> și
+    nu are instalat Google Analytics sau echivalente. Din acest motiv nu îți afișăm o bandă
+    de consimțământ pentru cookie-uri.
+  </p>
+  <p>
+    Singura excepție: harta Google Maps din pagina de contact poate seta cookie-uri proprii,
+    în momentul în care se încarcă. Dacă vrei să eviți asta, nu derula până la hartă sau
+    blochează cookie-urile terțe din setările browserului.
+  </p>
+
+  <h2>8. Securitate</h2>
+  <p>
+    Site-ul este servit exclusiv prin HTTPS. Datele din formular călătoresc criptat și nu
+    sunt stocate într-o bază de date pe site — ajung direct pe email, la noi.
+  </p>
+
+  <h2>9. Modificări</h2>
+  <p>
+    Dacă schimbăm ceva în modul în care folosim datele, actualizăm această pagină și data de
+    la începutul ei.
+  </p>
+</PaginaText>

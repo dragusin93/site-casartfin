@@ -1,0 +1,76 @@
+---
+import { TOATE_SERVICIILE } from '~/data/servicii';
+---
+
+<section class="sectiune toate" id="toate-serviciile">
+  <div class="container">
+    <div class="cap-sectiune">
+      <p class="eticheta apare">Nomenclator complet</p>
+      <h2 class="apare i1">Toate serviciile</h2>
+      <p class="subtitlu apare i2">
+        {TOATE_SERVICIILE.length} categorii de lucrări, de la structură și compartimentare
+        până la finisajul final. Nu găsești ce cauți? Sună — probabil o facem oricum.
+      </p>
+    </div>
+
+    <ul class="toate__lista apare i1">
+      {
+        TOATE_SERVICIILE.map((serviciu, i) => (
+          <li class="toate__item">
+            <span class="toate__numar mono">{String(i + 1).padStart(2, '0')}</span>
+            <span class="toate__nume">{serviciu}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="toate__nota apare i2">
+      <a href="#calculator">Cere o estimare pentru oricare dintre ele →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .toate {
+    background: var(--stone-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .toate__lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 0 2.5rem;
+  }
+
+  .toate__item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--line-2);
+  }
+
+  .toate__numar {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--terra);
+    flex-shrink: 0;
+  }
+
+  .toate__nume {
+    font-size: 0.92rem;
+    color: var(--ink);
+  }
+
+  .toate__nota {
+    margin-top: 2.5rem;
+    font-size: 0.92rem;
+  }
+
+  .toate__nota a {
+    color: var(--indigo);
+    border-bottom: 1px solid var(--line-indigo);
+    padding-bottom: 2px;
+  }
+</style>

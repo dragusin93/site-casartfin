@@ -1,0 +1,311 @@
+---
+/**
+ * Hero — compozitie asimetrica, in limbaj de fisa tehnica.
+ *
+ * Titlul e incadrat de linii de cota (ca intr-un desen de executie), fotografia
+ * e o lucrare reala din portofoliu, iar inelele cu unelte ies partial din cadru
+ * peste coltul fotografiei. Dedesubt, o banda de date cu separatoare verticale.
+ */
+import { Picture } from 'astro:assets';
+import IneleUnelte from '~/components/IneleUnelte.astro';
+import { FIRMA, WHATSAPP_URL } from '~/data/firma';
+import pozaHero from '~/assets/lucrari/amenajare-horeca-tencuiala-decorativa.jpg';
+
+const DATE = [
+  { valoare: '100+', eticheta: 'Proiecte finalizate' },
+  { valoare: '20+', eticheta: 'Ani de meserie' },
+  { valoare: '24h', eticheta: 'Timp de răspuns' },
+  { valoare: '2 ani', eticheta: 'Garanție scrisă' },
+];
+---
+
+<section class="hero" id="hero">
+  <div class="hero__grila container">
+    <!-- Coloana de continut -->
+    <div class="hero__text">
+      <p class="eticheta">Gips carton · Finisaje · Tencuieli mecanizate</p>
+
+      <div class="hero__cadru-titlu">
+        <div class="cota hero__cota" aria-hidden="true">
+          <span class="cota__linie"></span>
+        </div>
+
+        <h1>
+          O meserie de familie,<br />
+          <em>un standard european.</em>
+        </h1>
+
+        <div class="cota hero__cota" aria-hidden="true">
+          <span class="cota__linie"></span>
+        </div>
+      </div>
+
+      <p class="subtitlu hero__descriere">
+        Peste 20 de ani de experiență în gips carton, finisaje și tencuieli mecanizate, în
+        Râmnicu Vâlcea și județul Vâlcea. Citim proiecte tehnice, respectăm graficul asumat
+        și lăsăm în urmă lucrări care poartă numele nostru.
+      </p>
+
+      <div class="hero__actiuni">
+        <a href="#calculator" class="btn btn--primar">
+          Cere o ofertă gratuită
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+
+        <a href={WHATSAPP_URL} class="btn btn--contur" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+          </svg>
+          Scrie pe WhatsApp
+        </a>
+      </div>
+
+      <p class="hero__contact-direct">
+        Sau sună direct:
+        <a href={`tel:${FIRMA.telefon}`} class="mono">{FIRMA.telefonAfisat}</a>
+        <span class="hero__program">· {FIRMA.program}</span>
+      </p>
+    </div>
+
+    <!-- Coloana vizuala -->
+    <div class="hero__vizual">
+      <figure class="hero__foto">
+        <Picture
+          src={pozaHero}
+          alt="Amenajare interioară HoReCa executată de CASARTFIN, cu tencuială decorativă și iluminat ambiental pe arcade"
+          formats={['avif', 'webp']}
+          widths={[420, 640, 900]}
+          sizes="(max-width: 980px) 90vw, 440px"
+          loading="eager"
+          fetchpriority="high"
+          class="hero__imagine"
+        />
+        <figcaption class="hero__legenda mono">
+          <span>FIȘA 01</span>
+          <span>Amenajare HoReCa · Rm. Vâlcea</span>
+        </figcaption>
+      </figure>
+
+      {/* Inelele stau intr-un div al acestei componente, nu stilate prin clasa
+          pasata componentei: CSS-ul scopat de Astro nu ajunge pe elementul
+          radacina al unui copil, iar pozitionarea s-ar pierde. */}
+      <div class="hero__inele">
+        <IneleUnelte />
+      </div>
+    </div>
+  </div>
+
+  <!-- Banda de date -->
+  <div class="banda-date">
+    <div class="banda-date__interior container">
+      {
+        DATE.map((d) => (
+          <div class="banda-date__celula">
+            <span class="banda-date__valoare">{d.valoare}</span>
+            <span class="banda-date__eticheta mono">{d.eticheta}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: 76px; /* headerul fix */
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero__grila {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    padding: clamp(3rem, 7vw, 6rem) var(--sp-gut) clamp(3.5rem, 7vw, 6rem);
+  }
+
+  /* ---- Textul ---- */
+  .hero__cadru-titlu {
+    margin: 1.75rem 0 1.5rem;
+  }
+
+  .hero__cota {
+    max-width: 440px;
+  }
+
+  .hero__cadru-titlu h1 {
+    margin: 1.1rem 0;
+  }
+
+  .hero__cadru-titlu em {
+    font-style: normal;
+    color: var(--indigo);
+    font-weight: 600;
+  }
+
+  .hero__descriere {
+    max-width: 50ch;
+  }
+
+  .hero__actiuni {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero__contact-direct {
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+    color: var(--ink-3);
+  }
+
+  .hero__contact-direct a {
+    color: var(--indigo);
+    border-bottom: 1px solid var(--line-indigo);
+  }
+
+  .hero__program {
+    color: var(--ink-3);
+  }
+
+  /* ---- Vizualul ---- */
+  .hero__vizual {
+    position: relative;
+    justify-self: end;
+    width: 100%;
+    max-width: 460px;
+  }
+
+  .hero__foto {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    /* decalat in sus si la dreapta, ca sa lase loc inelelor in stanga-jos */
+    margin-left: auto;
+    width: 88%;
+    border: 1px solid var(--line);
+    background: var(--stone-2);
+    padding: 10px;
+  }
+
+  .hero__imagine {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .hero__legenda {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 9px;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .hero__legenda span:first-child {
+    color: var(--terra);
+  }
+
+  /* Inelele ies din cadru, peste coltul din stanga-jos al fotografiei. */
+  .hero__inele {
+    position: absolute;
+    z-index: 1;
+    left: -42%;
+    bottom: -16%;
+    width: 118%;
+    pointer-events: none;
+  }
+
+  /* ---- Banda de date ---- */
+  .banda-date {
+    border-block: 1px solid var(--line);
+    background: var(--stone-2);
+  }
+
+  .banda-date__interior {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding-inline: var(--sp-gut);
+  }
+
+  .banda-date__celula {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1.6rem 1rem 1.6rem 0;
+    border-left: 1px solid var(--line);
+    padding-left: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .banda-date__celula:first-child {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .banda-date__valoare {
+    font-family: var(--f-display);
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .banda-date__eticheta {
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ---- Adaptare ---- */
+  @media (max-width: 980px) {
+    .hero__grila {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .hero__vizual {
+      justify-self: center;
+      max-width: 400px;
+    }
+
+    .hero__foto {
+      width: 100%;
+    }
+
+    .hero__inele {
+      left: -34%;
+      bottom: -12%;
+      width: 100%;
+      opacity: 0.85;
+    }
+
+    .banda-date__interior {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .banda-date__celula:nth-child(3) {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .banda-date__celula:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--line);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .hero__actiuni .btn {
+      width: 100%;
+    }
+  }
+</style>

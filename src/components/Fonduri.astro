@@ -1,0 +1,143 @@
+---
+const PUNCTE = [
+  {
+    titlu: 'Documentație de agrementare',
+    text: 'Procese verbale de recepție, fișe tehnice și rapoarte de execuție compatibile cu cerințele auditului european.',
+  },
+  {
+    titlu: 'Materiale cu declarații de conformitate',
+    text: 'Folosim exclusiv sisteme agrementate tehnic, cu trasabilitate completă a loturilor livrate pe șantier.',
+  },
+  {
+    titlu: 'Facturare pe etape de execuție',
+    text: 'Devize și facturi structurate pe faze, astfel încât decontarea pe tranșe să nu blocheze finanțarea.',
+  },
+  {
+    titlu: 'Respectarea graficului finanțatorului',
+    text: 'Termenele din contractul de finanțare sunt termene ferme. Le asumăm contractual, cu penalizări.',
+  },
+];
+---
+
+<section class="sectiune fonduri" id="fonduri">
+  <div class="container">
+    <div class="fonduri__grila">
+      <div class="fonduri__intro">
+        <p class="eticheta apare">PNRR · POR · Programe europene</p>
+        <h2 class="apare i1">Pregătiți pentru proiecte<br />cu fonduri europene</h2>
+        <p class="subtitlu apare i2">
+          Lucrăm cu beneficiari de finanțări nerambursabile. Emitem documentație completă de
+          agrementare și respectăm specificațiile tehnice impuse de auditori.
+        </p>
+        <a href="#contact" class="btn btn--primar apare i3 fonduri__cta">
+          Discută proiectul cu noi
+        </a>
+      </div>
+
+      <ul class="fonduri__lista">
+        {
+          PUNCTE.map((p, i) => (
+            <li class={`fond apare i${i + 1}`}>
+              <span class="fond__numar mono">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{p.titlu}</h3>
+                <p>{p.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fonduri {
+    background: var(--indigo);
+    color: rgba(249, 248, 246, 0.8);
+  }
+
+  .fonduri :global(h2),
+  .fonduri :global(h3) {
+    color: var(--stone-2);
+  }
+
+  .fonduri :global(.eticheta) {
+    color: rgba(249, 248, 246, 0.72);
+  }
+
+  .fonduri :global(.eticheta::before) {
+    background: var(--terra);
+  }
+
+  .fonduri :global(.subtitlu) {
+    color: rgba(249, 248, 246, 0.72);
+  }
+
+  .fonduri__grila {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+
+  .fonduri__intro h2 {
+    margin: 1rem 0 1.5rem;
+  }
+
+  .fonduri__cta {
+    margin-top: 2rem;
+    background: var(--stone-2);
+    border-color: var(--stone-2);
+    color: var(--indigo);
+  }
+
+  .fonduri__cta:hover {
+    background: #fff;
+    border-color: #fff;
+    color: var(--indigo-3);
+  }
+
+  .fonduri__lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fond {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(249, 248, 246, 0.16);
+  }
+
+  .fond:last-child {
+    border-bottom: 1px solid rgba(249, 248, 246, 0.16);
+  }
+
+  .fond__numar {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+    flex-shrink: 0;
+    padding-top: 5px;
+  }
+
+  .fond h3 {
+    font-size: 1.08rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .fond p {
+    font-size: 0.86rem;
+    font-weight: 300;
+    line-height: 1.72;
+    color: rgba(249, 248, 246, 0.72);
+  }
+
+  @media (max-width: 900px) {
+    .fonduri__grila {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

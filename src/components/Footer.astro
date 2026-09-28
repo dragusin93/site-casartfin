@@ -1,0 +1,213 @@
+---
+import { FIRMA } from '~/data/firma';
+import { Image } from 'astro:assets';
+import logo from '~/assets/brand/logo-casartfin.png';
+
+const anCurent = new Date().getFullYear();
+
+const COLOANE = [
+  {
+    titlu: 'Servicii',
+    linkuri: [
+      { href: '/#servicii', eticheta: 'Pereți gips carton' },
+      { href: '/#servicii', eticheta: 'Tavane false' },
+      { href: '/#servicii', eticheta: 'Placări la înălțime' },
+      { href: '/#servicii', eticheta: 'Lavabilă mecanizată' },
+      { href: '/#toate-serviciile', eticheta: 'Toate serviciile' },
+    ],
+  },
+  {
+    titlu: 'Companie',
+    linkuri: [
+      { href: '/#despre', eticheta: 'Despre noi' },
+      { href: '/#lucrari', eticheta: 'Lucrări' },
+      { href: '/#fonduri', eticheta: 'Fonduri europene' },
+      { href: '/#parteneri', eticheta: 'Parteneri' },
+      { href: '/#investitori', eticheta: 'Investitori' },
+    ],
+  },
+  {
+    titlu: 'Legal',
+    linkuri: [
+      { href: '/politica-confidentialitate', eticheta: 'Politica de confidențialitate' },
+      { href: '/termeni', eticheta: 'Termeni și condiții' },
+      { href: 'https://anpc.ro/ce-este-sal/', eticheta: 'ANPC — SAL', extern: true },
+      { href: 'https://ec.europa.eu/consumers/odr', eticheta: 'ANPC — SOL', extern: true },
+    ],
+  },
+];
+---
+
+<footer class="subsol">
+  <div class="container subsol__grila">
+    <div class="subsol__marca">
+      <Image src={logo} alt="" width={132} height={54} class="subsol__logo" />
+      <p class="subsol__nume">{FIRMA.nume}</p>
+      <p class="subsol__descriere">{FIRMA.descriere}</p>
+
+      <ul class="subsol__contact">
+        <li><a href={`tel:${FIRMA.telefon}`} class="mono">{FIRMA.telefonAfisat}</a></li>
+        <li><a href={`mailto:${FIRMA.email}`} class="mono">{FIRMA.email}</a></li>
+        <li class="mono subsol__adresa">
+          {FIRMA.adresa.strada}, {FIRMA.adresa.oras}
+        </li>
+      </ul>
+    </div>
+
+    {
+      COLOANE.map((c) => (
+        <nav class="subsol__coloana" aria-label={c.titlu}>
+          <h2 class="subsol__titlu">{c.titlu}</h2>
+          <ul>
+            {c.linkuri.map((l) => (
+              <li>
+                <a
+                  href={l.href}
+                  {...('extern' in l && l.extern
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                >
+                  {l.eticheta}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
+    }
+  </div>
+
+  <div class="subsol__bara">
+    <div class="container subsol__bara-interior">
+      <p>© {anCurent} {FIRMA.nume}. Toate drepturile rezervate.</p>
+      <p class="subsol__identificare mono">
+        CUI {FIRMA.cui} · Reg. Com. {FIRMA.regCom}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .subsol {
+    background: var(--ink);
+    color: rgba(242, 241, 238, 0.62);
+    padding-top: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .subsol__grila {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+    gap: clamp(1.75rem, 4vw, 3rem);
+    padding-inline: var(--sp-gut);
+    padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .subsol__logo {
+    width: auto;
+    height: 54px;
+    object-fit: contain;
+    margin-bottom: 1.15rem;
+    /* logoul e gri pe fundal deschis; pe fundalul inchis il facem alb */
+    filter: brightness(0) invert(1);
+    opacity: 0.88;
+  }
+
+  .subsol__nume {
+    font-family: var(--f-display);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--stone);
+    margin-bottom: 0.6rem;
+  }
+
+  .subsol__descriere {
+    font-size: 0.83rem;
+    font-weight: 300;
+    line-height: 1.75;
+    max-width: 38ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .subsol__contact {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .subsol__contact a {
+    color: var(--stone);
+    font-size: 0.8rem;
+  }
+
+  .subsol__contact a:hover {
+    color: #fff;
+  }
+
+  .subsol__adresa {
+    font-size: 0.8rem;
+    color: rgba(242, 241, 238, 0.55);
+  }
+
+  .subsol__titlu {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(242, 241, 238, 0.45);
+    margin-bottom: 1.1rem;
+  }
+
+  .subsol__coloana ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .subsol__coloana a {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: rgba(242, 241, 238, 0.68);
+  }
+
+  .subsol__coloana a:hover {
+    color: #fff;
+  }
+
+  .subsol__bara {
+    border-top: 1px solid rgba(242, 241, 238, 0.11);
+  }
+
+  .subsol__bara-interior {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 1.5rem;
+    padding: 1.4rem var(--sp-gut);
+    font-size: 0.76rem;
+    color: rgba(242, 241, 238, 0.45);
+  }
+
+  .subsol__identificare {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 860px) {
+    .subsol__grila {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .subsol__marca {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .subsol__grila {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

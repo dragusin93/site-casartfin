@@ -1,0 +1,23 @@
+# Build
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Vercel
+.vercel/
+
+# Env
+.env
+.env.production
+.env*.local
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*

@@ -1,0 +1,120 @@
+---
+import PaginaText from '~/layouts/PaginaText.astro';
+import { FIRMA } from '~/data/firma';
+---
+
+<PaginaText
+  titlu="Termeni și condiții — CASARTFIN CONSTRUCT"
+  descriere="Condițiile de utilizare a site-ului CASARTFIN CONSTRUCT S.R.L. și natura informațiilor publicate pe el."
+  cale="/termeni"
+  antet="Termeni și condiții"
+  actualizat="28 septembrie 2026"
+>
+  <p class="nota-revizuire">
+    <strong>De verificat înainte de publicare.</strong> Completează datele de identificare ale
+    firmei și confirmă cu un jurist secțiunile despre garanție și ofertă, care au efecte
+    contractuale.
+  </p>
+
+  <h2>1. Despre acest site</h2>
+  <p>
+    Site-ul este deținut și administrat de <strong>{FIRMA.nume}</strong>, cu sediul în
+    {FIRMA.adresa.strada}, {FIRMA.adresa.oras}, județul {FIRMA.adresa.judet}, CUI
+    {FIRMA.cui}, înregistrată la Registrul Comerțului sub numărul {FIRMA.regCom}.
+  </p>
+  <p>Prin utilizarea site-ului accepți termenii de mai jos.</p>
+
+  <h2>2. Ce rol are site-ul</h2>
+  <p>
+    Site-ul are rol <strong>exclusiv de prezentare</strong>. Nu este un magazin online: nu se
+    pot încheia contracte, nu se pot face plăți și nu se pot cumpăra servicii direct de aici.
+  </p>
+  <p>
+    Formularele de pe site sunt cereri de ofertă și de contact. Trimiterea unui formular
+    <strong>nu creează nicio obligație contractuală</strong>, nici pentru tine, nici pentru noi.
+  </p>
+
+  <h2>3. Despre prețuri și oferte</h2>
+  <p>
+    Site-ul nu afișează prețuri. Orice estimare discutată telefonic sau prin email este
+    <strong>orientativă</strong> până în momentul în care primești o ofertă scrisă.
+  </p>
+  <p>
+    O ofertă devine fermă doar atunci când este transmisă în scris, semnată, după evaluarea
+    efectivă a lucrării. Prețul final depinde de starea reală a suprafețelor, de accesul pe
+    șantier, de materialele alese și de termenul solicitat.
+  </p>
+
+  <h2>4. Despre lucrări și garanție</h2>
+  <p>
+    Condițiile concrete ale fiecărei lucrări — preț, termen, garanție, modalitate de plată —
+    se stabilesc în contractul încheiat separat, în scris, pentru acea lucrare.
+  </p>
+  <p>
+    Garanția de 2 ani menționată pe site se acordă în condițiile prevăzute în contract și
+    acoperă defectele de execuție. Nu acoperă degradările provocate de utilizare
+    necorespunzătoare, intervenții ulterioare ale altor executanți, infiltrații sau mișcări
+    ale structurii clădirii.
+  </p>
+
+  <h2>5. Conținutul site-ului</h2>
+  <p>
+    Fotografiile publicate în secțiunea de lucrări provin din șantierele noastre și
+    reprezintă lucrări executate efectiv de noi. Ele au rol ilustrativ: rezultatul unei
+    lucrări noi depinde de materialele alese și de condițiile concrete ale spațiului.
+  </p>
+  <p>
+    Textele, fotografiile și elementele grafice de pe acest site aparțin {FIRMA.nume} și nu
+    pot fi reproduse fără acord scris.
+  </p>
+
+  <h2>6. Limitarea răspunderii</h2>
+  <p>
+    Depunem efortul necesar pentru ca informațiile de pe site să fie corecte și actuale, dar
+    nu garantăm că sunt complete sau lipsite de erori în orice moment. Nu răspundem pentru
+    decizii luate exclusiv pe baza informațiilor de pe site, fără o discuție directă cu noi.
+  </p>
+  <p>
+    Site-ul poate conține link-uri către alte site-uri, asupra cărora nu avem control și
+    pentru al căror conținut nu răspundem.
+  </p>
+
+  <h2>7. Date personale</h2>
+  <p>
+    Modul în care prelucrăm datele transmise prin formulare este descris în
+    <a href="/politica-confidentialitate">Politica de confidențialitate</a>.
+  </p>
+
+  <h2>8. Soluționarea litigiilor</h2>
+  <p>
+    Preferăm să rezolvăm orice neînțelegere direct, prin discuție. Dacă nu reușim, te poți
+    adresa Autorității Naționale pentru Protecția Consumatorilor:
+  </p>
+  <ul>
+    <li>
+      <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener noreferrer">
+        ANPC — Soluționarea Alternativă a Litigiilor (SAL)
+      </a>
+    </li>
+    <li>
+      <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">
+        Platforma europeană de Soluționare Online a Litigiilor (SOL)
+      </a>
+    </li>
+  </ul>
+  <p>Litigiile nerezolvate amiabil se soluționează de instanțele competente din România.</p>
+
+  <h2>9. Modificări</h2>
+  <p>
+    Putem actualiza acești termeni. Versiunea în vigoare este cea publicată pe această
+    pagină, cu data afișată la început.
+  </p>
+
+  <h2>10. Contact</h2>
+  <p>
+    {FIRMA.nume}<br />
+    {FIRMA.adresa.strada}, {FIRMA.adresa.oras}, județul {FIRMA.adresa.judet}<br />
+    Telefon: <a href={`tel:${FIRMA.telefon}`}>{FIRMA.telefonAfisat}</a><br />
+    Email: <a href={`mailto:${FIRMA.email}`}>{FIRMA.email}</a>
+  </p>
+</PaginaText>

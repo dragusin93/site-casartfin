@@ -1,0 +1,307 @@
+---
+/**
+ * Header fix, cu meniu mobil accesibil.
+ *
+ * Link-urile vin dintr-o singura lista, folosita si pe desktop si pe mobil —
+ * in index.html-ul vechi cele doua meniuri divergeau (7 link-uri pe desktop,
+ * 10 pe mobil).
+ */
+import { FIRMA } from '~/data/firma';
+import logo from '~/assets/brand/logo-casartfin.png';
+import { Image } from 'astro:assets';
+
+const NAVIGATIE = [
+  { href: '/#servicii', eticheta: 'Servicii', principal: true },
+  { href: '/#lucrari', eticheta: 'Lucrări', principal: true },
+  { href: '/#despre', eticheta: 'Despre', principal: true },
+  { href: '/#fonduri', eticheta: 'Fonduri EU', principal: true },
+  { href: '/#toate-serviciile', eticheta: 'Toate serviciile', principal: false },
+  { href: '/#parteneri', eticheta: 'Parteneri', principal: false },
+  { href: '/#arhitecti', eticheta: 'Arhitecți', principal: false },
+  { href: '/#investitori', eticheta: 'Investitori', principal: true },
+  { href: '/#calculator', eticheta: 'Calculator ofertă', principal: false },
+];
+
+const principale = NAVIGATIE.filter((l) => l.principal);
+---
+
+<header id="antet" class="antet">
+  <div class="antet__interior">
+    <a href="/" class="marca" aria-label={`${FIRMA.nume} — prima pagină`}>
+      {/* Logoul este un lockup complet (semn + cuvantul CASARTFIN), raport 2,44:1.
+          Nu se pune text alaturi, ca sa nu se dubleze numele firmei. */}
+      <Image src={logo} alt="" width={102} height={42} class="marca__logo" />
+      <span class="marca__sub" aria-hidden="true">CONSTRUCT<br />S.R.L.</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Navigare principală">
+      {principale.map((l) => <a href={l.href}>{l.eticheta}</a>)}
+      <a href="/#contact" class="btn btn--primar nav-desktop__cta">Solicită ofertă</a>
+    </nav>
+
+    <button
+      type="button"
+      class="buton-meniu"
+      id="buton-meniu"
+      aria-expanded="false"
+      aria-controls="meniu-mobil"
+    >
+      <span class="doar-citire">Deschide meniul</span>
+      <span class="buton-meniu__linie"></span>
+      <span class="buton-meniu__linie"></span>
+      <span class="buton-meniu__linie"></span>
+    </button>
+  </div>
+
+  <nav class="meniu-mobil" id="meniu-mobil" aria-label="Navigare mobilă" hidden>
+    {NAVIGATIE.map((l) => <a href={l.href}>{l.eticheta}</a>)}
+    <a href="/#contact" class="btn btn--primar btn--plin">Solicită ofertă</a>
+    <a href={`tel:${FIRMA.telefon}`} class="meniu-mobil__tel mono">{FIRMA.telefonAfisat}</a>
+  </nav>
+</header>
+
+<script>
+  const buton = document.getElementById('buton-meniu');
+  const meniu = document.getElementById('meniu-mobil');
+  const antet = document.getElementById('antet');
+
+  function inchideMeniul() {
+    if (!buton || !meniu) return;
+    buton.setAttribute('aria-expanded', 'false');
+    meniu.hidden = true;
+  }
+
+  if (buton && meniu) {
+    buton.addEventListener('click', () => {
+      const deschis = buton.getAttribute('aria-expanded') === 'true';
+      buton.setAttribute('aria-expanded', String(!deschis));
+      meniu.hidden = deschis;
+    });
+
+    // Click pe un link din meniu îl închide.
+    meniu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) inchideMeniul();
+    });
+
+    // Escape închide meniul și readuce focusul pe buton.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && buton.getAttribute('aria-expanded') === 'true') {
+        inchideMeniul();
+        buton.focus();
+      }
+    });
+
+    // Click în afara meniului îl închide.
+    document.addEventListener('click', (e) => {
+      const tinta = e.target as Node;
+      if (meniu.hidden || meniu.contains(tinta) || buton.contains(tinta)) return;
+      inchideMeniul();
+    });
+  }
+
+  // Starea „derulat” a headerului.
+  // IntersectionObserver pe o santinelă invizibilă, în loc de listener pe
+  // scroll: browserul nu mai recalculează nimic la fiecare pixel derulat.
+  if (antet) {
+    const santinela = document.createElement('div');
+    santinela.style.cssText = 'position:absolute;top:0;height:1px;width:1px;pointer-events:none';
+    document.body.prepend(santinela);
+
+    new IntersectionObserver(
+      ([intrare]) => antet.classList.toggle('antet--derulat', !intrare.isIntersecting),
+      { threshold: 0 },
+    ).observe(santinela);
+  }
+</script>
+
+<style>
+  .antet {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 900;
+    background: rgba(242, 241, 238, 0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-2);
+    transition: var(--tr);
+  }
+
+  .antet--derulat {
+    background: rgba(242, 241, 238, 0.97);
+    border-bottom-color: var(--line);
+  }
+
+  .antet__interior {
+    max-width: var(--w-max);
+    margin-inline: auto;
+    padding: 0 var(--sp-gut);
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .antet--derulat .antet__interior {
+    height: 66px;
+  }
+
+  /* ---- Marca ---- */
+  .marca {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .marca__logo {
+    width: auto;
+    height: 42px;
+    object-fit: contain;
+    transition: var(--tr);
+  }
+
+  .antet--derulat .marca__logo {
+    height: 36px;
+  }
+
+  /* Rândul „CONSTRUCT S.R.L.” stă după o linie verticală, ca pe o placuță. */
+  .marca__sub {
+    font-family: var(--f-mono);
+    font-size: 0.52rem;
+    line-height: 1.5;
+    letter-spacing: 0.2em;
+    color: var(--indigo);
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--line);
+  }
+
+  @media (max-width: 400px) {
+    .marca__sub {
+      display: none;
+    }
+  }
+
+  /* ---- Navigare desktop ---- */
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.2vw, 1.9rem);
+  }
+
+  .nav-desktop > a:not(.nav-desktop__cta) {
+    font-size: 0.86rem;
+    font-weight: 400;
+    color: var(--ink-2);
+    position: relative;
+    padding-block: 0.4rem;
+  }
+
+  .nav-desktop > a:not(.nav-desktop__cta)::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--indigo);
+    transition: width var(--tr);
+  }
+
+  .nav-desktop > a:not(.nav-desktop__cta):hover {
+    color: var(--ink);
+  }
+
+  .nav-desktop > a:not(.nav-desktop__cta):hover::after {
+    width: 100%;
+  }
+
+  .nav-desktop__cta {
+    min-height: 42px;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.83rem;
+  }
+
+  /* ---- Buton meniu mobil ---- */
+  .buton-meniu {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    align-items: flex-end;
+  }
+
+  .buton-meniu__linie {
+    display: block;
+    width: 26px;
+    height: 1.5px;
+    background: var(--ink);
+    transition: var(--tr);
+  }
+
+  .buton-meniu[aria-expanded='true'] .buton-meniu__linie:nth-child(2) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+
+  .buton-meniu[aria-expanded='true'] .buton-meniu__linie:nth-child(3) {
+    opacity: 0;
+  }
+
+  .buton-meniu[aria-expanded='true'] .buton-meniu__linie:nth-child(4) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* ---- Meniu mobil ---- */
+  .meniu-mobil {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem var(--sp-gut) 1.75rem;
+    background: var(--stone);
+    border-top: 1px solid var(--line-2);
+    max-height: calc(100dvh - 76px);
+    overflow-y: auto;
+  }
+
+  .meniu-mobil[hidden] {
+    display: none;
+  }
+
+  .meniu-mobil > a:not(.btn):not(.meniu-mobil__tel) {
+    padding: 0.95rem 0;
+    font-size: 0.98rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line-2);
+  }
+
+  .meniu-mobil .btn {
+    margin-top: 1.25rem;
+  }
+
+  .meniu-mobil__tel {
+    margin-top: 1rem;
+    text-align: center;
+    color: var(--indigo);
+  }
+
+  @media (max-width: 1080px) {
+    .nav-desktop {
+      display: none;
+    }
+
+    .buton-meniu {
+      display: flex;
+    }
+  }
+
+  @media (min-width: 1081px) {
+    .meniu-mobil {
+      display: none;
+    }
+  }
+</style>

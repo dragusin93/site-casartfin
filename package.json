@@ -1,0 +1,20 @@
+{
+  "name": "casartfin-construct",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site de prezentare CASARTFIN CONSTRUCT S.R.L. — gips carton, tencuieli mecanizate si finisaje premium, Ramnicu Valcea",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "og": "node scripts/genereaza-og.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.3.5",
+    "@astrojs/sitemap": "^3.7.0",
+    "sharp": "^0.34.4"
+  }
+}

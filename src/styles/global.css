@@ -1,0 +1,520 @@
+/* ============================================================
+   CASARTFIN CONSTRUCT — sistem de design
+   Directia "Piatra si Indigo" / limbaj vizual de fisa tehnica.
+   Toate culorile si spatiile se schimba DIN ACEST FISIER.
+   ============================================================ */
+
+:root {
+  /* ---- Fundaluri ---- */
+  --stone: #f2f1ee; /* fundal principal */
+  --stone-2: #f9f8f6; /* carduri, suprafete ridicate */
+  --stone-3: #e8e6e1; /* umpluturi discrete, separatoare */
+
+  /* ---- Text ---- */
+  --ink: #191b21; /* titluri, text tare */
+  --ink-2: #4c505a; /* text de continut */
+  --ink-3: #797e88; /* text secundar, etichete */
+
+  /* ---- Accent principal ---- */
+  --indigo: #26355c;
+  --indigo-2: #3a4e82; /* hover, stari active */
+  --indigo-3: #1e2b4a; /* apasat, fundaluri intunecate */
+
+  /* ---- Accent secundar ---- */
+  --terra: #b4694a;
+  --terra-2: #9a563a;
+
+  /* ---- Semantice ---- */
+  --ok: #2f6b4f;
+  --err: #a33a2a;
+
+  /* ---- Linii ---- */
+  --line: rgba(25, 27, 33, 0.12);
+  --line-2: rgba(25, 27, 33, 0.07);
+  --line-indigo: rgba(38, 53, 92, 0.22);
+
+  /* ---- Tipografie ---- */
+  --f-display: 'Spectral', Georgia, 'Times New Roman', serif;
+  --f-body: 'Archivo', system-ui, -apple-system, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Ritm ---- */
+  --sp-sec: clamp(4.5rem, 9vw, 8rem); /* padding vertical sectiune */
+  --sp-gut: clamp(1.25rem, 5vw, 4rem); /* gutter lateral */
+  --w-max: 1240px;
+
+  /* ---- Altele ---- */
+  --r: 2px; /* colturi drepte, doar o urma de raza */
+  --tr: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --sh: 0 18px 48px rgba(25, 27, 33, 0.07);
+  --sh-2: 0 4px 16px rgba(25, 27, 33, 0.05);
+}
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* compenseaza headerul fix cand se sare la o ancora */
+  scroll-padding-top: 88px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--f-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--ink-2);
+  background: var(--stone);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--indigo);
+  text-decoration: none;
+  transition: color var(--tr);
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Focus vizibil la tastatura — obligatoriu pentru accesibilitate.
+   :focus-visible nu apare la click cu mouse-ul, doar la Tab. */
+:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--indigo);
+  color: var(--stone-2);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--stone-3);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--indigo);
+}
+
+/* ============================================================
+   TIPOGRAFIE
+   ============================================================ */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--f-display);
+  color: var(--ink);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5.6vw, 4.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+}
+
+h2 {
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+}
+
+h3 {
+  font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+}
+
+h4 {
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Eticheta monospace de deasupra titlurilor — motivul "fisa tehnica" */
+.eticheta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--f-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--indigo);
+}
+
+.eticheta::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--terra);
+  flex-shrink: 0;
+}
+
+.eticheta--simplu::before {
+  display: none;
+}
+
+.subtitlu {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--ink-2);
+  max-width: 56ch;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
+.sectiune {
+  padding: var(--sp-sec) var(--sp-gut);
+  position: relative;
+}
+
+.container {
+  max-width: var(--w-max);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.cap-sectiune {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* ============================================================
+   LINII DE COTA — motivul din desenul tehnic.
+   O linie orizontala cu capete verticale, ca o cota de dimensiune.
+   ============================================================ */
+
+.cota {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  color: var(--line-indigo);
+}
+
+.cota::before,
+.cota::after {
+  content: '';
+  width: 1px;
+  height: 9px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.cota__linie {
+  flex-grow: 1;
+  height: 1px;
+  background: currentColor;
+}
+
+/* ============================================================
+   BUTOANE
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  /* min 44px inaltime — tinta de atingere pe mobil */
+  min-height: 48px;
+  padding: 0.85rem 1.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--r);
+  font-family: var(--f-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: var(--tr);
+  text-align: center;
+}
+
+.btn--primar {
+  background: var(--indigo);
+  color: var(--stone-2);
+  border-color: var(--indigo);
+}
+
+.btn--primar:hover:not(:disabled) {
+  background: var(--indigo-3);
+  border-color: var(--indigo-3);
+  color: var(--stone-2);
+}
+
+.btn--contur {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn--contur:hover {
+  border-color: var(--indigo);
+  color: var(--indigo);
+}
+
+.btn--terra {
+  background: var(--terra);
+  color: #fff;
+  border-color: var(--terra);
+}
+
+.btn--terra:hover:not(:disabled) {
+  background: var(--terra-2);
+  border-color: var(--terra-2);
+  color: #fff;
+}
+
+.btn:disabled {
+  cursor: default;
+  opacity: 0.95;
+}
+
+.btn--plin {
+  width: 100%;
+}
+
+/* ============================================================
+   FORMULARE
+   ============================================================ */
+
+.camp {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.15rem;
+}
+
+.camp label {
+  font-family: var(--f-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.camp input,
+.camp select,
+.camp textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 0.9rem;
+  background: var(--stone-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  font-size: 0.94rem;
+  color: var(--ink);
+  transition: border-color var(--tr), background var(--tr);
+}
+
+.camp textarea {
+  min-height: 108px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.camp input::placeholder,
+.camp textarea::placeholder {
+  color: var(--ink-3);
+  opacity: 0.75;
+}
+
+.camp input:focus,
+.camp select:focus,
+.camp textarea:focus {
+  border-color: var(--indigo);
+  background: #fff;
+}
+
+.camp input:user-invalid,
+.camp select:user-invalid,
+.camp textarea:user-invalid {
+  border-color: var(--err);
+}
+
+.camp-randuri {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+/* Consimtamant GDPR */
+.camp-acord {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin: 0.4rem 0 1.15rem;
+}
+
+.camp-acord input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--indigo);
+  cursor: pointer;
+}
+
+.camp-acord label {
+  font-family: var(--f-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.camp-acord a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Mesaj de raspuns dupa trimitere */
+.form-raspuns {
+  display: none;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--r);
+  font-size: 0.86rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.form-raspuns[data-stare='ok'] {
+  display: block;
+  background: rgba(47, 107, 79, 0.09);
+  border: 1px solid rgba(47, 107, 79, 0.28);
+  color: var(--ok);
+}
+
+.form-raspuns[data-stare='eroare'] {
+  display: block;
+  background: rgba(163, 58, 42, 0.08);
+  border: 1px solid rgba(163, 58, 42, 0.28);
+  color: var(--err);
+}
+
+/* ============================================================
+   APARITIE LA DERULARE
+   ============================================================ */
+
+/* Conținutul e vizibil implicit. Se ascunde DOAR dacă JavaScript rulează —
+   clasa `js` e pusă pe <html> de un script inline din <head>.
+   Altfel, o eroare de JS sau un browser cu scripturile blocate ar face
+   jumătate din site invizibil permanent. */
+html.js .apare {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+html.js .apare.vizibil {
+  opacity: 1;
+  transform: none;
+}
+
+.i1 {
+  transition-delay: 0.08s;
+}
+.i2 {
+  transition-delay: 0.16s;
+}
+.i3 {
+  transition-delay: 0.24s;
+}
+.i4 {
+  transition-delay: 0.32s;
+}
+
+/* Respecta preferinta de sistem pentru miscare redusa. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.js .apare {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   UTILITARE
+   ============================================================ */
+
+.doar-citire {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.mono {
+  font-family: var(--f-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 640px) {
+  .camp-randuri {
+    grid-template-columns: 1fr;
+  }
+}

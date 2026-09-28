@@ -1,0 +1,200 @@
+---
+import { Image } from 'astro:assets';
+import pozaDespre from '~/assets/lucrari/spatiu-comercial-finisat-tavan-tehnic.jpg';
+
+const GARANTII = [
+  {
+    titlu: 'Execuție certificată',
+    text: 'Materiale agrementate tehnic, sisteme Knauf și Rigips originale.',
+  },
+  {
+    titlu: 'Proiecte tehnice',
+    text: 'Citim și interpretăm planuri de arhitectură și detalii de execuție.',
+  },
+  {
+    titlu: 'Termen garantat',
+    text: 'Grafic de execuție asumat contractual, cu penalizări la întârziere.',
+  },
+  {
+    titlu: 'Garanție 2 ani',
+    text: 'Toate lucrările de gips carton și finisaje vin cu garanție scrisă.',
+  },
+];
+---
+
+<section class="sectiune despre" id="despre">
+  <div class="container despre__grila">
+    <div class="despre__text">
+      <p class="eticheta apare">Despre noi</p>
+      <h2 class="apare i1">O meserie transmisă<br />din tată în fii.</h2>
+
+      <div class="despre__povestire apare i2">
+        <p>
+          Totul a început cu o meserie învățată pas cu pas, zi de zi, de-a lungul a peste 20 de
+          ani de experiență transmisă de tată fiilor săi. Fiecare perete finit, fiecare detaliu
+          executat cu grijă, fiecare proiect dus la bun sfârșit — toate au fost o lecție.
+        </p>
+        <p>
+          În 2025 am luat o decizie: să venim acasă. Să punem bazele unei firme construite pe
+          ceea ce știm cel mai bine să facem — să lucrăm corect, să livrăm calitate și să
+          tratăm fiecare proiect ca și cum ar fi al nostru.
+        </p>
+        <p class="despre__accent">
+          CASARTFIN CONSTRUCT nu e doar o firmă de construcții. E promisiunea că meseria
+          învățată cu suflet se vede în fiecare lucrare.
+        </p>
+      </div>
+
+      <ul class="despre__garantii apare i3">
+        {
+          GARANTII.map((g) => (
+            <li class="garantie">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <div>
+                <h4>{g.titlu}</h4>
+                <p>{g.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="despre__vizual apare i2">
+      <figure class="despre__figura">
+        <Image
+          src={pozaDespre}
+          alt="Spațiu comercial finalizat de CASARTFIN, cu pereți din gips carton finisați și tavan tehnic aparent"
+          widths={[420, 640, 900]}
+          sizes="(max-width: 900px) 92vw, 460px"
+          loading="lazy"
+          class="despre__imagine"
+        />
+      </figure>
+
+      <div class="despre__fisa">
+        <p class="eticheta eticheta--simplu">Fondată în</p>
+        <p class="despre__an">2025</p>
+        <p class="despre__fisa-text">
+          Ani de meserie în spate, firmă tânără pe hârtie. Portofoliul crește repede — pentru
+          că lucrăm cu aceeași grijă ca atunci când meseria era singura noastră carte de vizită.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .despre {
+    background: var(--stone);
+  }
+
+  .despre__grila {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+
+  .despre__text h2 {
+    margin: 1rem 0 1.75rem;
+  }
+
+  .despre__povestire p {
+    font-size: 0.94rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--ink-2);
+    margin-bottom: 1.1rem;
+    max-width: 54ch;
+  }
+
+  .despre__accent {
+    font-weight: 500 !important;
+    color: var(--ink) !important;
+    padding-left: 1rem;
+    border-left: 2px solid var(--terra);
+  }
+
+  .despre__garantii {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.4rem 2rem;
+    margin-top: 2.5rem;
+    padding-top: 2.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .garantie {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+  }
+
+  .garantie svg {
+    color: var(--indigo);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .garantie h4 {
+    margin-bottom: 0.2rem;
+  }
+
+  .garantie p {
+    font-size: 0.82rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  /* ---- Vizual ---- */
+  .despre__figura {
+    margin: 0;
+    border: 1px solid var(--line);
+    padding: 10px;
+    background: var(--stone-2);
+  }
+
+  .despre__imagine {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+  }
+
+  .despre__fisa {
+    margin-top: 1rem;
+    padding: 1.6rem 1.5rem;
+    background: var(--indigo);
+    color: rgba(249, 248, 246, 0.82);
+  }
+
+  .despre__fisa .eticheta {
+    color: rgba(249, 248, 246, 0.6);
+  }
+
+  .despre__an {
+    font-family: var(--f-display);
+    font-size: 3rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--stone-2);
+    margin: 0.4rem 0 0.8rem;
+  }
+
+  .despre__fisa-text {
+    font-size: 0.84rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 900px) {
+    .despre__grila {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,160 @@
+---
+/**
+ * Galeria de lucrari, cu filtrare pe categorii.
+ *
+ * Imaginile trec prin <Image>, deci Astro genereaza la build AVIF + WebP,
+ * `srcset` pentru mai multe latimi si atribute width/height. Asta inlocuieste
+ * cele 16 MB de JPEG-uri brute din varianta veche.
+ */
+import { Picture } from 'astro:assets';
+import { LUCRARI, CATEGORII } from '~/data/lucrari';
+---
+
+<section class="sectiune galerie" id="lucrari">
+  <div class="container">
+    <div class="cap-sectiune">
+      <p class="eticheta apare">Portofoliu</p>
+      <h2 class="apare i1">Lucrări executate</h2>
+      <p class="subtitlu apare i2">
+        Fotografii din șantierele noastre — de la structura metalică și izolație, până la
+        finisajul predat. Fără randări, fără poze de catalog.
+      </p>
+    </div>
+
+    <div class="galerie__filtre apare i1" role="group" aria-label="Filtrează lucrările">
+      {
+        CATEGORII.map((c, i) => (
+          <button
+            type="button"
+            class="galerie__filtru"
+            data-categorie={c.id}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+          >
+            {c.eticheta}
+          </button>
+        ))
+      }
+    </div>
+
+    <ul class="galerie__grila" id="galerie-grila">
+      {
+        LUCRARI.map((l, i) => (
+          <li class="galerie__item apare" data-categorie={l.categorie}>
+            <figure class="galerie__figura">
+              <Picture
+                src={l.src}
+                alt={l.alt}
+                formats={['avif', 'webp']}
+                widths={[320, 520, 760]}
+                sizes="(max-width: 640px) 92vw, (max-width: 1080px) 45vw, 30vw"
+                loading={i < 3 ? 'eager' : 'lazy'}
+                class="galerie__imagine"
+              />
+              <figcaption class="galerie__legenda mono">
+                {String(i + 1).padStart(2, '0')}
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  const filtre = document.querySelectorAll<HTMLButtonElement>('.galerie__filtru');
+  const itemi = document.querySelectorAll<HTMLLIElement>('#galerie-grila .galerie__item');
+
+  filtre.forEach((filtru) => {
+    filtru.addEventListener('click', () => {
+      const aleasa = filtru.dataset.categorie;
+
+      filtre.forEach((f) => f.setAttribute('aria-pressed', String(f === filtru)));
+
+      itemi.forEach((item) => {
+        const seAfiseaza = aleasa === 'toate' || item.dataset.categorie === aleasa;
+        item.hidden = !seAfiseaza;
+      });
+    });
+  });
+</script>
+
+<style>
+  .galerie {
+    background: var(--stone);
+  }
+
+  .galerie__filtre {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .galerie__filtru {
+    min-height: 44px;
+    padding: 0.55rem 1.15rem;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    font-size: 0.82rem;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: var(--tr);
+  }
+
+  .galerie__filtru:hover {
+    border-color: var(--indigo);
+    color: var(--indigo);
+  }
+
+  .galerie__filtru[aria-pressed='true'] {
+    background: var(--indigo);
+    border-color: var(--indigo);
+    color: var(--stone-2);
+  }
+
+  .galerie__grila {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1rem;
+  }
+
+  .galerie__item[hidden] {
+    display: none;
+  }
+
+  .galerie__figura {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--stone-3);
+  }
+
+  .galerie__imagine {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .galerie__figura:hover .galerie__imagine {
+    transform: scale(1.035);
+  }
+
+  .galerie__legenda {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 0.3rem 0.6rem;
+    background: var(--stone-2);
+    border-top: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--indigo);
+  }
+</style>
