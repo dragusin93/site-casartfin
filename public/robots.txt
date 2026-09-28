@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://casartfin.ro/sitemap-index.xml

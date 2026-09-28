@@ -122,8 +122,13 @@ utilizatorul trebuie să vadă eroarea și numărul de telefon.
 
 - [ ] **CUI și număr Reg. Comerțului** în `src/data/firma.ts` — obligatorii
       legal, apar în footer, Termeni și Politica de confidențialitate
-- [ ] **Domeniul** — `SITE` în `astro.config.mjs` e `https://casartfin.ro`;
-      de el depind canonical, sitemap și Open Graph
+- [ ] **Domeniul propriu.** `casartfin.ro` nu e încă înregistrat (verificat:
+      NXDOMAIN). Până e cumpărat, site-ul rulează pe
+      `site-casartfin.vercel.app`, iar `astro.config.mjs` folosește automat
+      domeniul dat de Vercel. **După ce domeniul e activ**, setează
+      `PUBLIC_SITE_URL=https://casartfin.ro` în variabilele Vercel și
+      redeployează — canonical, sitemap, robots.txt și Open Graph îl preiau
+      singure. Nu mai există niciun domeniu scris de mână în cod.
 - [ ] **Variabile de mediu pe Vercel**: `RESEND_API_KEY`, `EMAIL_CATRE`,
       `EMAIL_DE_LA`. Fără ele formularele întorc 500.
 - [x] ~~`public/og-casartfin.jpg`~~ — generată. Se regenerează cu `npm run og`
