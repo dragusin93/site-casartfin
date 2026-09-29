@@ -99,6 +99,15 @@ eroare de JS ar face jumătate din site invizibil permanent. Observatorul are
 `threshold: 0` plus o măturare la derulare, pentru că la derulare rapidă
 elementele pot traversa ecranul fără să fie raportate.
 
+**Fotografie de fundal în spatele textului** (vezi `Fonduri.astro`): nu e de
+ajuns să faci poza transparentă. Un pixel luminos din poză — un cer, un perete
+alb — ridică fundalul și strică contrastul textului deschis de deasupra.
+Rețeta care funcționează: `filter: brightness(...)` **pe imagine** ca să-i
+plafonezi luminozitatea, plus un voal în gradient peste. Contrastul se
+**măsoară**, reconstruind straturile pe canvas și luând cel mai prost pixel din
+zona cu text — nu se estimează din ochi. La `Fonduri` valorile măsurate sunt
+7,43:1 (titlu) și 6,75:1 (listă), față de pragul de 4,5:1.
+
 **Nu folosi listener pe `scroll` pentru layout.** Header-ul folosește
 `IntersectionObserver` pe o santinelă. Varianta veche recalcula poziția tuturor
 secțiunilor la fiecare pixel.

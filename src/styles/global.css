@@ -40,7 +40,7 @@
   /* ---- Tipografie ---- */
   --f-display: 'Spectral', Georgia, 'Times New Roman', serif;
   --f-body: 'Archivo', system-ui, -apple-system, sans-serif;
-  --f-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* ---- Ritm ---- */
   --sp-sec: clamp(4.5rem, 9vw, 8rem); /* padding vertical sectiune */
