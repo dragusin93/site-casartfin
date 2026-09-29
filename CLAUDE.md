@@ -5,16 +5,31 @@ modifici ceva.
 
 ## Despre firmă
 
-CASARTFIN CONSTRUCT S.R.L. — gips carton, tencuieli mecanizate și finisaje, în
-Râmnicu Vâlcea și județul Vâlcea. Firmă de familie, înființată în 2025, cu peste
-20 de ani de meserie în spate (tatăl a transmis meseria fiilor).
+CASARTFIN CONSTRUCT S.R.L. — **compartimentări și finisaje pentru hale și
+spații industriale**, în Râmnicu Vâlcea și județul Vâlcea. Firmă de familie,
+înmatriculată noiembrie 2025, cu peste 20 de ani de meserie în spate (tatăl a
+transmis meseria fiilor).
+
+**Poziționarea e pe lucrări mari: hale, depozite, spații comerciale, birouri în
+hale, spații tehnice.** Rezidențialul se execută, dar e secundar și trebuie să
+rămână așa — o secțiune scurtă jos pe prima pagină, nu o zonă principală. Dacă
+o modificare face site-ul să pară „firmă de apartamente care face și hale", e
+greșită. 13 din cele 16 fotografii sunt industriale sau comerciale, deci
+poziționarea e susținută de lucrări reale, nu aspirațională.
 
 Site-ul are **un singur scop: să genereze cereri de ofertă**. Nu e magazin, nu
 are conturi, nu are plăți. Orice modificare care îngreunează drumul de la
 „am intrat pe site" la „am trimis o solicitare" e o modificare proastă.
 
-Publicul: beneficiari finali, dezvoltatori imobiliari, firme de construcții
-(subantrepriză), beneficiari de fonduri europene (PNRR/POR), arhitecți.
+Publicul, în ordine: dezvoltatori imobiliari, antreprenori generali, firme și
+beneficiari finali, investitori, beneficiari de fonduri europene (PNRR/POR).
+Persoanele fizice sunt ultimele, intenționat.
+
+SEO-ul țintește: *compartimentări hale Râmnicu Vâlcea*, *compartimentări
+gips-carton hale*, *finisaje hale*, *amenajări spații industriale*, *pereți
+gips-carton industriali*, *finisaje spații comerciale*, *lucrări industriale
+Vâlcea*. Formulările din titluri, `descriere` și `knowsAbout` sunt construite
+în jurul lor — nu le dilua.
 
 ## Stack
 
@@ -37,7 +52,7 @@ npm run preview  # verifica build-ul local
 src/
 ├── data/          # SINGURA sursă de adevăr pentru conținut
 │   ├── firma.ts      contact, adresă, program, link WhatsApp
-│   ├── servicii.ts   6 servicii principale + cele 23 din nomenclator
+│   ├── servicii.ts   6 servicii + motivele + tipurile de clienți
 │   └── lucrari.ts    galeria: import imagine + alt + categorie
 ├── layouts/
 │   ├── BaseLayout.astro   <head>, SEO, schema.org, header, footer

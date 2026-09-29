@@ -13,26 +13,27 @@ import { Picture } from 'astro:assets';
 import { LUCRARI, CATEGORII } from '~/data/lucrari';
 import { WHATSAPP_URL } from '~/data/firma';
 
-// Grupez lucrarile pe categorii, sarind peste pseudo-categoria "toate".
-const grupuri = CATEGORII.filter((c) => c.id !== 'toate').map((c) => ({
+// Grupez lucrarile pe categorii, in ordinea din date: industrialul primul.
+const grupuri = CATEGORII.map((c) => ({
   ...c,
   lucrari: LUCRARI.filter((l) => l.categorie === c.id),
-}));
+})).filter((g) => g.lucrari.length > 0);
 ---
 
 <BaseLayout
-  titlu="Lucrări executate — CASARTFIN CONSTRUCT, Râmnicu Vâlcea"
-  descriere="Portofoliu de lucrări executate de CASARTFIN: gips-carton, compartimentări, tavane false, tencuieli decorative și finisaje în spații comerciale, industriale și rezidențiale din Râmnicu Vâlcea."
+  titlu="Proiecte — compartimentări și finisaje hale | CASARTFIN"
+  descriere="Proiecte executate de CASARTFIN: compartimentări gips-carton în hale industriale, depozite și spații comerciale, tavane tehnice, izolații și finisaje complete în Râmnicu Vâlcea și județul Vâlcea."
   cale="/lucrari"
 >
   <section class="portofoliu">
     <div class="container">
       <header class="portofoliu__antet">
         <p class="eticheta">Portofoliu</p>
-        <h1>Lucrări executate</h1>
+        <h1>Proiecte executate</h1>
         <p class="subtitlu">
-          Fotografii din șantierele noastre — de la structura metalică și izolație, până la
-          finisajul predat. Fără randări, fără poze de catalog.
+          Fotografii din șantierele noastre, în hale, spații comerciale și birouri — de la
+          structura metalică și izolație, până la finisajul predat. Fără randări, fără poze
+          de catalog.
         </p>
 
         <p class="portofoliu__numar mono">
@@ -63,6 +64,8 @@ const grupuri = CATEGORII.filter((c) => c.id !== 'toate').map((c) => ({
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </summary>
+
+              <p class="cascada__descriere">{g.descriere}</p>
 
               <ul class="cascada__grila">
                 {g.lucrari.map((l) => (
@@ -199,6 +202,15 @@ const grupuri = CATEGORII.filter((c) => c.id !== 'toate').map((c) => ({
 
   .cascada__grup[open] .cascada__sageata {
     transform: rotate(180deg);
+  }
+
+  .cascada__descriere {
+    max-width: 62ch;
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--ink-2);
   }
 
   /* ---- Grila de poze ---- */

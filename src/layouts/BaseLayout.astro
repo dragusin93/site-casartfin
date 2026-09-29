@@ -63,15 +63,34 @@ const dateStructurate = {
     opens: '08:00',
     closes: '17:00',
   },
+  // Formulate in jurul cautarilor reale pe care le tintim:
+  // "compartimentari hale", "finisaje hale", "amenajari spatii industriale".
   knowsAbout: [
-    'Pereți gips carton',
-    'Tavane false',
+    'Compartimentări hale industriale',
+    'Compartimentări gips-carton',
+    'Pereți gips-carton industriali',
+    'Finisaje hale',
+    'Amenajări spații industriale',
+    'Finisaje spații comerciale',
+    'Tavane false și casetate',
+    'Izolații termice și fonice',
+    'Lucrări la înălțime',
     'Tencuială mecanizată',
-    'Lavabilă mecanizată',
-    'Tencuieli decorative',
-    'Compartimentări interioare',
-    'Finisaje interioare',
+    'Amenajări birouri în hale',
+    'Finisaje rezidențiale',
   ],
+  slogan: 'Compartimentări și finisaje pentru hale și spații industriale',
+  makesOffer: [
+    'Compartimentări gips-carton',
+    'Pereți și tavane',
+    'Izolații',
+    'Glet și zugrăveli',
+    'Finisaje complete',
+    'Lucrări la înălțime',
+  ].map((s) => ({
+    '@type': 'Offer',
+    itemOffered: { '@type': 'Service', name: s },
+  })),
 };
 ---
 

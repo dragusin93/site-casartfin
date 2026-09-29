@@ -1,5 +1,5 @@
 ---
-/** Iconuri de linie pentru servicii. Pur decorative, deci aria-hidden. */
+/** Iconuri de linie pentru servicii si argumente. Decorative, deci aria-hidden. */
 interface Props {
   nume: string;
   size?: number;
@@ -20,6 +20,7 @@ const { nume, size = 26 } = Astro.props;
   aria-hidden="true"
   focusable="false"
 >
+  {/* Compartimentari: pereti verticali in plan */}
   {
     nume === 'perete' && (
       <>
@@ -28,15 +29,18 @@ const { nume, size = 26 } = Astro.props;
       </>
     )
   }
+
+  {/* Lucrari la inaltime: schela */}
   {
     nume === 'schela' && (
       <>
-        <path d="M4 21V5M20 21V5M4 9h16M4 15h16" />
-        <path d="M4 5h16" />
+        <path d="M4 21V5M20 21V5M4 9h16M4 15h16M4 5h16" />
         <path d="M8 21v-6M16 21v-6" />
       </>
     )
   }
+
+  {/* Pereti si tavane: tavan casetat cu spoturi */}
   {
     nume === 'tavan' && (
       <>
@@ -46,16 +50,19 @@ const { nume, size = 26 } = Astro.props;
       </>
     )
   }
+
+  {/* Izolatii: straturi de vata intre profile */}
   {
-    nume === 'pompa' && (
+    nume === 'izolatie' && (
       <>
-        <path d="M6 20h7v-6H6z" />
-        <path d="M9.5 14V9h5V5" />
-        <path d="M14.5 5h4l1.5 3-1.5 3h-4z" />
-        <path d="M4 20h11" />
+        <rect x="3" y="4" width="18" height="16" rx="1" />
+        <path d="M7 4v16M17 4v16" />
+        <path d="M7 8c2 0 3 1.4 5 1.4S15 8 17 8M7 12c2 0 3 1.4 5 1.4s3-1.4 5-1.4M7 16c2 0 3 1.4 5 1.4s3-1.4 5-1.4" />
       </>
     )
   }
+
+  {/* Glet si zugraveli: drisca */}
   {
     nume === 'driscă' && (
       <>
@@ -64,12 +71,69 @@ const { nume, size = 26 } = Astro.props;
       </>
     )
   }
+
+  {/* Finisaje complete: incapere predata la cheie */}
+  {
+    nume === 'finisaj' && (
+      <>
+        <path d="M3 10.5 12 3l9 7.5" />
+        <path d="M5 9.5V21h14V9.5" />
+        <path d="M10 21v-6h4v6" />
+      </>
+    )
+  }
+
+  {/* Proiect tehnic */}
   {
     nume === 'plan' && (
       <>
         <path d="M4 3h11l5 5v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
         <path d="M14 3v6h6" />
         <path d="M7 13h8M7 17h5" />
+      </>
+    )
+  }
+
+  {/* Echipa proprie */}
+  {
+    nume === 'echipa' && (
+      <>
+        <path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20" />
+        <circle cx="10" cy="8" r="3.2" />
+        <path d="M20 20v-1.5a3.5 3.5 0 0 0-2.6-3.4" />
+        <path d="M15.5 5.2a3.2 3.2 0 0 1 0 5.6" />
+      </>
+    )
+  }
+
+  {/* Experienta: ani */}
+  {
+    nume === 'experienta' && (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5.2l3.4 2" />
+      </>
+    )
+  }
+
+  {/* Echipamente: pompa de lavabila */}
+  {
+    nume === 'echipament' && (
+      <>
+        <path d="M6 20h7v-6H6z" />
+        <path d="M9.5 14V9h5V5" />
+        <path d="M14.5 5h4l1.5 3-1.5 3h-4z" />
+        <path d="M4 20h11" />
+      </>
+    )
+  }
+
+  {/* Ofertare clara: deviz */}
+  {
+    nume === 'deviz' && (
+      <>
+        <rect x="4" y="3" width="16" height="18" rx="1" />
+        <path d="M8 8h8M8 12h8M8 16h4" />
       </>
     )
   }

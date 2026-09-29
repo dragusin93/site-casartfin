@@ -1,121 +1,180 @@
 /**
  * Serviciile CASARTFIN.
  *
- * `SERVICII_PRINCIPALE` sunt cele 6 detaliate in sectiunea Servicii.
- * `TOATE_SERVICIILE` alimenteaza si lista completa, si <select>-ul din
- * calculatorul de oferta — o singura sursa, ca sa nu mai divergheze ca in
- * index.html-ul vechi, unde lista era copiata in doua locuri.
+ * Pozitionarea firmei e pe HALE SI SPATII INDUSTRIALE. Cele 6 servicii
+ * principale sunt formulate scurt si in ordinea fluxului real de executie:
+ * structura -> inchidere -> izolatie -> pregatire -> finisaj.
+ * Rezidentialul exista, dar ca sectiune secundara.
  */
 
 import type { ImageMetadata } from 'astro';
 
 import pozaCompartimentari from '~/assets/lucrari/compartimentari-birouri-structura-metalica.jpg';
+import pozaTavane from '~/assets/lucrari/spatiu-comercial-finisat-tavan-tehnic.jpg';
+import pozaIzolatii from '~/assets/lucrari/izolatie-vata-minerala-tubulatura-ventilatie.jpg';
+import pozaGlet from '~/assets/lucrari/gletuire-pereti-gips-carton.jpg';
+import pozaFinisaje from '~/assets/lucrari/spatiu-industrial-finisat-gips-carton.jpg';
 import pozaInaltime from '~/assets/lucrari/placare-pereti-inaltime-mare.jpg';
-import pozaTavan from '~/assets/lucrari/spatiu-comercial-finisat-tavan-tehnic.jpg';
-import pozaGletuire from '~/assets/lucrari/gletuire-pereti-gips-carton.jpg';
-import pozaDecorativa from '~/assets/lucrari/tencuiala-decorativa-iluminat-led.jpg';
-import pozaStructura from '~/assets/lucrari/structura-metalica-tubulatura-gips-carton.jpg';
 
-export interface ServiciuPrincipal {
+export interface Serviciu {
   id: string;
   titlu: string;
   descriere: string;
-  /** Numele iconului din IconServiciu.astro */
   icon: string;
-  /** Fotografie reala din portofoliu, ilustrand serviciul. */
   poza: ImageMetadata;
   pozaAlt: string;
 }
 
-export const SERVICII_PRINCIPALE: ServiciuPrincipal[] = [
+export const SERVICII_PRINCIPALE: Serviciu[] = [
   {
-    id: 'pereti-despartitori',
-    titlu: 'Pereți despărțitori simpli / dubli / tripli',
+    id: 'compartimentari',
+    titlu: 'Compartimentări gips-carton',
     descriere:
-      'Sisteme de compartimentare cu profile Knauf și Rigips pentru orice cerință acustică și structurală. Pereți simpli pentru rezidențial, dubli pentru izolație fonică avansată și sisteme triple pentru cerințe tehnice speciale — hoteluri, spitale, birouri.',
+      'Birouri, spații tehnice și zone de producție delimitate în interiorul halei, cu structură metalică și plăci agrementate.',
     icon: 'perete',
     poza: pozaCompartimentari,
-    pozaAlt: 'Compartimentari de birouri din gips carton, cu structura metalica si goluri de usi trasate',
+    pozaAlt:
+      'Compartimentări de birouri în hală, cu structură metalică din profile și goluri de uși trasate',
   },
   {
-    id: 'placari-inaltime',
-    titlu: 'Placări la înălțimi mari',
+    id: 'pereti-tavane',
+    titlu: 'Pereți și tavane',
     descriere:
-      'Schele certificate și echipament specializat pentru lucrări la înălțime — hale industriale, spații comerciale cu tavane înalte, foyer-uri de hotel sau clădiri de birouri. Siguranță maximă și execuție impecabilă și la 10 metri.',
+      'Pereți simpli, dubli sau cu cerințe acustice. Tavane plane, casetate sau tehnice, cu iluminat, sprinklere și HVAC integrate.',
+    icon: 'tavan',
+    poza: pozaTavane,
+    pozaAlt: 'Tavan tehnic aparent cu spoturi încastrate, într-un spațiu comercial finalizat',
+  },
+  {
+    id: 'izolatii',
+    titlu: 'Izolații',
+    descriere:
+      'Izolație termică și fonică din vată minerală, montată corect în structură — inclusiv în jurul tubulaturii și al instalațiilor.',
+    icon: 'izolatie',
+    poza: pozaIzolatii,
+    pozaAlt:
+      'Izolație din vată minerală montată între profile metalice, în jurul tubulaturii de ventilație',
+  },
+  {
+    id: 'glet-zugraveli',
+    titlu: 'Glet și zugrăveli',
+    descriere:
+      'Pregătirea suprafețelor și aplicarea mecanizată a lavabilei, cu pompe profesionale — de câteva ori mai rapid pe suprafețe mari.',
+    icon: 'driscă',
+    poza: pozaGlet,
+    pozaAlt: 'Pereți din gips carton în faza de gletuire și pregătire a suprafeței',
+  },
+  {
+    id: 'finisaje-complete',
+    titlu: 'Finisaje complete',
+    descriere:
+      'Preluăm spațiul la roșu și îl predăm finisat: compartimentare, instalații mascate, pardoseli, zugrăveli, montaj uși.',
+    icon: 'finisaj',
+    poza: pozaFinisaje,
+    pozaAlt:
+      'Spațiu industrial finisat, cu pereți din gips carton vopsiți și instalații termice montate',
+  },
+  {
+    id: 'lucrari-inaltime',
+    titlu: 'Lucrări la înălțime',
+    descriere:
+      'Schele certificate și echipament specializat pentru hale și spații cu tavane înalte. Execuție impecabilă și la 10 metri.',
     icon: 'schela',
     poza: pozaInaltime,
-    pozaAlt: 'Placare cu gips carton pe perete de inaltime mare, in hala industriala',
-  },
-  {
-    id: 'tavane-false',
-    titlu: 'Tavane false',
-    descriere:
-      'Tavane plane, casetate, cu nervuri sau forme arhitecturale complexe. Integrăm iluminat încastrat, difuzoare, sprinklere și sisteme HVAC conform planului de instalații. Toleranță maximă admisă: ±2 mm la 2 m.',
-    icon: 'tavan',
-    poza: pozaTavan,
-    pozaAlt: 'Spatiu comercial finalizat, cu tavan tehnic aparent si spoturi incastrate',
-  },
-  {
-    id: 'lavabila-mecanizata',
-    titlu: 'Lavabilă mecanizată cu pompe profesionale',
-    descriere:
-      'Aplicare prin pulverizare cu pompe Graco sau Wagner pentru suprafețe mari — de 3-4 ori mai rapid decât manual, uniformitate perfectă și consum optimizat. Ideală pentru ansambluri rezidențiale și proiecte cu termene strânse.',
-    icon: 'pompa',
-    poza: pozaGletuire,
-    pozaAlt: 'Pereti din gips carton in faza de gletuire si pregatire a suprafetei',
-  },
-  {
-    id: 'tencuiala-decorativa',
-    titlu: 'Tencuială decorativă',
-    descriere:
-      'Beton aparent, marmură venețiană, tencuieli structurate sau finisaje mate premium. Colaborăm cu designeri de interior pentru a replica orice viziune artistică, cu materiale certificate și tehnici de aplicare certificate.',
-    icon: 'driscă',
-    poza: pozaDecorativa,
-    pozaAlt: 'Perete cu tencuiala decorativa texturata si iluminat LED integrat',
-  },
-  {
-    id: 'proiecte-tehnice',
-    titlu: 'Citim proiecte tehnice',
-    descriere:
-      'Avem în echipă personal care interpretează planuri de arhitectură, detalii de execuție și specificații tehnice. Primim proiectul pe email, îl studiem și venim pe șantier cu ofertă detaliată și plan de execuție. Fără surprize, fără reveniri.',
-    icon: 'plan',
-    poza: pozaStructura,
-    pozaAlt: 'Structura metalica placata cu gips carton, cu tubulatura de ventilatie integrata',
+    pozaAlt: 'Placare cu gips carton pe perete de înălțime mare, în hală industrială',
   },
 ];
 
-/** Cele 23 de servicii — sursa unica pentru lista completa si pentru calculator. */
+/** Argumentele din sectiunea "De ce CASARTFIN". Text minim, intentionat. */
+export const MOTIVE = [
+  {
+    titlu: 'Echipă proprie',
+    text: 'Nu subcontractăm. Oamenii care încep lucrarea o și termină.',
+    icon: 'echipa',
+  },
+  {
+    titlu: 'Peste 20 de ani de meserie',
+    text: 'Experiență transmisă de la tată la fii, pe șantiere reale.',
+    icon: 'experienta',
+  },
+  {
+    titlu: 'Echipamente profesionale',
+    text: 'Pompe de lavabilă, schele certificate, scule de măsurare.',
+    icon: 'echipament',
+  },
+  {
+    titlu: 'Lucrări la înălțime',
+    text: 'Hale și spații cu tavane înalte, în siguranță, până la 10 metri.',
+    icon: 'schela',
+  },
+  {
+    titlu: 'Proiect și termen respectate',
+    text: 'Citim planurile de execuție și ne asumăm graficul în scris.',
+    icon: 'plan',
+  },
+  {
+    titlu: 'Ofertare clară',
+    text: 'Deviz pe categorii de lucrări. Fără rubrica „diverse”.',
+    icon: 'deviz',
+  },
+] as const;
+
+/** Cui ne adresam. Ordinea conteaza: industrialul si B2B-ul primele. */
+export const CLIENTI = [
+  {
+    titlu: 'Dezvoltatori imobiliari',
+    text: 'Hale, parcuri logistice și spații comerciale, cu facturare pe etape.',
+  },
+  {
+    titlu: 'Antreprenori generali',
+    text: 'Subantrepriză pe compartimentări și finisaje, cu echipe proprii.',
+  },
+  {
+    titlu: 'Firme și beneficiari finali',
+    text: 'Amenajări de birouri, depozite și spații de producție.',
+  },
+  {
+    titlu: 'Investitori',
+    text: 'Spații date spre închiriere, finisate la standard și la termen.',
+  },
+  {
+    titlu: 'Persoane fizice',
+    text: 'Apartamente și case — lucrări mai mici, aceeași execuție.',
+  },
+] as const;
+
+/** Cele 23 de servicii — sursa unica pentru nomenclator si pentru calculator. */
 export const TOATE_SERVICIILE: string[] = [
-  'Finisaje interioare',
+  'Compartimentări hale și spații industriale',
+  'Pereți gips-carton industriali',
+  'Tavane false și casetate',
+  'Izolații termice și fonice',
+  'Lucrări la înălțime',
+  'Glet și pregătire suprafețe',
+  'Tencuială mecanizată',
+  'Zugrăveli interioare',
   'Finisaje industriale',
-  'Placări și izolații',
+  'Finisaje spații comerciale',
+  'Amenajări birouri în hale',
+  'Spații tehnice și camere de utilaje',
+  'Montaj profile și structuri metalice',
+  'Placări gips-carton',
+  'Mascări instalații și tubulatură',
+  'Șape autonivelante',
   'Gresie și faianță',
   'Parchet SPC',
-  'Tencuieli decorative',
-  'Pereți gips-carton',
-  'Tencuială mecanizată',
-  'Amenajări și renovări',
-  'Proiecte pe fonduri europene',
-  'Tavane casetate',
-  'Placări gips-carton',
-  'Zugrăveli interioare',
-  'Montaj tavane false',
   'Montaj uși interioare',
   'Iluminat decorativ și mascări',
-  'Reparații și refaceri interioare',
-  'Gletuire și pregătire suprafețe',
-  'Microciment și finisaje moderne',
-  'Compartimentări interioare',
-  'Montaj profile și structuri metalice',
-  'Șape autonivelante',
-  'Amenajări complete apartamente și spații comerciale',
+  'Tencuieli decorative și microciment',
+  'Proiecte pe fonduri europene',
+  'Finisaje rezidențiale — apartamente și case',
 ];
 
 /** Tipurile de masuratoare din calculatorul de oferta. */
 export const TIPURI_MASURATOARE = [
-  { id: 'mp', eticheta: 'Suprafață (m²)', scurt: 'm²', exemplu: '45' },
-  { id: 'ml', eticheta: 'Lungime (ml)', scurt: 'ml', exemplu: '12' },
+  { id: 'mp', eticheta: 'Suprafață (m²)', scurt: 'm²', exemplu: '450' },
+  { id: 'ml', eticheta: 'Lungime (ml)', scurt: 'ml', exemplu: '80' },
   { id: 'buc', eticheta: 'Număr bucăți', scurt: 'Bucăți', exemplu: '8' },
-  { id: 'camere', eticheta: 'Număr camere', scurt: 'Camere', exemplu: '3' },
+  { id: 'camere', eticheta: 'Număr încăperi', scurt: 'Încăperi', exemplu: '6' },
   { id: 'complet', eticheta: 'Lucrare completă', scurt: 'Complet', exemplu: null },
 ] as const;

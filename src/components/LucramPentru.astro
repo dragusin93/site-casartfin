@@ -1,0 +1,92 @@
+---
+import { CLIENTI } from '~/data/servicii';
+---
+
+<section class="clienti" id="clienti">
+  <div class="container">
+    <div class="clienti__antet">
+      <p class="eticheta">Lucrăm pentru</p>
+      <h2>Cine ne cheamă pe șantier</h2>
+    </div>
+
+    <ul class="clienti__lista">
+      {
+        CLIENTI.map((c, i) => (
+          <li class="client">
+            <span class="client__indice mono">{String(i + 1).padStart(2, '0')}</span>
+            <span class="client__nume">{c.titlu}</span>
+            <span class="client__text">{c.text}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .clienti {
+    padding: var(--sp-sec) var(--sp-gut);
+    background: var(--stone-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .clienti__antet {
+    margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+
+  .clienti__antet h2 {
+    margin-top: 1rem;
+  }
+
+  .clienti__lista {
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  /* Rand de tabel tehnic: indice, denumire, explicatie. */
+  .client {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 15rem) minmax(0, 1fr);
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--line);
+    transition: background var(--tr);
+  }
+
+  .client:hover {
+    background: var(--stone);
+  }
+
+  .client__indice {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    color: var(--terra-text);
+  }
+
+  .client__nume {
+    font-family: var(--f-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .client__text {
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 760px) {
+    .client {
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: 0.35rem 0.9rem;
+    }
+
+    .client__text {
+      grid-column: 2;
+    }
+  }
+</style>

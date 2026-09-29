@@ -1,58 +1,39 @@
 ---
+/**
+ * Prima pagina. Structura urmeaza pozitionarea pe hale si spatii industriale:
+ * hero -> ce executam -> dovada (proiecte) -> de ce noi -> pentru cine ->
+ * oferta. Rezidentialul sta jos, ca sectiune secundara.
+ *
+ * Text putin, imagine multa. Nu readauga sectiuni doar ca sa umpli pagina.
+ */
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Hero from '~/components/Hero.astro';
 import Servicii from '~/components/Servicii.astro';
-import ToateServiciile from '~/components/ToateServiciile.astro';
-import Despre from '~/components/Despre.astro';
+import ProiecteIndustriale from '~/components/ProiecteIndustriale.astro';
+import DeCe from '~/components/DeCe.astro';
+import LucramPentru from '~/components/LucramPentru.astro';
 import Fonduri from '~/components/Fonduri.astro';
-import Parteneri from '~/components/Parteneri.astro';
-import Arhitecti from '~/components/Arhitecti.astro';
+import Despre from '~/components/Despre.astro';
 import Calculator from '~/components/Calculator.astro';
-import Investitori from '~/components/Investitori.astro';
+import Rezidential from '~/components/Rezidential.astro';
+import CtaFinal from '~/components/CtaFinal.astro';
 import Contact from '~/components/Contact.astro';
 ---
 
 <BaseLayout
-  titlu="Finisaje interioare și gips-carton în Râmnicu Vâlcea — CASARTFIN"
-  descriere="Finisaje interioare, pereți și tavane din gips-carton, renovări complete în Râmnicu Vâlcea și județul Vâlcea. Peste 20 de ani de experiență, garanție scrisă 2 ani, ofertă în 24 de ore."
+  titlu="Compartimentări și finisaje hale — Râmnicu Vâlcea | CASARTFIN"
+  descriere="Compartimentări gips-carton, pereți, tavane, izolații și finisaje complete pentru hale industriale, depozite și spații comerciale în Râmnicu Vâlcea și județul Vâlcea. Lucrări la înălțime, ofertă în 24 de ore."
   cale="/"
 >
   <Hero />
   <Servicii />
-
-  <div class="banda-slogan">
-    <p>Calitate <span aria-hidden="true">·</span> Seriozitate <span aria-hidden="true">·</span> Profesionalism</p>
-  </div>
-
-  <Despre />
+  <ProiecteIndustriale />
+  <DeCe />
+  <LucramPentru />
   <Fonduri />
-  <ToateServiciile />
+  <Despre />
   <Calculator />
-  <Parteneri />
-  <Arhitecti />
-  <Investitori />
+  <Rezidential />
+  <CtaFinal />
   <Contact />
 </BaseLayout>
-
-<style>
-  .banda-slogan {
-    background: var(--ink);
-    padding: 1.6rem var(--sp-gut);
-    text-align: center;
-  }
-
-  .banda-slogan p {
-    font-family: var(--f-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--stone);
-  }
-
-  .banda-slogan span {
-    /* varianta deschisa: pe fundalul inchis, --terra da doar 4,15:1 */
-    color: var(--terra-clar);
-    margin-inline: 0.5rem;
-  }
-</style>

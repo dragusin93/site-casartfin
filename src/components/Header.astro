@@ -11,15 +11,14 @@ import logo from '~/assets/brand/logo-casartfin.png';
 import { Image } from 'astro:assets';
 
 const NAVIGATIE = [
-  { href: '/#servicii', eticheta: 'Servicii', principal: true },
-  { href: '/lucrari', eticheta: 'Lucrări', principal: true },
-  { href: '/#despre', eticheta: 'Despre', principal: true },
+  { href: '/#servicii', eticheta: 'Ce executăm', principal: true },
+  { href: '/lucrari', eticheta: 'Proiecte', principal: true },
+  { href: '/#de-ce', eticheta: 'De ce noi', principal: true },
   { href: '/#fonduri', eticheta: 'Fonduri EU', principal: true },
-  { href: '/#toate-serviciile', eticheta: 'Toate serviciile', principal: false },
-  { href: '/#parteneri', eticheta: 'Parteneri', principal: false },
-  { href: '/#arhitecti', eticheta: 'Arhitecți', principal: false },
-  { href: '/#investitori', eticheta: 'Investitori', principal: true },
-  { href: '/#calculator', eticheta: 'Calculator ofertă', principal: false },
+  { href: '/#clienti', eticheta: 'Lucrăm pentru', principal: false },
+  { href: '/#despre', eticheta: 'Despre', principal: false },
+  { href: '/#rezidential', eticheta: 'Finisaje rezidențiale', principal: false },
+  { href: '/#contact', eticheta: 'Contact', principal: false },
 ];
 
 const principale = NAVIGATIE.filter((l) => l.principal);

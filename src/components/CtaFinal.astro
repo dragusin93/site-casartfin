@@ -1,0 +1,160 @@
+---
+/**
+ * Chemarea finala la actiune, inainte de formularul de contact.
+ * Fotografie de hala in fundal, sub voal indigo. Aceeasi reteta ca la Fonduri:
+ * fotografia se intuneca din filtru, nu doar se face transparenta — altfel un
+ * pixel luminos ridica fundalul si strica lizibilitatea textului de deasupra.
+ */
+import { Picture } from 'astro:assets';
+import { FIRMA, WHATSAPP_URL } from '~/data/firma';
+import pozaFundal from '~/assets/lucrari/spatiu-comercial-pereti-gips-carton-finisati.jpg';
+---
+
+<section class="cta" id="cta-final">
+  <div class="cta__fundal" aria-hidden="true">
+    <Picture
+      src={pozaFundal}
+      alt=""
+      formats={['avif', 'webp']}
+      widths={[720, 1200, 1800]}
+      sizes="100vw"
+      loading="lazy"
+      class="cta__imagine"
+    />
+    <div class="cta__voal"></div>
+  </div>
+
+  <div class="container cta__continut">
+    <p class="eticheta">Următorul pas</p>
+    <h2>Ai o hală de compartimentat?</h2>
+    <p class="cta__text">
+      Trimite-ne proiectul sau doar dimensiunile și îți facem o ofertă. Dacă e mai simplu,
+      dă-ne un telefon — discutăm direct.
+    </p>
+
+    <div class="cta__actiuni">
+      <a href="#calculator" class="btn cta__btn-alb">Trimite proiectul</a>
+      <a href={WHATSAPP_URL} class="btn btn--whatsapp" target="_blank" rel="noopener">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+        </svg>
+        Scrie pe WhatsApp
+      </a>
+      <a href={`tel:${FIRMA.telefon}`} class="cta__telefon mono">{FIRMA.telefonAfisat}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(4rem, 8vw, 6.5rem) var(--sp-gut);
+    background: var(--indigo);
+    color: rgba(249, 248, 246, 0.86);
+  }
+
+  .cta__fundal {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .cta__imagine {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    filter: brightness(0.38) saturate(0.8);
+  }
+
+  .cta__voal {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      var(--indigo) 0%,
+      rgba(38, 53, 92, 0.84) 40%,
+      rgba(38, 53, 92, 0.58) 100%
+    );
+  }
+
+  .cta__continut {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+  }
+
+  .cta :global(.eticheta) {
+    color: rgba(249, 248, 246, 0.8);
+  }
+
+  .cta :global(.eticheta::before) {
+    background: var(--terra-clar);
+  }
+
+  .cta h2 {
+    color: var(--stone-2);
+    margin: 1rem 0 1.1rem;
+    font-size: clamp(1.9rem, 4vw, 2.9rem);
+  }
+
+  .cta__text {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(249, 248, 246, 0.84);
+    max-width: 48ch;
+  }
+
+  .cta__actiuni {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 2.25rem;
+  }
+
+  .cta__btn-alb {
+    background: var(--stone-2);
+    border-color: var(--stone-2);
+    color: var(--indigo);
+  }
+
+  .cta__btn-alb:hover {
+    background: #fff;
+    border-color: #fff;
+    color: var(--indigo-3);
+  }
+
+  .cta__telefon {
+    color: var(--stone-2);
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(249, 248, 246, 0.4);
+    padding-bottom: 2px;
+    margin-left: 0.4rem;
+  }
+
+  .cta__telefon:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+  }
+
+  @media (max-width: 900px) {
+    .cta__voal {
+      background: rgba(38, 53, 92, 0.76);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .cta__actiuni .btn {
+      width: 100%;
+    }
+
+    .cta__telefon {
+      margin-left: 0;
+    }
+  }
+</style>
