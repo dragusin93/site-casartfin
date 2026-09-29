@@ -120,8 +120,14 @@ utilizatorul trebuie să vadă eroarea și numărul de telefon.
 
 ## De făcut (necompletat de client)
 
-- [ ] **CUI și număr Reg. Comerțului** în `src/data/firma.ts` — obligatorii
-      legal, apar în footer, Termeni și Politica de confidențialitate
+- [x] ~~CUI și Reg. Comerțului~~ — completate: CUI `52979450`,
+      `J2025091219005`, înmatriculată noiembrie 2025.
+
+      **Firma are două adrese, cu roluri diferite — nu le amesteca:**
+      `sediuSocial` (Bd. Tineretului nr. 2) e adresa juridică din Registrul
+      Comerțului, folosită în footer, Termeni și Politica de confidențialitate.
+      `birou` (Gib Mihăescu) e unde vin clienții, deci apare la Contact, pe
+      hartă și în schema.org.
 - [ ] **Domeniul propriu.** `casartfin.ro` nu e încă înregistrat (verificat:
       NXDOMAIN). Până e cumpărat, site-ul rulează pe
       `site-casartfin.vercel.app`, iar `astro.config.mjs` folosește automat
@@ -145,6 +151,11 @@ utilizatorul trebuie să vadă eroarea și numărul de telefon.
 - [ ] **Coordonatele geo** din `firma.ts` sunt aproximative pentru Rm. Vâlcea;
       de înlocuit cu cele exacte ale sediului
 - [ ] Paginile legale au nevoie de **verificare juridică** înainte de publicare
+- [ ] **Fotografii cu echipa pe șantier** — oameni cu căști, cu planuri în mână.
+      Clientul le-a cerut, dar nu există în portofoliu: toate cele 16 poze sunt
+      spații goale, fără oameni. Nu folosi poze de stoc cu muncitori: pe o
+      secțiune „ce executăm" ar sugera că sunt angajații firmei, ceea ce e
+      fals. Se așteaptă poze reale de la client.
 - [ ] **Google Business Profile** — pentru o firmă locală e canalul principal;
       schema.org `GeneralContractor` e deja pusă și îl alimentează
 

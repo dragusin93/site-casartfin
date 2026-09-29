@@ -1,4 +1,5 @@
 ---
+import { Picture } from 'astro:assets';
 import { SERVICII_PRINCIPALE } from '~/data/servicii';
 import IconServiciu from '~/components/IconServiciu.astro';
 ---
@@ -7,7 +8,7 @@ import IconServiciu from '~/components/IconServiciu.astro';
   <div class="container">
     <div class="cap-sectiune">
       <p class="eticheta apare">Ce executăm</p>
-      <h2 class="apare i1">Lucrări de gips carton<br />și finisaje, executate corect.</h2>
+      <h2 class="apare i1">Finisaje interioare și gips-carton,<br />executate corect.</h2>
       <p class="subtitlu apare i2">
         Lucrăm cu sisteme Knauf și Rigips originale, agrementate tehnic. Fiecare lucrare pleacă
         de la un proiect citit și de la un grafic de execuție asumat în scris.
@@ -18,12 +19,26 @@ import IconServiciu from '~/components/IconServiciu.astro';
       {
         SERVICII_PRINCIPALE.map((s, i) => (
           <li class={`serviciu apare i${(i % 3) + 1}`}>
-            <span class="serviciu__numar mono">{String(i + 1).padStart(2, '0')}</span>
-            <span class="serviciu__icon">
-              <IconServiciu nume={s.icon} />
-            </span>
-            <h3 class="serviciu__titlu">{s.titlu}</h3>
-            <p class="serviciu__descriere">{s.descriere}</p>
+            <figure class="serviciu__figura">
+              <Picture
+                src={s.poza}
+                alt={s.pozaAlt}
+                formats={['avif', 'webp']}
+                widths={[320, 520, 760]}
+                sizes="(max-width: 640px) 92vw, (max-width: 1080px) 46vw, 30vw"
+                loading="lazy"
+                class="serviciu__imagine"
+              />
+              <span class="serviciu__numar mono">{String(i + 1).padStart(2, '0')}</span>
+            </figure>
+
+            <div class="serviciu__corp">
+              <span class="serviciu__icon">
+                <IconServiciu nume={s.icon} />
+              </span>
+              <h3 class="serviciu__titlu">{s.titlu}</h3>
+              <p class="serviciu__descriere">{s.descriere}</p>
+            </div>
           </li>
         ))
       }
@@ -39,7 +54,7 @@ import IconServiciu from '~/components/IconServiciu.astro';
   .servicii__lista {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
     /* liniile dintre carduri se fac din gap + fundal, ca o grila tehnica */
     gap: 1px;
     background: var(--line);
@@ -47,9 +62,9 @@ import IconServiciu from '~/components/IconServiciu.astro';
   }
 
   .serviciu {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     background: var(--stone-2);
-    padding: 2.25rem 1.9rem 2rem;
     transition: background var(--tr);
   }
 
@@ -57,34 +72,64 @@ import IconServiciu from '~/components/IconServiciu.astro';
     background: #fff;
   }
 
+  /* ---- Fotografia ---- */
+  .serviciu__figura {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    background: var(--stone-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .serviciu__imagine {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .serviciu:hover .serviciu__imagine {
+    transform: scale(1.04);
+  }
+
   .serviciu__numar {
     position: absolute;
-    top: 1.5rem;
-    right: 1.6rem;
-    font-size: 0.66rem;
+    left: 0;
+    bottom: 0;
+    padding: 0.35rem 0.7rem;
+    background: var(--stone-2);
+    border-top: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    font-size: 0.62rem;
     letter-spacing: 0.14em;
-    color: var(--ink-3);
-    opacity: 0.6;
+    color: var(--terra);
+  }
+
+  /* ---- Textul ---- */
+  .serviciu__corp {
+    padding: 1.9rem 1.75rem 2rem;
+    flex-grow: 1;
   }
 
   .serviciu__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 46px;
-    height: 46px;
-    margin-bottom: 1.4rem;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 1.25rem;
     border: 1px solid var(--line-indigo);
     color: var(--indigo);
   }
 
   .serviciu__titlu {
-    margin-bottom: 0.8rem;
-    font-size: 1.16rem;
+    margin-bottom: 0.7rem;
+    font-size: 1.14rem;
   }
 
   .serviciu__descriere {
-    font-size: 0.88rem;
+    font-size: 0.87rem;
     font-weight: 300;
     line-height: 1.75;
     color: var(--ink-2);

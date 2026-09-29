@@ -180,40 +180,16 @@ const gradatii = Array.from({ length: 49 }, (_, i) => {
     <line x1="604" y1="400" x2="632" y2="400" stroke="var(--terra)" stroke-width="1.5"></line>
   </g>
 
-  <!-- Centrul: specificatia tehnica -->
-  <rect
-    x="286"
-    y="330"
-    width="228"
-    height="140"
+  {/* Camp curat in centru, pe care sta logoul firmei. Logoul se adauga de
+      componenta care foloseste inelele, ca sa ramana fix in timp ce
+      inelele se rotesc in jurul lui. */}
+  <circle
+    cx="400"
+    cy="400"
+    r="158"
     fill="var(--stone-2)"
-    stroke="var(--ink)"
-    stroke-width="0.8"
-    opacity="0.96"></rect>
-  <text
-    x="400"
-    y="378"
-    text-anchor="middle"
-    font-family="var(--f-mono)"
-    font-size="11"
-    letter-spacing="2.4"
-    fill="var(--indigo)">TOLERANȚĂ EXECUȚIE</text>
-  <text
-    x="400"
-    y="425"
-    text-anchor="middle"
-    font-family="var(--f-display)"
-    font-size="44"
-    font-weight="500"
-    fill="var(--ink)">±2 mm</text>
-  <text
-    x="400"
-    y="450"
-    text-anchor="middle"
-    font-family="var(--f-mono)"
-    font-size="10"
-    letter-spacing="1.8"
-    fill="var(--ink-3)">LA 2 METRI LINIAR</text>
+    stroke="var(--line)"
+    stroke-width="1"></circle>
 </svg>
 
 <style>

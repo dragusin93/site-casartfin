@@ -28,6 +28,10 @@
   --ok: #2f6b4f;
   --err: #a33a2a;
 
+  /* ---- WhatsApp ---- */
+  --wa: #128c7e; /* verdele inchis WhatsApp, lizibil cu text alb */
+  --wa-2: #0e6b60;
+
   /* ---- Linii ---- */
   --line: rgba(25, 27, 33, 0.12);
   --line-2: rgba(25, 27, 33, 0.07);
@@ -304,6 +308,21 @@ p {
 .btn--terra:hover:not(:disabled) {
   background: var(--terra-2);
   border-color: var(--terra-2);
+  color: #fff;
+}
+
+/* Verdele oficial WhatsApp. Textul alb pe #25D366 are contrast doar 2,2:1,
+   deci folosim varianta inchisa (#128C7E) ca fundal — recognoscibila ca
+   WhatsApp, dar lizibila. Iconul ramane pe verdele deschis la hover. */
+.btn--whatsapp {
+  background: var(--wa);
+  color: #fff;
+  border-color: var(--wa);
+}
+
+.btn--whatsapp:hover:not(:disabled) {
+  background: var(--wa-2);
+  border-color: var(--wa-2);
   color: #fff;
 }
 

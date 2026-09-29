@@ -11,17 +11,17 @@ import { FIRMA } from '~/data/firma';
   actualizat="28 septembrie 2026"
 >
   <p class="nota-revizuire">
-    <strong>De verificat înainte de publicare.</strong> Acest document acoperă situația reală
-    a site-ului (trei formulare care trimit un email), dar nu înlocuiește avizul unui jurist.
-    Înainte de a-l publica, completează datele de identificare ale firmei și confirmă
-    perioada de păstrare a datelor.
+    <strong>Recomandare.</strong> Documentul acoperă situația reală a site-ului: trei
+    formulare care trimit un email, fără cookie-uri de urmărire. Nu înlocuiește însă avizul
+    unui jurist — confirmă cu un specialist perioada de păstrare a datelor.
   </p>
 
   <h2>1. Cine suntem</h2>
   <p>
-    Operatorul datelor este <strong>{FIRMA.nume}</strong>, cu sediul în {FIRMA.adresa.strada},
-    {FIRMA.adresa.oras}, județul {FIRMA.adresa.judet}, CUI {FIRMA.cui}, înregistrată la
-    Registrul Comerțului sub numărul {FIRMA.regCom}.
+    Operatorul datelor este <strong>{FIRMA.nume}</strong>, cu sediul social în
+    {FIRMA.sediuSocial.strada}, {FIRMA.sediuSocial.oras}, județul {FIRMA.sediuSocial.judet},
+    CUI {FIRMA.cui}, înregistrată la Registrul Comerțului sub numărul {FIRMA.regCom}.
+    Biroul de lucru se află pe {FIRMA.birou.strada}, {FIRMA.birou.oras}.
   </p>
   <p>
     Pentru orice întrebare legată de datele tale personale ne poți scrie la

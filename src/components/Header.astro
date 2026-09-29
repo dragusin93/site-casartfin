@@ -30,8 +30,7 @@ const principale = NAVIGATIE.filter((l) => l.principal);
     <a href="/" class="marca" aria-label={`${FIRMA.nume} — prima pagină`}>
       {/* Logoul este un lockup complet (semn + cuvantul CASARTFIN), raport 2,44:1.
           Nu se pune text alaturi, ca sa nu se dubleze numele firmei. */}
-      <Image src={logo} alt="" width={102} height={42} class="marca__logo" />
-      <span class="marca__sub" aria-hidden="true">CONSTRUCT<br />S.R.L.</span>
+      <Image src={logo} alt="" width={112} height={46} class="marca__logo" />
     </a>
 
     <nav class="nav-desktop" aria-label="Navigare principală">
@@ -155,30 +154,13 @@ const principale = NAVIGATIE.filter((l) => l.principal);
 
   .marca__logo {
     width: auto;
-    height: 42px;
+    height: 46px;
     object-fit: contain;
     transition: var(--tr);
   }
 
   .antet--derulat .marca__logo {
-    height: 36px;
-  }
-
-  /* Rândul „CONSTRUCT S.R.L.” stă după o linie verticală, ca pe o placuță. */
-  .marca__sub {
-    font-family: var(--f-mono);
-    font-size: 0.52rem;
-    line-height: 1.5;
-    letter-spacing: 0.2em;
-    color: var(--indigo);
-    padding-left: 0.75rem;
-    border-left: 1px solid var(--line);
-  }
-
-  @media (max-width: 400px) {
-    .marca__sub {
-      display: none;
-    }
+    height: 38px;
   }
 
   /* ---- Navigare desktop ---- */

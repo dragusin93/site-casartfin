@@ -10,17 +10,16 @@ import { FIRMA } from '~/data/firma';
   antet="Termeni și condiții"
   actualizat="28 septembrie 2026"
 >
-  <p class="nota-revizuire">
-    <strong>De verificat înainte de publicare.</strong> Completează datele de identificare ale
-    firmei și confirmă cu un jurist secțiunile despre garanție și ofertă, care au efecte
-    contractuale.
+    <p class="nota-revizuire">
+    <strong>Recomandare.</strong> Confirmă cu un jurist secțiunile despre garanție și
+    ofertă — au efecte contractuale.
   </p>
 
   <h2>1. Despre acest site</h2>
   <p>
     Site-ul este deținut și administrat de <strong>{FIRMA.nume}</strong>, cu sediul în
-    {FIRMA.adresa.strada}, {FIRMA.adresa.oras}, județul {FIRMA.adresa.judet}, CUI
-    {FIRMA.cui}, înregistrată la Registrul Comerțului sub numărul {FIRMA.regCom}.
+    {FIRMA.sediuSocial.strada}, {FIRMA.sediuSocial.oras}, județul {FIRMA.sediuSocial.judet},
+    CUI {FIRMA.cui}, înregistrată la Registrul Comerțului sub numărul {FIRMA.regCom}.
   </p>
   <p>Prin utilizarea site-ului accepți termenii de mai jos.</p>
 
@@ -113,7 +112,9 @@ import { FIRMA } from '~/data/firma';
   <h2>10. Contact</h2>
   <p>
     {FIRMA.nume}<br />
-    {FIRMA.adresa.strada}, {FIRMA.adresa.oras}, județul {FIRMA.adresa.judet}<br />
+    Sediu social: {FIRMA.sediuSocial.strada}, {FIRMA.sediuSocial.oras}, județul
+    {FIRMA.sediuSocial.judet}<br />
+    Birou: {FIRMA.birou.strada}, {FIRMA.birou.oras}<br />
     Telefon: <a href={`tel:${FIRMA.telefon}`}>{FIRMA.telefonAfisat}</a><br />
     Email: <a href={`mailto:${FIRMA.email}`}>{FIRMA.email}</a>
   </p>

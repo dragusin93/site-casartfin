@@ -49,7 +49,7 @@ const COLOANE = [
         <li><a href={`tel:${FIRMA.telefon}`} class="mono">{FIRMA.telefonAfisat}</a></li>
         <li><a href={`mailto:${FIRMA.email}`} class="mono">{FIRMA.email}</a></li>
         <li class="mono subsol__adresa">
-          {FIRMA.adresa.strada}, {FIRMA.adresa.oras}
+          Birou: {FIRMA.birou.strada}, {FIRMA.birou.oras}
         </li>
       </ul>
     </div>
@@ -81,7 +81,8 @@ const COLOANE = [
     <div class="container subsol__bara-interior">
       <p>© {anCurent} {FIRMA.nume}. Toate drepturile rezervate.</p>
       <p class="subsol__identificare mono">
-        CUI {FIRMA.cui} · Reg. Com. {FIRMA.regCom}
+        CUI {FIRMA.cui} · {FIRMA.regCom} · Sediu social: {FIRMA.sediuSocial.strada},
+        {FIRMA.sediuSocial.oras}
       </p>
     </div>
   </div>
