@@ -13,24 +13,32 @@
   /* ---- Text ---- */
   --ink: #191b21; /* titluri, text tare */
   --ink-2: #4c505a; /* text de continut */
-  --ink-3: #797e88; /* text secundar, etichete */
+  /* Text secundar. Calibrat pe --stone (#F2F1EE), fundalul mai INCHIS dintre
+     cele doua — daca trece acolo, trece si pe --stone-2. Masurat 4,61:1.
+     Orice nuanta mai deschisa pica sub 4,5:1 pe fundalul principal. */
+  --ink-3: #686d75;
 
   /* ---- Accent principal ---- */
   --indigo: #26355c;
   --indigo-2: #3a4e82; /* hover, stari active */
   --indigo-3: #1e2b4a; /* apasat, fundaluri intunecate */
 
-  /* ---- Accent secundar ---- */
+  /* ---- Accent secundar ----
+     --terra e pentru umpluturi si linii decorative: pe text mic da doar
+     3,9:1 pe fundal deschis si 2,9:1 pe indigo, deci NU se pune pe text.
+     Pentru text exista cele doua variante de dedesubt, masurate. */
   --terra: #b4694a;
   --terra-2: #9a563a;
+  --terra-text: #9a563a; /* text mic pe fundal deschis — 5,26:1 */
+  --terra-clar: #e09b7a; /* text mic pe --indigo — 5,24:1 */
 
   /* ---- Semantice ---- */
   --ok: #2f6b4f;
   --err: #a33a2a;
 
   /* ---- WhatsApp ---- */
-  --wa: #128c7e; /* verdele inchis WhatsApp, lizibil cu text alb */
-  --wa-2: #0e6b60;
+  --wa: #0f7a6d; /* verde WhatsApp inchis — masurat 5,22:1 cu text alb */
+  --wa-2: #0b5f55;
 
   /* ---- Linii ---- */
   --line: rgba(25, 27, 33, 0.12);
