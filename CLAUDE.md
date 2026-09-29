@@ -45,7 +45,7 @@ src/
 ├── components/    câte o componentă per secțiune
 ├── scripts/formular.ts    logica celor 3 formulare
 ├── styles/global.css      TOATE culorile și spațiile
-└── pages/         index, politica-confidentialitate, termeni, 404
+└── pages/         index, lucrari, politica-confidentialitate, termeni, 404
 api/contact.ts     funcție serverless Vercel → Resend
 public/            favicon, robots.txt, logo servit brut
 ```
@@ -107,6 +107,14 @@ plafonezi luminozitatea, plus un voal în gradient peste. Contrastul se
 **măsoară**, reconstruind straturile pe canvas și luând cel mai prost pixel din
 zona cu text — nu se estimează din ochi. La `Fonduri` valorile măsurate sunt
 7,43:1 (titlu) și 6,75:1 (listă), față de pragul de 4,5:1.
+
+**Portofoliul stă pe pagina lui, `/lucrari`, nu pe prima pagină.** Clientul a
+cerut explicit asta. Categoriile se deschid în cascadă cu `<details>`/`<summary>`
+native, nu cu un accordion scris în JavaScript: merg la tastatură și cu cititor
+de ecran din start, funcționează dacă scriptul nu se încarcă, iar Ctrl+F al
+browserului găsește text și în secțiunile închise. Prima categorie e deschisă,
+ca pagina să nu pară goală. Pe prima pagină rămâne un singur link către ea, la
+finalul secțiunii Servicii — nu readuce galeria pe landing.
 
 **Nu folosi listener pe `scroll` pentru layout.** Header-ul folosește
 `IntersectionObserver` pe o santinelă. Varianta veche recalcula poziția tuturor

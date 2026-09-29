@@ -43,6 +43,19 @@ import IconServiciu from '~/components/IconServiciu.astro';
         ))
       }
     </ul>
+
+    {/* Singura usa catre portofoliu de pe prima pagina. Galeria nu mai sta
+        aici, dar cineva care tocmai a citit ce executam vrea sa si vada. */}
+    <a href="/lucrari" class="spre-lucrari apare i1">
+      <span class="spre-lucrari__text">
+        <span class="eticheta eticheta--simplu">Portofoliu</span>
+        <span class="spre-lucrari__titlu">Vezi lucrările executate</span>
+      </span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
   </div>
 </section>
 
@@ -133,5 +146,51 @@ import IconServiciu from '~/components/IconServiciu.astro';
     font-weight: 300;
     line-height: 1.75;
     color: var(--ink-2);
+  }
+
+  /* ---- Legătura către portofoliu ---- */
+  .spre-lucrari {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding: 1.5rem 1.75rem;
+    background: var(--stone-2);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    transition: var(--tr);
+  }
+
+  .spre-lucrari:hover {
+    background: var(--indigo);
+    border-color: var(--indigo);
+    color: var(--stone-2);
+  }
+
+  .spre-lucrari__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .spre-lucrari__titlu {
+    font-family: var(--f-display);
+    font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
+  .spre-lucrari:hover :global(.eticheta) {
+    color: rgba(249, 248, 246, 0.8);
+  }
+
+  .spre-lucrari svg {
+    flex-shrink: 0;
+    transition: transform var(--tr);
+  }
+
+  .spre-lucrari:hover svg {
+    transform: translateX(5px);
   }
 </style>

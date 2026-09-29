@@ -1,0 +1,260 @@
+---
+/**
+ * Pagina de portofoliu, separata de prima pagina.
+ *
+ * Lucrarile sunt grupate pe categorii, fiecare intr-un meniu in cascada care
+ * se deschide la click. Folosim <details>/<summary> native, nu un accordion
+ * facut cu JavaScript: merg la tastatura si cu cititor de ecran din start,
+ * functioneaza si daca scriptul nu se incarca, iar Ctrl+F al browserului
+ * gaseste text si in sectiunile inchise.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { Picture } from 'astro:assets';
+import { LUCRARI, CATEGORII } from '~/data/lucrari';
+import { WHATSAPP_URL } from '~/data/firma';
+
+// Grupez lucrarile pe categorii, sarind peste pseudo-categoria "toate".
+const grupuri = CATEGORII.filter((c) => c.id !== 'toate').map((c) => ({
+  ...c,
+  lucrari: LUCRARI.filter((l) => l.categorie === c.id),
+}));
+---
+
+<BaseLayout
+  titlu="Lucrări executate — CASARTFIN CONSTRUCT, Râmnicu Vâlcea"
+  descriere="Portofoliu de lucrări executate de CASARTFIN: gips-carton, compartimentări, tavane false, tencuieli decorative și finisaje în spații comerciale, industriale și rezidențiale din Râmnicu Vâlcea."
+  cale="/lucrari"
+>
+  <section class="portofoliu">
+    <div class="container">
+      <header class="portofoliu__antet">
+        <p class="eticheta">Portofoliu</p>
+        <h1>Lucrări executate</h1>
+        <p class="subtitlu">
+          Fotografii din șantierele noastre — de la structura metalică și izolație, până la
+          finisajul predat. Fără randări, fără poze de catalog.
+        </p>
+
+        <p class="portofoliu__numar mono">
+          {LUCRARI.length} lucrări · {grupuri.length} categorii
+        </p>
+      </header>
+
+      <div class="cascada">
+        {
+          grupuri.map((g, i) => (
+            <details class="cascada__grup" open={i === 0}>
+              <summary class="cascada__cap">
+                <span class="cascada__indice mono">{String(i + 1).padStart(2, '0')}</span>
+                <span class="cascada__nume">{g.eticheta}</span>
+                <span class="cascada__count mono">{g.lucrari.length}</span>
+                <svg
+                  class="cascada__sageata"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </summary>
+
+              <ul class="cascada__grila">
+                {g.lucrari.map((l) => (
+                  <li>
+                    <figure class="lucrare">
+                      <Picture
+                        src={l.src}
+                        alt={l.alt}
+                        formats={['avif', 'webp']}
+                        widths={[320, 520, 760]}
+                        sizes="(max-width: 640px) 92vw, (max-width: 1080px) 46vw, 31vw"
+                        loading="lazy"
+                        class="lucrare__imagine"
+                      />
+                    </figure>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ))
+        }
+      </div>
+
+      <div class="portofoliu__final">
+        <div class="cota" aria-hidden="true"><span class="cota__linie"></span></div>
+        <h2>Ai un proiect asemănător?</h2>
+        <p class="subtitlu">
+          Trimite-ne planul sau doar câteva poze cu spațiul. Îți răspundem cu o estimare în
+          cel mult 24 de ore.
+        </p>
+        <div class="portofoliu__actiuni">
+          <a href="/#calculator" class="btn btn--primar">Cere o ofertă gratuită</a>
+          <a href={WHATSAPP_URL} class="btn btn--whatsapp" target="_blank" rel="noopener">
+            Scrie pe WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .portofoliu {
+    padding: calc(76px + clamp(2.5rem, 6vw, 4.5rem)) var(--sp-gut) clamp(4rem, 8vw, 6rem);
+    background: var(--stone);
+  }
+
+  /* ---- Antet ---- */
+  .portofoliu__antet {
+    max-width: 640px;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .portofoliu__antet h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    margin: 1rem 0 1.1rem;
+  }
+
+  .portofoliu__numar {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ---- Cascada ---- */
+  .cascada {
+    border-top: 1px solid var(--line);
+  }
+
+  .cascada__grup {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cascada__cap {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* tinta de atingere generoasa pe mobil */
+    padding: 1.35rem 0;
+    cursor: pointer;
+    list-style: none;
+    transition: color var(--tr);
+  }
+
+  /* ascunde triunghiul implicit al <summary> */
+  .cascada__cap::-webkit-details-marker {
+    display: none;
+  }
+
+  .cascada__cap:hover {
+    color: var(--indigo);
+  }
+
+  .cascada__cap:focus-visible {
+    outline: 2px solid var(--indigo);
+    outline-offset: 3px;
+  }
+
+  .cascada__indice {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    color: var(--terra-text);
+    flex-shrink: 0;
+  }
+
+  .cascada__nume {
+    flex-grow: 1;
+    font-family: var(--f-display);
+    font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .cascada__cap:hover .cascada__nume {
+    color: var(--indigo);
+  }
+
+  .cascada__count {
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    flex-shrink: 0;
+  }
+
+  .cascada__sageata {
+    flex-shrink: 0;
+    color: var(--indigo);
+    transition: transform var(--tr);
+  }
+
+  .cascada__grup[open] .cascada__sageata {
+    transform: rotate(180deg);
+  }
+
+  /* ---- Grila de poze ---- */
+  .cascada__grila {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  .lucrare {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--stone-3);
+  }
+
+  .lucrare__imagine {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .lucrare:hover .lucrare__imagine {
+    transform: scale(1.035);
+  }
+
+  /* ---- Final ---- */
+  .portofoliu__final {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    max-width: 560px;
+  }
+
+  .portofoliu__final .cota {
+    max-width: 240px;
+    margin-bottom: 1.5rem;
+  }
+
+  .portofoliu__final h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 0.9rem;
+  }
+
+  .portofoliu__actiuni {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  @media (max-width: 520px) {
+    .portofoliu__actiuni .btn {
+      width: 100%;
+    }
+  }
+</style>
