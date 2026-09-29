@@ -9,9 +9,20 @@
  *   EMAIL_CATRE      unde ajung solicitarile   (implicit casartfin@gmail.com)
  *   EMAIL_DE_LA      expeditorul verificat     (implicit onboarding@resend.dev)
  *
- * Pana cand domeniul e cumparat si verificat in Resend, EMAIL_DE_LA ramane
- * onboarding@resend.dev — merge, dar emailurile pot ajunge in Spam. Dupa ce
- * exista domeniul, se schimba in ceva de tipul oferte@casartfin.ro.
+ * ATENTIE, restrictie importanta la configurare: cat timp casartfin.ro nu e
+ * cumparat si verificat in Resend, expeditorul ramane onboarding@resend.dev.
+ * Pe domeniul partajat resend.dev, Resend accepta UN SINGUR destinatar —
+ * adresa cu care a fost inregistrat contul Resend. Orice alta adresa primeste
+ * 403, handler-ul intoarce 502 si TOATE cele trei formulare afiseaza eroare,
+ * deci niciun lead nu ajunge la client. Nu e o chestiune de folder Spam, e
+ * refuz direct.
+ *
+ * Practic: pana la domeniu verificat, contul Resend trebuie creat exact pe
+ * adresa din EMAIL_CATRE (casartfin@gmail.com). Dupa verificarea domeniului,
+ * EMAIL_DE_LA devine ceva de tipul oferte@casartfin.ro si restrictia dispare.
+ *
+ * Doar RESEND_API_KEY lipsa da 500. EMAIL_CATRE si EMAIL_DE_LA cad tacut pe
+ * valorile implicite de mai jos.
  */
 
 export const config = { runtime: 'edge' };

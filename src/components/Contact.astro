@@ -58,7 +58,8 @@ const hartaSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
       </div>
 
       <div class="contact__formular apare i2">
-        <form id="form-contact" novalidate>
+        {/* vezi nota despre method="post" din Calculator.astro */}
+        <form id="form-contact" method="post" novalidate>
           <div class="camp-randuri">
             <div class="camp">
               <label for="ct-nume">Nume *</label>

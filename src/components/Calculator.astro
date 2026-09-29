@@ -21,7 +21,10 @@ import { FIRMA } from '~/data/firma';
           după evaluarea proiectului.
         </p>
 
-        <form id="form-oferta" novalidate>
+        {/* method="post" conteaza doar daca JS nu ruleaza: fara el, submit-ul
+            nativ ar fi un GET si numele, telefonul si emailul ar ajunge in
+            bara de adresa, in istoricul browserului si in log-urile Vercel. */}
+        <form id="form-oferta" method="post" novalidate>
           <div class="camp">
             <label for="of-serviciu">Tip serviciu *</label>
             <select id="of-serviciu" name="serviciu" required>

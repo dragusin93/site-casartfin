@@ -129,8 +129,17 @@ utilizatorul trebuie să vadă eroarea și numărul de telefon.
       `PUBLIC_SITE_URL=https://casartfin.ro` în variabilele Vercel și
       redeployează — canonical, sitemap, robots.txt și Open Graph îl preiau
       singure. Nu mai există niciun domeniu scris de mână în cod.
-- [ ] **Variabile de mediu pe Vercel**: `RESEND_API_KEY`, `EMAIL_CATRE`,
-      `EMAIL_DE_LA`. Fără ele formularele întorc 500.
+- [ ] **`RESEND_API_KEY` pe Vercel** — fără ea `/api/contact` întoarce 500 și
+      niciun formular nu trimite. `EMAIL_CATRE` și `EMAIL_DE_LA` sunt
+      opționale; fără ele se folosesc valorile implicite din `api/contact.ts`.
+
+      **Capcană:** până când `casartfin.ro` e cumpărat și verificat în Resend,
+      expeditorul e `onboarding@resend.dev`. Pe acel domeniu partajat, Resend
+      trimite **doar către adresa cu care a fost creat contul** — orice alt
+      destinatar primește 403 și formularele afișează eroare. Deci contul
+      Resend trebuie creat exact pe `casartfin@gmail.com`. Test după
+      configurare: trimite o solicitare reală și caută în Vercel → Logs linia
+      `[contact] Resend a raspuns`.
 - [x] ~~`public/og-casartfin.jpg`~~ — generată. Se regenerează cu `npm run og`
       (vezi `scripts/genereaza-og.mjs`) dacă se schimbă sloganul sau poza.
 - [ ] **Coordonatele geo** din `firma.ts` sunt aproximative pentru Rm. Vâlcea;

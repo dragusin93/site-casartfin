@@ -55,7 +55,8 @@ const INTERESE = [
         Discuție confidențială în maximum 24 de ore. Prezentăm cifrele reale, nu promisiuni.
       </p>
 
-      <form id="form-investitori" novalidate>
+      {/* vezi nota despre method="post" din Calculator.astro */}
+      <form id="form-investitori" method="post" novalidate>
         <div class="camp">
           <label for="inv-interes">Ce te interesează? *</label>
           <select id="inv-interes" name="interes" required>
