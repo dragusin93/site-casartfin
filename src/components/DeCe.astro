@@ -40,13 +40,27 @@ import IconServiciu from '~/components/IconServiciu.astro';
     margin-top: 1rem;
   }
 
+  /* Exact 3 coloane, ca cele 6 motive sa iasa 3 sus si 3 jos.
+     Cu `auto-fit` incapeau 4 pe ecran lat si ramanea o celula goala. */
   .dece__grila {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1px;
     background: var(--line);
     border: 1px solid var(--line);
+  }
+
+  @media (max-width: 980px) {
+    .dece__grila {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .dece__grila {
+      grid-template-columns: 1fr;
+    }
   }
 
   .motiv {

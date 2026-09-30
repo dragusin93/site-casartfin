@@ -1,0 +1,436 @@
+---
+/**
+ * Caruselul din hero: ruleaza lucrarile, cu eticheta care se schimba odata cu
+ * fotografia.
+ *
+ * Decizii care conteaza:
+ *
+ * ACCESIBILITATE. Un carusel care se roteste singur mai mult de 5 secunde
+ * trebuie sa poata fi oprit (WCAG 2.2.2) — de aceea butonul de pauza NU e
+ * optional. In plus se opreste la hover si cand primeste focus de la tastatura,
+ * iar la `prefers-reduced-motion` nu porneste deloc: omul navigheaza manual.
+ *
+ * PERFORMANTA. Toate slide-urile sunt in DOM, dar doar prima imagine e
+ * `eager` + `fetchpriority="high"` — ea e LCP-ul paginii. Restul sunt `lazy`
+ * cu prioritate joasa, ca sa nu concureze cu ea la incarcare.
+ *
+ * FARA SALT DE LAYOUT. Cadrul are aspect-ratio fix, deci inaltimea nu se
+ * schimba intre fotografii cu proportii diferite.
+ */
+import { Picture } from 'astro:assets';
+import { LUCRARI_HERO } from '~/data/lucrari';
+
+const INTERVAL_MS = 5000;
+const total = LUCRARI_HERO.length;
+---
+
+<figure
+  class="carusel"
+  aria-roledescription="carusel"
+  aria-label="Lucrări executate de CASARTFIN"
+  data-interval={INTERVAL_MS}
+>
+  <div class="carusel__cadru">
+    <ul class="carusel__piste" id="carusel-piste">
+      {
+        LUCRARI_HERO.map((l, i) => (
+          <li
+            class="carusel__slide"
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${i + 1} din ${total}: ${l.titlu}`}
+            aria-hidden={i === 0 ? 'false' : 'true'}
+            data-activ={i === 0 ? 'true' : 'false'}
+            data-titlu={l.titlu}
+          >
+            <Picture
+              src={l.src}
+              alt={l.alt}
+              formats={['avif', 'webp']}
+              widths={[480, 760, 1100]}
+              sizes="(max-width: 980px) 92vw, 520px"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={i === 0 ? 'high' : 'low'}
+              class="carusel__imagine"
+            />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="carusel__progres" aria-hidden="true">
+      <span class="carusel__progres-bara" id="carusel-bara"></span>
+    </div>
+  </div>
+
+  <figcaption class="carusel__bara">
+    <span class="carusel__titlu mono" id="carusel-titlu">{LUCRARI_HERO[0].titlu}</span>
+
+    <div class="carusel__control">
+      <button type="button" class="carusel__buton" id="carusel-inapoi">
+        <span class="doar-citire">Lucrarea anterioară</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <span class="carusel__contor mono" id="carusel-contor">01 / {String(total).padStart(2, '0')}</span>
+
+      <button type="button" class="carusel__buton" id="carusel-inainte">
+        <span class="doar-citire">Lucrarea următoare</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      <button type="button" class="carusel__buton carusel__buton--pauza" id="carusel-pauza" aria-pressed="false">
+        <span class="doar-citire" id="carusel-pauza-text">Oprește derularea automată</span>
+        <svg class="carusel__icon-pauza" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+          <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+        </svg>
+        <svg class="carusel__icon-play" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5l11 7-11 7z"></path>
+        </svg>
+      </button>
+    </div>
+  </figcaption>
+</figure>
+
+<script>
+  const carusel = document.querySelector<HTMLElement>('.carusel');
+  const piste = document.getElementById('carusel-piste');
+
+  if (carusel && piste) {
+    const slides = Array.from(piste.querySelectorAll<HTMLLIElement>('.carusel__slide'));
+    const elTitlu = document.getElementById('carusel-titlu');
+    const elContor = document.getElementById('carusel-contor');
+    const elBara = document.getElementById('carusel-bara');
+    const btnInapoi = document.getElementById('carusel-inapoi');
+    const btnInainte = document.getElementById('carusel-inainte');
+    const btnPauza = document.getElementById('carusel-pauza');
+    const txtPauza = document.getElementById('carusel-pauza-text');
+
+    const interval = Number(carusel.dataset.interval ?? 5000);
+    const total = slides.length;
+
+    // Cine a cerut mai putina miscare nu primeste derulare automata deloc.
+    const faraMiscare = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let curent = 0;
+    let cronometru: number | undefined;
+    let opritDeUtilizator = faraMiscare.matches;
+    let suspendat = false; // hover sau focus
+
+    function arata(index: number) {
+      curent = (index + total) % total;
+
+      slides.forEach((s, i) => {
+        const activ = i === curent;
+        s.dataset.activ = String(activ);
+        s.setAttribute('aria-hidden', String(!activ));
+      });
+
+      const titlu = slides[curent].dataset.titlu ?? '';
+      if (elTitlu) elTitlu.textContent = titlu;
+      if (elContor) {
+        elContor.textContent = `${String(curent + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+      }
+
+      reporneșteBara();
+    }
+
+    // Bara de progres se reia de la zero la fiecare schimbare.
+    function reporneșteBara() {
+      if (!elBara) return;
+      elBara.style.animation = 'none';
+      // fortez recalcularea, altfel browserul nu reia animatia
+      void elBara.offsetWidth;
+      elBara.style.animation = ruleaza() ? `carusel-progres ${interval}ms linear` : 'none';
+    }
+
+    function ruleaza() {
+      return !opritDeUtilizator && !suspendat;
+    }
+
+    function porneste() {
+      opreste();
+      if (!ruleaza()) return;
+      cronometru = window.setInterval(() => arata(curent + 1), interval);
+    }
+
+    function opreste() {
+      if (cronometru !== undefined) {
+        clearInterval(cronometru);
+        cronometru = undefined;
+      }
+    }
+
+    function actualizeazaButonul() {
+      if (!btnPauza || !txtPauza) return;
+      btnPauza.setAttribute('aria-pressed', String(opritDeUtilizator));
+      txtPauza.textContent = opritDeUtilizator
+        ? 'Pornește derularea automată'
+        : 'Oprește derularea automată';
+      // Cand nu se roteste singur, cititoarele de ecran pot anunta schimbarea.
+      piste.setAttribute('aria-live', opritDeUtilizator ? 'polite' : 'off');
+    }
+
+    // ---- Comenzi ----
+    btnInainte?.addEventListener('click', () => {
+      arata(curent + 1);
+      porneste();
+    });
+
+    btnInapoi?.addEventListener('click', () => {
+      arata(curent - 1);
+      porneste();
+    });
+
+    btnPauza?.addEventListener('click', () => {
+      opritDeUtilizator = !opritDeUtilizator;
+      actualizeazaButonul();
+      if (opritDeUtilizator) {
+        opreste();
+        reporneșteBara();
+      } else {
+        porneste();
+        reporneșteBara();
+      }
+    });
+
+    // ---- Suspendare la hover si la focus ----
+    function suspenda() {
+      suspendat = true;
+      opreste();
+      if (elBara) elBara.style.animationPlayState = 'paused';
+    }
+
+    function reia() {
+      suspendat = false;
+      if (elBara) elBara.style.animationPlayState = 'running';
+      porneste();
+    }
+
+    carusel.addEventListener('mouseenter', suspenda);
+    carusel.addEventListener('mouseleave', reia);
+    carusel.addEventListener('focusin', suspenda);
+    carusel.addEventListener('focusout', (e) => {
+      if (!carusel.contains(e.relatedTarget as Node)) reia();
+    });
+
+    // Nu consuma resurse cand pagina nu se vede.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) opreste();
+      else porneste();
+    });
+
+    // Nici cand hero-ul a iesit din ecran.
+    new IntersectionObserver(
+      ([intrare]) => (intrare.isIntersecting ? reia() : suspenda()),
+      { threshold: 0 },
+    ).observe(carusel);
+
+    // ---- Sageti de la tastatura, cand caruselul are focus ----
+    carusel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        arata(curent + 1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        arata(curent - 1);
+      }
+    });
+
+    // ---- Glisare cu degetul ----
+    let xStart: number | null = null;
+    carusel.addEventListener(
+      'touchstart',
+      (e) => (xStart = e.changedTouches[0].clientX),
+      { passive: true },
+    );
+    carusel.addEventListener(
+      'touchend',
+      (e) => {
+        if (xStart === null) return;
+        const dx = e.changedTouches[0].clientX - xStart;
+        if (Math.abs(dx) > 45) arata(curent + (dx < 0 ? 1 : -1));
+        xStart = null;
+      },
+      { passive: true },
+    );
+
+    faraMiscare.addEventListener('change', (e) => {
+      opritDeUtilizator = e.matches;
+      actualizeazaButonul();
+      e.matches ? opreste() : porneste();
+      reporneșteBara();
+    });
+
+    actualizeazaButonul();
+    arata(0);
+    porneste();
+  }
+</script>
+
+<style>
+  .carusel {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    border: 1px solid var(--line);
+    background: var(--stone-2);
+    padding: 10px;
+  }
+
+  /* Aspect fix: inaltimea nu sare intre fotografii cu proportii diferite. */
+  .carusel__cadru {
+    position: relative;
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+    background: var(--stone-3);
+  }
+
+  .carusel__piste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .carusel__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.75s ease;
+    pointer-events: none;
+  }
+
+  .carusel__slide[data-activ='true'] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .carusel__imagine {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---- Bara de progres ---- */
+  .carusel__progres {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: rgba(25, 27, 33, 0.14);
+  }
+
+  .carusel__progres-bara {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--terra);
+  }
+
+  @keyframes carusel-progres {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  /* ---- Bara de sub fotografie ---- */
+  .carusel__bara {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 9px;
+  }
+
+  .carusel__titlu {
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terra-text);
+    /* latime stabila, ca butoanele sa nu danseze cand se schimba textul */
+    flex-grow: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .carusel__control {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .carusel__buton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* 32px vizual, dar zona de atingere reala e 44px prin ::before */
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: var(--ink-3);
+    cursor: pointer;
+    position: relative;
+    transition: color var(--tr);
+  }
+
+  .carusel__buton::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+  }
+
+  .carusel__buton:hover {
+    color: var(--indigo);
+  }
+
+  .carusel__buton:focus-visible {
+    outline: 2px solid var(--indigo);
+    outline-offset: 1px;
+  }
+
+  .carusel__contor {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    min-width: 4.4em;
+    text-align: center;
+  }
+
+  /* Butonul de pauza isi schimba iconul dupa stare. */
+  .carusel__buton--pauza .carusel__icon-play {
+    display: none;
+  }
+
+  .carusel__buton--pauza[aria-pressed='true'] .carusel__icon-pauza {
+    display: none;
+  }
+
+  .carusel__buton--pauza[aria-pressed='true'] .carusel__icon-play {
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carusel__slide {
+      transition: none;
+    }
+
+    .carusel__progres {
+      display: none;
+    }
+  }
+</style>

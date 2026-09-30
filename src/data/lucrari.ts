@@ -35,6 +35,8 @@ export type CategorieLucrare = 'hale' | 'comercial' | 'birouri' | 'structuri' | 
 
 export interface Lucrare {
   src: ImageMetadata;
+  /** Eticheta scurta afisata sub fotografie in caruselul din hero. */
+  titlu: string;
   alt: string;
   categorie: CategorieLucrare;
   /** Apare in selectia de proiecte industriale de pe prima pagina. */
@@ -45,24 +47,28 @@ export const LUCRARI: Lucrare[] = [
   // ---- Hale si spatii industriale ----
   {
     src: santierHala,
+    titlu: 'Hală comercială',
     alt: 'Șantier de compartimentare într-o hală comercială, cu plăci de gips carton pregătite pentru montaj și tavan tehnic aparent',
     categorie: 'hale',
     industrial: true,
   },
   {
     src: spatiuIndustrial,
+    titlu: 'Spațiu industrial',
     alt: 'Spațiu industrial finisat, cu pereți din gips carton vopsiți și instalații termice montate',
     categorie: 'hale',
     industrial: true,
   },
   {
     src: placareInaltime,
+    titlu: 'Placare la înălțime',
     alt: 'Placare cu gips carton pe perete de înălțime mare, executată cu schelă în hală industrială',
     categorie: 'hale',
     industrial: true,
   },
   {
     src: spatiuComercialPereti,
+    titlu: 'Pereți hală',
     alt: 'Hală comercială cu pereți din gips carton gletuiți și vopsiți, sub tavan tehnic metalic aparent',
     categorie: 'hale',
     industrial: true,
@@ -71,16 +77,19 @@ export const LUCRARI: Lucrare[] = [
   // ---- Spatii comerciale ----
   {
     src: spatiuComercialFinisat,
+    titlu: 'Spațiu comercial',
     alt: 'Spațiu comercial finalizat, cu pereți din gips carton finisați și tavan tehnic cu spoturi încastrate',
     categorie: 'comercial',
   },
   {
     src: amenajareHoreca,
+    titlu: 'Amenajare HoReCa',
     alt: 'Amenajare interioară HoReCa cu tencuială decorativă, tavan din lambriu și iluminat ambiental pe arcade',
     categorie: 'comercial',
   },
   {
     src: tencuialaDecorativa,
+    titlu: 'Tencuială decorativă',
     alt: 'Perete cu tencuială decorativă texturată și inel luminos LED, lângă placare din lemn',
     categorie: 'comercial',
   },
@@ -88,17 +97,20 @@ export const LUCRARI: Lucrare[] = [
   // ---- Birouri si compartimentari ----
   {
     src: compartimentariBirouri,
+    titlu: 'Birouri în hală',
     alt: 'Compartimentări de birouri din gips carton, cu structură metalică și goluri de uși trasate',
     categorie: 'birouri',
     industrial: true,
   },
   {
     src: compartimentareExecutie,
+    titlu: 'Compartimentare',
     alt: 'Perete din gips carton în curs de execuție, cu profile metalice verticale și placare parțială',
     categorie: 'birouri',
   },
   {
     src: compartimentareFonica,
+    titlu: 'Izolație fonică',
     alt: 'Coridor cu pereți dubli din gips carton și izolație fonică din vată minerală vizibilă',
     categorie: 'birouri',
   },
@@ -106,17 +118,20 @@ export const LUCRARI: Lucrare[] = [
   // ---- Structuri si izolatii ----
   {
     src: izolatieVata,
+    titlu: 'Izolație tubulatură',
     alt: 'Izolație din vată minerală montată între profile metalice, în jurul tubulaturii de ventilație',
     categorie: 'structuri',
     industrial: true,
   },
   {
     src: structuraTubulatura,
+    titlu: 'Structură și tubulatură',
     alt: 'Structură metalică placată cu gips carton, cu tubulatura de ventilație integrată',
     categorie: 'structuri',
   },
   {
     src: gletuirePereti,
+    titlu: 'Gletuire pereți',
     alt: 'Pereți din gips carton rezistent la umezeală, în faza de gletuire și pregătire a suprafeței',
     categorie: 'structuri',
   },
@@ -124,16 +139,19 @@ export const LUCRARI: Lucrare[] = [
   // ---- Finisaje rezidentiale ----
   {
     src: structuriSanitare,
+    titlu: 'Structuri sanitare',
     alt: 'Structuri din gips carton pentru grup sanitar, cu rezervoare WC încastrate în perete',
     categorie: 'rezidential',
   },
   {
     src: instalatiiSanitare,
+    titlu: 'Instalații sanitare',
     alt: 'Grup sanitar în execuție, cu instalații și rezervoare încastrate în structura de gips carton',
     categorie: 'rezidential',
   },
   {
     src: grupSanitar,
+    titlu: 'Grup sanitar',
     alt: 'Grup sanitar finalizat, cu pereți din gips carton finisați și vopsiți și vas WC suspendat',
     categorie: 'rezidential',
   },
@@ -167,5 +185,14 @@ export const CATEGORII: { id: CategorieLucrare; eticheta: string; descriere: str
   },
 ];
 
-/** Selectia care apare pe prima pagina. */
+/** Selectia de proiecte de pe prima pagina. */
 export const LUCRARI_INDUSTRIALE = LUCRARI.filter((l) => l.industrial);
+
+/**
+ * Setul care ruleaza in caruselul din hero.
+ *
+ * Exclude rezidentialul intentionat: pozitionarea firmei e pe hale si spatii
+ * industriale, iar grupurile sanitare din hero ar contrazice exact mesajul.
+ * Ca sa apara si ele, scoate filtrul de mai jos.
+ */
+export const LUCRARI_HERO = LUCRARI.filter((l) => l.categorie !== 'rezidential');

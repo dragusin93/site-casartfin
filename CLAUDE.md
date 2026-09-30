@@ -131,6 +131,22 @@ browserului găsește text și în secțiunile închise. Prima categorie e desch
 ca pagina să nu pară goală. Pe prima pagină rămâne un singur link către ea, la
 finalul secțiunii Servicii — nu readuce galeria pe landing.
 
+**Grilele care își desenează liniile din `gap: 1px` peste un fundal colorat
+(`Servicii`, `DeCe`) NU pot folosi `auto-fit`.** Când numărul de coloane nu
+împarte exact numărul de elemente, celula goală rămasă se vede ca un bloc gri.
+La ele numărul de coloane e fixat explicit, cu praguri la 980px și 560px.
+Grilele cu spațiere normală pot folosi `auto-fit` liniștit — acolo un rând
+incomplet nu se observă.
+
+**Caruselul din hero** (`CaruselHero.astro`) rulează lucrările la 5 secunde.
+Butonul de pauză nu e decorativ: WCAG 2.2.2 cere ca orice conținut care se
+schimbă singur mai mult de 5 secunde să poată fi oprit. Se oprește și la hover,
+la focus, când pagina e ascunsă și când hero-ul iese din ecran; la
+`prefers-reduced-motion` nu pornește deloc. Doar prima imagine e `eager` +
+`fetchpriority="high"` — ea e LCP-ul paginii; restul sunt `lazy` cu prioritate
+joasă, altfel cele 13 fotografii ar concura cu ea. Setul exclude rezidențialul
+(`LUCRARI_HERO`), ca hero-ul să nu contrazică poziționarea industrială.
+
 **Nu folosi listener pe `scroll` pentru layout.** Header-ul folosește
 `IntersectionObserver` pe o santinelă. Varianta veche recalcula poziția tuturor
 secțiunilor la fiecare pixel.

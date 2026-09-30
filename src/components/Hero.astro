@@ -6,10 +6,9 @@
  * textura discreta. Titlul poarta cuvintele dupa care se cauta efectiv:
  * "compartimentari", "hale", "spatii industriale".
  */
-import { Picture } from 'astro:assets';
 import IneleUnelte from '~/components/IneleUnelte.astro';
+import CaruselHero from '~/components/CaruselHero.astro';
 import { FIRMA } from '~/data/firma';
-import pozaHero from '~/assets/lucrari/santier-hala-comerciala-gips-carton.jpg';
 
 const DATE = [
   { valoare: '20+', eticheta: 'Ani de meserie' },
@@ -55,22 +54,7 @@ const DATE = [
     <div class="hero__vizual">
       <div class="hero__inele" aria-hidden="true"><IneleUnelte /></div>
 
-      <figure class="hero__foto">
-        <Picture
-          src={pozaHero}
-          alt="Compartimentare în execuție într-o hală comercială din Râmnicu Vâlcea, cu plăci de gips carton și tavan tehnic aparent"
-          formats={['avif', 'webp']}
-          widths={[480, 760, 1100]}
-          sizes="(max-width: 980px) 92vw, 520px"
-          loading="eager"
-          fetchpriority="high"
-          class="hero__imagine"
-        />
-        <figcaption class="hero__legenda mono">
-          <span>Hală comercială</span>
-          <span>Râmnicu Vâlcea</span>
-        </figcaption>
-      </figure>
+      <CaruselHero />
     </div>
   </div>
 
@@ -166,37 +150,6 @@ const DATE = [
     width: 118%;
     opacity: 0.5;
     pointer-events: none;
-  }
-
-  .hero__foto {
-    position: relative;
-    z-index: 1;
-    margin: 0;
-    border: 1px solid var(--line);
-    background: var(--stone-2);
-    padding: 10px;
-  }
-
-  .hero__imagine {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 5 / 4;
-    object-fit: cover;
-  }
-
-  .hero__legenda {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-top: 9px;
-    font-size: 0.58rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-  }
-
-  .hero__legenda span:first-child {
-    color: var(--terra-text);
   }
 
   /* ---- Banda de date ---- */

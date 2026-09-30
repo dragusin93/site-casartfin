@@ -55,14 +55,27 @@ import IconServiciu from '~/components/IconServiciu.astro';
     margin-top: 1rem;
   }
 
+  /* Exact 3 coloane: cele 6 servicii ies 3 sus si 3 jos. Liniile dintre
+     carduri se fac din gap + fundal, ca o grila tehnica. */
   .servicii__lista {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    /* liniile dintre carduri se fac din gap + fundal, ca o grila tehnica */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1px;
     background: var(--line);
     border: 1px solid var(--line);
+  }
+
+  @media (max-width: 980px) {
+    .servicii__lista {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .servicii__lista {
+      grid-template-columns: 1fr;
+    }
   }
 
   .serviciu {
