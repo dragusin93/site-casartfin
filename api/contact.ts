@@ -129,29 +129,112 @@ export default async function handler(cerere: Request): Promise<Response> {
   </div>
 </body></html>`;
 
-  try {
-    const raspunsResend = await fetch('https://api.resend.com/emails', {
+  /** Adresa clientului, daca a lasat una valida. */
+  const emailClient =
+    typeof date.email === 'string' && /^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(date.email.trim())
+      ? date.email.trim()
+      : null;
+
+  function trimite(corp: Record<string, unknown>) {
+    return fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${cheie}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: dela,
-        to: [catre],
-        subject: `[${sursa}] ${nume} · ${telefon}`,
-        html,
-        // Raspunsul direct din clientul de email merge la client, daca a lasat email.
-        ...(typeof date.email === 'string' && date.email.includes('@')
-          ? { reply_to: date.email.trim() }
-          : {}),
-      }),
+      headers: { Authorization: `Bearer ${cheie}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(corp),
+    });
+  }
+
+  try {
+    // ---- 1. Emailul catre firma. Asta e cel care conteaza. ----
+    const raspunsResend = await trimite({
+      from: dela,
+      to: [catre],
+      subject: `[${sursa}] ${nume} · ${telefon}`,
+      html,
+      // Raspunsul direct din clientul de email merge la client, daca a lasat email.
+      ...(emailClient ? { reply_to: emailClient } : {}),
     });
 
     if (!raspunsResend.ok) {
       const detaliu = await raspunsResend.text();
       console.error('[contact] Resend a raspuns', raspunsResend.status, detaliu);
       return raspunde({ eroare: 'Emailul nu a putut fi trimis.' }, 502);
+    }
+
+    // ---- 2. Confirmarea catre client. Optionala, nu blocheaza raspunsul. ----
+    //
+    // ATENTIE: cat timp expeditorul e onboarding@resend.dev, aceasta trimitere
+    // ESUEAZA intotdeauna cu 403 — pe domeniul partajat Resend livreaza doar
+    // catre adresa contului, iar aici destinatarul e clientul. E in regula:
+    // esecul e doar logat, iar confirmarile incep sa plece singure din clipa in
+    // care casartfin.ro e verificat in Resend si EMAIL_DE_LA devine
+    // oferte@casartfin.ro. Nu e nevoie de nicio modificare de cod atunci.
+    //
+    // Ii confirma omului ca solicitarea a ajuns si ii da datele de contact.
+    // Daca a gresit adresa, nu primeste nimic si isi da seama sa ne sune.
+    //
+    // DELIBERAT in afara verificarii de mai sus: daca aceasta a doua trimitere
+    // esueaza, utilizatorul tot vede "trimis cu succes", pentru ca solicitarea
+    // CHIAR a ajuns la firma. Ar fi gresit sa-i aratam eroare si sa trimita din
+    // nou, umpland casuta cu duplicate.
+    if (emailClient) {
+      try {
+        const confirmare = await trimite({
+          from: dela,
+          to: [emailClient],
+          reply_to: catre,
+          subject: 'Am primit solicitarea dumneavoastră — CASARTFIN CONSTRUCT',
+          html: `<!doctype html>
+<html lang="ro"><body style="margin:0;padding:28px;background:#f2f1ee">
+  <div style="max-width:560px;margin:0 auto;background:#f9f8f6;border:1px solid rgba(25,27,33,.12);padding:32px">
+    <p style="margin:0 0 8px;font:500 11px/1.4 monospace;letter-spacing:.2em;text-transform:uppercase;color:#26355c">CASARTFIN CONSTRUCT</p>
+    <h1 style="margin:0 0 18px;font:500 24px/1.25 Georgia,serif;color:#191b21">Am primit solicitarea dumneavoastră</h1>
+
+    <p style="margin:0 0 16px;font:300 15px/1.75 system-ui,sans-serif;color:#4c505a">
+      Bună ziua${nume ? ', ' + escapeHtml(nume) : ''},
+    </p>
+    <p style="margin:0 0 16px;font:300 15px/1.75 system-ui,sans-serif;color:#4c505a">
+      Vă mulțumim că ne-ați scris. Solicitarea dumneavoastră a ajuns la noi și o analizăm.
+      Vă răspundem cu o estimare în cel mult <strong style="color:#191b21">24 de ore</strong>,
+      în zilele lucrătoare.
+    </p>
+    <p style="margin:0 0 24px;font:300 15px/1.75 system-ui,sans-serif;color:#4c505a">
+      Dacă între timp doriți să ne spuneți ceva sau aveți o întrebare, ne puteți suna direct —
+      de multe ori se lămurește mai repede la telefon.
+    </p>
+
+    <table style="width:100%;border-collapse:collapse;border-top:1px solid rgba(25,27,33,.12);border-bottom:1px solid rgba(25,27,33,.12)">
+      <tr>
+        <td style="padding:12px 14px 12px 0;color:#797e88;font:500 11px/1.4 monospace;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap">Telefon</td>
+        <td style="padding:12px 0;font:400 15px/1.5 system-ui,sans-serif"><a href="tel:+40754934154" style="color:#26355c;text-decoration:none">0754 934 154</a></td>
+      </tr>
+      <tr>
+        <td style="padding:12px 14px 12px 0;color:#797e88;font:500 11px/1.4 monospace;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap">WhatsApp</td>
+        <td style="padding:12px 0;font:400 15px/1.5 system-ui,sans-serif"><a href="https://wa.me/40754934154" style="color:#26355c;text-decoration:none">Scrieți-ne pe WhatsApp</a></td>
+      </tr>
+      <tr>
+        <td style="padding:12px 14px 12px 0;color:#797e88;font:500 11px/1.4 monospace;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap">Program</td>
+        <td style="padding:12px 0;font:400 15px/1.5 system-ui,sans-serif;color:#191b21">Luni–Vineri, 08:00–17:00</td>
+      </tr>
+    </table>
+
+    <p style="margin:22px 0 0;font:300 13px/1.7 system-ui,sans-serif;color:#797e88">
+      Acesta este un mesaj automat de confirmare. Nu trebuie să răspundeți la el —
+      dar dacă o faceți, ajunge la noi.
+    </p>
+    <p style="margin:16px 0 0;padding-top:14px;border-top:1px solid rgba(25,27,33,.12);font:400 11px/1.6 system-ui,sans-serif;color:#797e88">
+      CASARTFIN CONSTRUCT S.R.L. · Râmnicu Vâlcea, județul Vâlcea<br>
+      Compartimentări și finisaje pentru hale și spații industriale
+    </p>
+  </div>
+</body></html>`,
+        });
+
+        if (!confirmare.ok) {
+          console.error('[contact] Confirmarea catre client a esuat:', await confirmare.text());
+        }
+      } catch (err) {
+        console.error('[contact] Eroare la confirmarea catre client:', err);
+      }
     }
 
     return raspunde({ ok: true }, 200);
