@@ -4,24 +4,16 @@ import sitemap from '@astrojs/sitemap';
 
 /**
  * Adresa publica a site-ului. De ea depind canonical, sitemap.xml si tag-urile
- * Open Graph — acestea se coc in HTML la build, nu se ajusteaza dupa domeniul
- * de pe care e servita pagina.
+ * Open Graph — se coc in HTML la build, nu se ajusteaza dupa domeniul de pe
+ * care e servita pagina.
  *
- * Ordinea:
- *   1. PUBLIC_SITE_URL — de setat pe Vercel cand domeniul propriu e activ,
- *      ex. https://casartfin.ro
- *   2. domeniul de productie dat automat de Vercel (proiect.vercel.app)
- *   3. rezerva pentru build local
+ * Varianta FARA www e cea principala: e mai scurta de dictat la telefon si de
+ * scris pe o oferta. www.casartfin.ro redirectioneaza catre ea din Vercel.
  *
- * Atentie: casartfin.ro NU e inca inregistrat. Pana e cumparat si legat de
- * proiect, adresa trebuie sa ramana cea de vercel.app — altfel previzualizarea
- * link-ului pe WhatsApp cauta imaginea pe un domeniu inexistent si nu apare.
+ * PUBLIC_SITE_URL ramane disponibila ca suprascriere, daca domeniul se schimba
+ * vreodata — se seteaza in Vercel si are prioritate, fara modificari de cod.
  */
-const SITE =
-  process.env.PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : 'https://site-casartfin.vercel.app');
+const SITE = process.env.PUBLIC_SITE_URL || 'https://casartfin.ro';
 
 export default defineConfig({
   site: SITE,
