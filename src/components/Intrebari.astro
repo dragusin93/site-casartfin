@@ -1,0 +1,164 @@
+---
+/**
+ * Intrebari frecvente, in acordeon.
+ *
+ * <details>/<summary> native, din aceleasi motive ca la portofoliu: merg la
+ * tastatura si cu cititor de ecran fara JavaScript, iar Ctrl+F al browserului
+ * gaseste text si in raspunsurile inchise — ceea ce conteaza aici, pentru ca
+ * tot continutul e in HTML si pentru Google, nu doar pentru ochi.
+ *
+ * Datele structurate FAQPage sunt generate din ACEEASI sursa ca textul afisat.
+ * Daca ar fi doua liste separate, ar divergea, iar Google penalizeaza datele
+ * structurate care nu corespund continutului vizibil.
+ */
+import { INTREBARI } from '~/data/intrebari';
+
+const dateStructurate = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: INTREBARI.map((i) => ({
+    '@type': 'Question',
+    name: i.intrebare,
+    acceptedAnswer: { '@type': 'Answer', text: i.raspuns },
+  })),
+};
+---
+
+<section class="intrebari" id="intrebari">
+  <div class="container">
+    <div class="intrebari__antet">
+      <p class="eticheta">Întrebări frecvente</p>
+      <h2>Ce ne întreabă clienții<br />înainte să ne cheme</h2>
+    </div>
+
+    <div class="intrebari__lista">
+      {
+        INTREBARI.map((i, idx) => (
+          <details class="intrebare">
+            <summary class="intrebare__cap">
+              <span class="intrebare__indice mono">{String(idx + 1).padStart(2, '0')}</span>
+              <span class="intrebare__text">{i.intrebare}</span>
+              <svg
+                class="intrebare__semn"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <line class="intrebare__semn-vertical" x1="12" y1="5" x2="12" y2="19" />
+              </svg>
+            </summary>
+            <p class="intrebare__raspuns">{i.raspuns}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(dateStructurate)} is:inline />
+
+<style>
+  .intrebari {
+    padding: var(--sp-sec) var(--sp-gut);
+    background: var(--stone-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .intrebari__antet {
+    margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+
+  .intrebari__antet h2 {
+    margin-top: 1rem;
+  }
+
+  .intrebari__lista {
+    border-top: 1px solid var(--line);
+    max-width: 880px;
+  }
+
+  .intrebare {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .intrebare__cap {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    /* tinta de atingere generoasa pe mobil */
+    padding: 1.25rem 0;
+    cursor: pointer;
+    list-style: none;
+    transition: color var(--tr);
+  }
+
+  .intrebare__cap::-webkit-details-marker {
+    display: none;
+  }
+
+  .intrebare__cap:hover {
+    color: var(--indigo);
+  }
+
+  .intrebare__cap:focus-visible {
+    outline: 2px solid var(--indigo);
+    outline-offset: 3px;
+  }
+
+  .intrebare__indice {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    color: var(--terra-text);
+    flex-shrink: 0;
+  }
+
+  .intrebare__text {
+    flex-grow: 1;
+    font-family: var(--f-display);
+    font-size: clamp(1rem, 1.9vw, 1.2rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .intrebare__cap:hover .intrebare__text {
+    color: var(--indigo);
+  }
+
+  /* Semnul plus devine minus cand raspunsul e deschis. */
+  .intrebare__semn {
+    flex-shrink: 0;
+    color: var(--indigo);
+    align-self: center;
+  }
+
+  .intrebare__semn-vertical {
+    transition: opacity var(--tr);
+  }
+
+  .intrebare[open] .intrebare__semn-vertical {
+    opacity: 0;
+  }
+
+  .intrebare__raspuns {
+    max-width: 68ch;
+    margin: 0 0 1.5rem 2.6rem;
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 560px) {
+    .intrebare__raspuns {
+      margin-left: 0;
+    }
+  }
+</style>

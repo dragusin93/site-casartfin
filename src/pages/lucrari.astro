@@ -18,11 +18,24 @@ const grupuri = CATEGORII.map((c) => ({
   ...c,
   lucrari: LUCRARI.filter((l) => l.categorie === c.id),
 })).filter((g) => g.lucrari.length > 0);
+
+/**
+ * Firimituri de navigare. Google le foloseste ca sa afiseze
+ * "casartfin.ro › Proiecte" in rezultate, in loc de adresa bruta.
+ */
+const firimituri = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Acasă', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Proiecte', item: new URL('/lucrari', Astro.site).href },
+  ],
+};
 ---
 
 <BaseLayout
   titlu="Proiecte — compartimentări și finisaje hale | CASARTFIN"
-  descriere="Proiecte executate de CASARTFIN: compartimentări gips-carton în hale industriale, depozite și spații comerciale, tavane tehnice, izolații și finisaje complete în Râmnicu Vâlcea și județul Vâlcea."
+  descriere="Proiecte CASARTFIN: compartimentări gips-carton în hale, depozite și spații comerciale, tavane tehnice și finisaje, în Râmnicu Vâlcea și județul Vâlcea."
   cale="/lucrari"
 >
   <section class="portofoliu">
@@ -105,6 +118,7 @@ const grupuri = CATEGORII.map((c) => ({
       </div>
     </div>
   </section>
+  <script type="application/ld+json" set:html={JSON.stringify(firimituri)} is:inline />
 </BaseLayout>
 
 <style>

@@ -123,6 +123,17 @@ plafonezi luminozitatea, plus un voal în gradient peste. Contrastul se
 zona cu text — nu se estimează din ochi. La `Fonduri` valorile măsurate sunt
 7,43:1 (titlu) și 6,75:1 (listă), față de pragul de 4,5:1.
 
+**Întrebările frecvente alimentează și datele structurate.** `Intrebari.astro`
+generează `FAQPage` din ACEEAȘI listă pe care o și afișează
+(`src/data/intrebari.ts`). Nu face două liste separate: ar diverge, iar Google
+penalizează datele structurate care nu corespund textului vizibil. Răspunsurile
+trebuie să fie susținute în practica firmei — o promisiune pe care nu o poate
+onora face mai mult rău decât lipsa ei.
+
+**Limite pentru titluri și descrieri:** titlu ~60 de caractere, descriere ~155.
+Numără CARACTERE, nu octeți — diacriticele românești ocupă doi octeți fiecare,
+iar `wc -c` dă un rezultat fals de lung.
+
 **Portofoliul stă pe pagina lui, `/lucrari`, nu pe prima pagină.** Clientul a
 cerut explicit asta. Categoriile se deschid în cascadă cu `<details>`/`<summary>`
 native, nu cu un accordion scris în JavaScript: merg la tastatură și cu cititor
