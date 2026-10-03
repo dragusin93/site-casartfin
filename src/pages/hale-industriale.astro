@@ -1,0 +1,406 @@
+---
+/**
+ * Pagina directiei industriale.
+ *
+ * Aici se muta continutul tehnic care ingreuna prima pagina: nomenclatorul de
+ * servicii, etapele de executie, tipurile de clienti si partea de fonduri
+ * europene. Prima pagina ramane scurta si trimite aici.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { Picture } from 'astro:assets';
+import IconServiciu from '~/components/IconServiciu.astro';
+import LucramPentru from '~/components/LucramPentru.astro';
+import Fonduri from '~/components/Fonduri.astro';
+import CtaFinal from '~/components/CtaFinal.astro';
+import { SERVICII_PRINCIPALE } from '~/data/servicii';
+import { ETAPE_INDUSTRIAL } from '~/data/directii';
+import { LUCRARI } from '~/data/lucrari';
+
+const proiecte = LUCRARI.filter((l) => l.categorie === 'hale' || l.categorie === 'birouri');
+
+const firimituri = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Acasă', item: new URL('/', Astro.site).href },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Hale și spații industriale',
+      item: new URL('/hale-industriale', Astro.site).href,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  titlu="Compartimentări hale industriale Râmnicu Vâlcea | CASARTFIN"
+  descriere="Compartimentări gips-carton, izolații și finisaje în hale, depozite și spații comerciale. Lucru la înălțime până la 10 m, termen asumat contractual."
+  cale="/hale-industriale"
+>
+  <section class="cap">
+    <div class="container cap__grila">
+      <div>
+        <p class="eticheta">Direcția 01 · Industrial</p>
+        <h1>Compartimentări și finisaje<br />pentru hale</h1>
+        <div class="cota cap__cota" aria-hidden="true"><span class="cota__linie"></span></div>
+        <p class="cap__sub">
+          Hale de producție, depozite, spații comerciale și birouri amenajate în interiorul
+          halei. Suprafețe mari, lucru la înălțime, termene asumate în contract.
+        </p>
+        <div class="cap__actiuni">
+          <a href="/#calculator" class="btn btn--primar">Cere ofertă</a>
+          <a href="/lucrari" class="btn btn--contur">Vezi proiectele</a>
+        </div>
+      </div>
+
+      <ul class="cap__cifre">
+        <li><span>10 m</span><em class="mono">Înălțime de lucru</em></li>
+        <li><span>24h</span><em class="mono">Timp de răspuns</em></li>
+        <li><span>2 ani</span><em class="mono">Garanție scrisă</em></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sectiune servicii-ind">
+    <div class="container">
+      <div class="antet">
+        <p class="eticheta">Ce executăm</p>
+        <h2>Șase lucrări, de la structură<br />până la finisajul final</h2>
+      </div>
+
+      <ul class="lista-servicii">
+        {
+          SERVICII_PRINCIPALE.map((s, i) => (
+            <li>
+              <span class="numar mono">{String(i + 1).padStart(2, '0')}</span>
+              <span class="icon">
+                <IconServiciu nume={s.icon} size={22} />
+              </span>
+              <h3>{s.titlu}</h3>
+              <p>{s.descriere}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="sectiune etape">
+    <div class="container">
+      <div class="antet">
+        <p class="eticheta">Cum lucrăm</p>
+        <h2>Etapele unei lucrări</h2>
+      </div>
+
+      <ol class="lista-etape">
+        {
+          ETAPE_INDUSTRIAL.map((e, i) => (
+            <li>
+              <span class="etapa__numar mono">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{e.titlu}</h3>
+                <p>{e.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="sectiune proiecte-ind">
+    <div class="container">
+      <div class="antet antet--rand">
+        <div>
+          <p class="eticheta">Proiecte</p>
+          <h2>Lucrări executate în hale</h2>
+        </div>
+        <a href="/lucrari" class="legatura">
+          Portofoliul complet
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <ul class="grila-poze">
+        {
+          proiecte.map((l) => (
+            <li>
+              <Picture
+                src={l.src}
+                alt={l.alt}
+                formats={['avif', 'webp']}
+                widths={[320, 520, 760]}
+                sizes="(max-width: 640px) 92vw, (max-width: 1080px) 46vw, 31vw"
+                loading="lazy"
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <LucramPentru />
+  <Fonduri />
+  <CtaFinal />
+
+  <script type="application/ld+json" set:html={JSON.stringify(firimituri)} is:inline />
+</BaseLayout>
+
+<style>
+  /* ---- Cap de pagina ---- */
+  .cap {
+    padding: calc(76px + clamp(2.5rem, 6vw, 4.5rem)) var(--sp-gut) clamp(2.5rem, 5vw, 4rem);
+    background: var(--stone);
+  }
+
+  .cap__grila {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+  }
+
+  .cap h1 {
+    font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+    margin: 1rem 0 1.25rem;
+  }
+
+  .cap__cota {
+    max-width: 200px;
+  }
+
+  .cap__sub {
+    margin-top: 1.4rem;
+    max-width: 50ch;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--ink-2);
+  }
+
+  .cap__actiuni {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .cap__cifre {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+  }
+
+  .cap__cifre li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cap__cifre span {
+    font-family: var(--f-display);
+    font-size: 1.9rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .cap__cifre em {
+    font-style: normal;
+    font-size: 0.56rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ---- Antete comune ---- */
+  .antet {
+    margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+
+  .antet h2 {
+    margin-top: 1rem;
+  }
+
+  .antet--rand {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .legatura {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--line-indigo);
+    font-size: 0.88rem;
+    color: var(--indigo);
+    white-space: nowrap;
+  }
+
+  .legatura:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  /* ---- Servicii ---- */
+  .servicii-ind {
+    background: var(--stone-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .lista-servicii {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .lista-servicii li {
+    position: relative;
+    background: var(--stone-2);
+    padding: 1.9rem 1.7rem;
+  }
+
+  .numar {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.6rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    color: var(--terra-text);
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1.1rem;
+    border: 1px solid var(--line-indigo);
+    color: var(--indigo);
+  }
+
+  .lista-servicii h3 {
+    font-size: 1.08rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .lista-servicii p {
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--ink-2);
+  }
+
+  /* ---- Etape ---- */
+  .etape {
+    background: var(--stone);
+  }
+
+  .lista-etape {
+    list-style: none;
+    counter-reset: none;
+    border-top: 1px solid var(--line);
+    max-width: 920px;
+  }
+
+  .lista-etape li {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .etapa__numar {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    color: var(--terra-text);
+    padding-top: 4px;
+  }
+
+  .lista-etape h3 {
+    font-size: 1.06rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .lista-etape p {
+    font-size: 0.87rem;
+    font-weight: 300;
+    line-height: 1.72;
+    color: var(--ink-2);
+    max-width: 64ch;
+  }
+
+  /* ---- Proiecte ---- */
+  .proiecte-ind {
+    background: var(--stone-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .grila-poze {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .grila-poze li {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--stone-3);
+  }
+
+  .grila-poze :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .grila-poze li:hover :global(img) {
+    transform: scale(1.035);
+  }
+
+  /* ---- Adaptare ---- */
+  @media (max-width: 980px) {
+    .cap__grila {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .lista-servicii {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    .lista-servicii {
+      grid-template-columns: 1fr;
+    }
+
+    .lista-etape li {
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+    }
+
+    .cap__actiuni .btn {
+      width: 100%;
+    }
+  }
+</style>

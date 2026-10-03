@@ -1,21 +1,22 @@
 ---
 /**
- * Prima pagina. Structura urmeaza pozitionarea pe hale si spatii industriale:
- * hero -> ce executam -> dovada (proiecte) -> de ce noi -> pentru cine ->
- * oferta. Rezidentialul sta jos, ca sectiune secundara.
+ * Prima pagina — hub.
  *
- * Text putin, imagine multa. Nu readauga sectiuni doar ca sa umpli pagina.
+ * Tine pozitionarea industriala in hero, apoi bifurca imediat catre cele doua
+ * directii. Continutul tehnic (nomenclator de servicii, etape, tipuri de
+ * clienti, fonduri europene) sta pe /hale-industriale, iar partea de finisaje
+ * fine pe /finisaje-premium — ca pagina asta sa ramana scurta si sa se citeasca
+ * din derulare, nu din lectura.
+ *
+ * Nu readauga aici sectiuni mutate pe paginile de directie.
  */
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Hero from '~/components/Hero.astro';
-import Servicii from '~/components/Servicii.astro';
+import DouaDirectii from '~/components/DouaDirectii.astro';
 import ProiecteIndustriale from '~/components/ProiecteIndustriale.astro';
 import DeCe from '~/components/DeCe.astro';
-import LucramPentru from '~/components/LucramPentru.astro';
-import Fonduri from '~/components/Fonduri.astro';
 import Despre from '~/components/Despre.astro';
 import Calculator from '~/components/Calculator.astro';
-import Rezidential from '~/components/Rezidential.astro';
 import Intrebari from '~/components/Intrebari.astro';
 import CtaFinal from '~/components/CtaFinal.astro';
 import Contact from '~/components/Contact.astro';
@@ -27,14 +28,11 @@ import Contact from '~/components/Contact.astro';
   cale="/"
 >
   <Hero />
-  <Servicii />
+  <DouaDirectii />
   <ProiecteIndustriale />
   <DeCe />
-  <LucramPentru />
-  <Fonduri />
   <Despre />
   <Calculator />
-  <Rezidential />
   <Intrebari />
   <CtaFinal />
   <Contact />

@@ -1,0 +1,179 @@
+---
+/**
+ * Bifurcatia de pe prima pagina: doua carduri mari, fiecare o usa catre una
+ * dintre directiile firmei.
+ *
+ * Inlocuieste vechea banda de rezidential, care trata finisajele premium ca pe
+ * o nota de subsol. Sunt doua afaceri cu clienti diferiti; cine intra pe site
+ * trebuie sa-si gaseasca drumul din prima privire, nu dupa ce deruleaza tot.
+ *
+ * Industrialul ramane primul — aia e pozitionarea firmei.
+ */
+import { Picture } from 'astro:assets';
+import { DIRECTII } from '~/data/directii';
+---
+
+<section class="directii" id="directii">
+  <div class="container">
+    <div class="directii__antet">
+      <p class="eticheta">Ce facem</p>
+      <h2>Două direcții, aceeași echipă</h2>
+      <p class="subtitlu">
+        Lucrăm la scară industrială și la detaliu fin. Alege drumul care te privește.
+      </p>
+    </div>
+
+    <div class="directii__grila">
+      {
+        DIRECTII.map((d) => (
+          <a href={d.cale} class="directie">
+            <div class="directie__foto">
+              <Picture
+                src={d.poza}
+                alt={d.pozaAlt}
+                formats={['avif', 'webp']}
+                widths={[420, 720, 1100]}
+                sizes="(max-width: 860px) 92vw, 46vw"
+                loading="lazy"
+                class="directie__imagine"
+              />
+            </div>
+
+            <div class="directie__corp">
+              <p class="directie__eticheta mono">{d.eticheta}</p>
+              <h3>{d.titlu}</h3>
+              <p class="directie__text">{d.subtitlu}</p>
+
+              <p class="directie__pentru mono">{d.pentruCine}</p>
+
+              <span class="directie__actiune">
+                Vezi detalii
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .directii {
+    padding: var(--sp-sec) var(--sp-gut);
+    background: var(--stone);
+  }
+
+  .directii__antet {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .directii__antet h2 {
+    margin: 1rem 0 1rem;
+  }
+
+  .directii__grila {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+  }
+
+  .directie {
+    display: flex;
+    flex-direction: column;
+    background: var(--stone-2);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    transition: var(--tr);
+  }
+
+  .directie:hover {
+    border-color: var(--indigo);
+    color: var(--ink);
+  }
+
+  .directie__foto {
+    overflow: hidden;
+    background: var(--stone-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .directie__imagine {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .directie:hover .directie__imagine {
+    transform: scale(1.035);
+  }
+
+  .directie__corp {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .directie__eticheta {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terra-text);
+    margin-bottom: 0.9rem;
+  }
+
+  .directie h3 {
+    font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+    margin-bottom: 0.8rem;
+  }
+
+  .directie__text {
+    font-size: 0.89rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--ink-2);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Impinge randul de jos la baza, ca ambele carduri sa arate la fel
+     chiar daca textele au lungimi diferite. */
+  .directie__pentru {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .directie__actiune {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.1rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--indigo);
+  }
+
+  .directie__actiune svg {
+    transition: transform var(--tr);
+  }
+
+  .directie:hover .directie__actiune svg {
+    transform: translateX(5px);
+  }
+
+  @media (max-width: 860px) {
+    .directii__grila {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

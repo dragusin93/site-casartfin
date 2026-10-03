@@ -60,7 +60,12 @@ src/
 ├── components/    câte o componentă per secțiune
 ├── scripts/formular.ts    logica celor 3 formulare
 ├── styles/global.css      TOATE culorile și spațiile
-└── pages/         index, lucrari, politica-confidentialitate, termeni, 404
+└── pages/
+    ├── index.astro               hub scurt, bifurca spre cele doua directii
+    ├── hale-industriale.astro    DIRECTIA 01 — industrial
+    ├── finisaje-premium.astro    DIRECTIA 02 — interioare fine
+    ├── lucrari.astro             portofoliu, cascada pe categorii
+    ├── politica-confidentialitate.astro, termeni.astro, 404.astro
 api/contact.ts     funcție serverless Vercel → Resend
 public/            favicon, robots.txt, logo servit brut
 ```
@@ -133,6 +138,19 @@ onora face mai mult rău decât lipsa ei.
 **Limite pentru titluri și descrieri:** titlu ~60 de caractere, descriere ~155.
 Numără CARACTERE, nu octeți — diacriticele românești ocupă doi octeți fiecare,
 iar `wc -c` dă un rezultat fals de lung.
+
+**Firma are DOUĂ direcții, cu pagini separate și limbaj diferit.**
+`/hale-industriale` vorbește despre suprafețe, termene, grafic, facturare pe
+etape — pentru dezvoltatori și antreprenori generali. `/finisaje-premium`
+vorbește despre detaliu, material și cum arată la final — pentru beneficiari
+finali, arhitecți și HoReCa. **Nu recicla textele dintr-o parte în cealaltă**;
+sunt clienți diferiți care cumpără lucruri diferite. Conținutul lor stă în
+`src/data/directii.ts`.
+
+Prima pagină e un **hub scurt**: hero industrial, bifurcația către cele două
+direcții, dovadă, de ce noi, despre, ofertă, întrebări, contact. Conținutul
+tehnic greu a fost mutat pe paginile de direcție exact ca pagina asta să
+rămână scurtă — nu-l aduce înapoi.
 
 **Portofoliul stă pe pagina lui, `/lucrari`, nu pe prima pagină.** Clientul a
 cerut explicit asta. Categoriile se deschid în cascadă cu `<details>`/`<summary>`
