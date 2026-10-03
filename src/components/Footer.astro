@@ -31,8 +31,17 @@ const COLOANE = [
     linkuri: [
       { href: '/politica-confidentialitate', eticheta: 'Politica de confidențialitate' },
       { href: '/termeni', eticheta: 'Termeni și condiții' },
-      { href: 'https://anpc.ro/ce-este-sal/', eticheta: 'ANPC — SAL', extern: true },
-      { href: 'https://ec.europa.eu/consumers/odr', eticheta: 'ANPC — SOL', extern: true },
+      { href: 'https://anpc.ro/', eticheta: 'ANPC', extern: true },
+      { href: 'https://anpc.ro/sal', eticheta: 'ANPC — SAL', extern: true },
+      // Platforma europeana SOL (ODR) a fost inchisa pe 20 iulie 2025 prin
+      // Regulamentul UE 2024/3228. Linkul vechi (ec.europa.eu/consumers/odr)
+      // trimitea catre o pagina de relocare. Inlocuitorul oficial e portalul
+      // de mai jos; nu readauga vechiul link.
+      {
+        href: 'https://consumer-redress.ec.europa.eu/',
+        eticheta: 'Litigii transfrontaliere UE',
+        extern: true,
+      },
     ],
   },
 ];

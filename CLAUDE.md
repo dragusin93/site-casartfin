@@ -204,6 +204,14 @@ utilizatorul trebuie să vadă eroarea și numărul de telefon.
 - [ ] **Coordonatele geo** din `firma.ts` sunt aproximative pentru Rm. Vâlcea;
       de înlocuit cu cele exacte ale sediului
 - [ ] Paginile legale au nevoie de **verificare juridică** înainte de publicare
+
+      **Nu readăuga linkul către platforma europeană SOL/ODR**
+      (`ec.europa.eu/consumers/odr`). A fost închisă la 20 iulie 2025 prin
+      Regulamentul (UE) 2024/3228 și redirectează către o pagină de relocare.
+      Înlocuitorul e `consumer-redress.ec.europa.eu`. Pentru ANPC, adresele
+      valide sunt `anpc.ro` și `anpc.ro/sal` — `anpc.ro/ce-este-sal/` dă 404.
+      Verifică linkurile externe din footer și din Termeni periodic: instituțiile
+      își reorganizează site-urile fără redirecturi.
 - [ ] **Fotografii cu echipa pe șantier** — oameni cu căști, cu planuri în mână.
       Clientul le-a cerut, dar nu există în portofoliu: toate cele 16 poze sunt
       spații goale, fără oameni. Nu folosi poze de stoc cu muncitori: pe o
