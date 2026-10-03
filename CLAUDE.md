@@ -183,17 +183,22 @@ utilizatorul trebuie să vadă eroarea și numărul de telefon.
       `PUBLIC_SITE_URL=https://casartfin.ro` în variabilele Vercel și
       redeployează — canonical, sitemap, robots.txt și Open Graph îl preiau
       singure. Nu mai există niciun domeniu scris de mână în cod.
-- [ ] **`RESEND_API_KEY` pe Vercel** — fără ea `/api/contact` întoarce 500 și
-      niciun formular nu trimite. `EMAIL_CATRE` și `EMAIL_DE_LA` sunt
-      opționale; fără ele se folosesc valorile implicite din `api/contact.ts`.
+- [x] ~~`RESEND_API_KEY` pe Vercel~~ — **formularele funcționează.** Verificat
+      în producție: `POST /api/contact` întoarce `{"ok":true}`, iar emailul
+      ajunge la `casartfin@gmail.com`. Contul Resend e creat pe acea adresă,
+      ceea ce e obligatoriu cât timp expeditorul e `onboarding@resend.dev`
+      (pe domeniul partajat, Resend livrează doar către adresa contului).
 
-      **Capcană:** până când `casartfin.ro` e cumpărat și verificat în Resend,
-      expeditorul e `onboarding@resend.dev`. Pe acel domeniu partajat, Resend
-      trimite **doar către adresa cu care a fost creat contul** — orice alt
-      destinatar primește 403 și formularele afișează eroare. Deci contul
-      Resend trebuie creat exact pe `casartfin@gmail.com`. Test după
-      configurare: trimite o solicitare reală și caută în Vercel → Logs linia
-      `[contact] Resend a raspuns`.
+      `EMAIL_CATRE` și `EMAIL_DE_LA` nu sunt setate; se folosesc valorile
+      implicite din `api/contact.ts`. După ce `casartfin.ro` e verificat în
+      Resend, `EMAIL_DE_LA` devine `oferte@casartfin.ro` și restricția dispare.
+
+      **Dacă formularele se strică vreodată**, verifică întâi în Vercel →
+      Settings → Environment Variables că numele variabilei e
+      `RESEND_API_KEY`. Vercel numește câmpul „Key", ceea ce induce în eroare:
+      acolo merge NUMELE variabilei, nu cheia. Odată a fost salvată cheia pe
+      post de nume, iar simptomul a fost exact „Serviciul de email nu este
+      configurat".
 - [x] ~~`public/og-casartfin.jpg`~~ — generată. Se regenerează cu `npm run og`
       (vezi `scripts/genereaza-og.mjs`) dacă se schimbă sloganul sau poza.
 - [ ] **Coordonatele geo** din `firma.ts` sunt aproximative pentru Rm. Vâlcea;
