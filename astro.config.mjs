@@ -17,6 +17,14 @@ const SITE = process.env.PUBLIC_SITE_URL || 'https://casartfin.ro';
 
 export default defineConfig({
   site: SITE,
+
+  // Adresele NU au slash la final. Conteaza ca sitemap-ul sa fie de acord cu
+  // eticheta canonical si cu ce face serverul: cu `format: 'directory'`,
+  // @astrojs/sitemap scrie implicit /pagina/, adica exact adresa pe care
+  // Vercel o redirectioneaza (308) catre /pagina. Google ar primi doua
+  // raspunsuri diferite despre aceeasi pagina.
+  trailingSlash: 'never',
+
   integrations: [sitemap()],
   build: {
     // 'directory' produce termeni/index.html, pe care Vercel il serveste la
