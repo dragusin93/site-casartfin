@@ -9,17 +9,14 @@
  *   EMAIL_CATRE      unde ajung solicitarile   (implicit casartfin@gmail.com)
  *   EMAIL_DE_LA      expeditorul verificat     (implicit onboarding@resend.dev)
  *
- * ATENTIE, restrictie importanta la configurare: cat timp casartfin.ro nu e
- * cumparat si verificat in Resend, expeditorul ramane onboarding@resend.dev.
- * Pe domeniul partajat resend.dev, Resend accepta UN SINGUR destinatar —
- * adresa cu care a fost inregistrat contul Resend. Orice alta adresa primeste
- * 403, handler-ul intoarce 502 si TOATE cele trei formulare afiseaza eroare,
- * deci niciun lead nu ajunge la client. Nu e o chestiune de folder Spam, e
- * refuz direct.
+ * Domeniul casartfin.ro e verificat in Resend, deci expeditorul e
+ * oferte@casartfin.ro. Adresa NU are nevoie de casuta postala: expeditorul e
+ * doar un nume, nu o cutie. Raspunsurile merg unde spune reply_to.
  *
- * Practic: pana la domeniu verificat, contul Resend trebuie creat exact pe
- * adresa din EMAIL_CATRE (casartfin@gmail.com). Dupa verificarea domeniului,
- * EMAIL_DE_LA devine ceva de tipul oferte@casartfin.ro si restrictia dispare.
+ * ISTORIC, ca sa nu se repete: pana la verificarea domeniului expeditorul era
+ * onboarding@resend.dev, iar pe acel domeniu partajat Resend livreaza DOAR
+ * catre adresa cu care a fost creat contul. Orice alt destinatar primea 403.
+ * De aceea confirmarile catre clienti nu plecau. Acum pleaca.
  *
  * Doar RESEND_API_KEY lipsa da 500. EMAIL_CATRE si EMAIL_DE_LA cad tacut pe
  * valorile implicite de mai jos.
@@ -98,7 +95,7 @@ export default async function handler(cerere: Request): Promise<Response> {
   }
 
   const catre = process.env.EMAIL_CATRE ?? 'casartfin@gmail.com';
-  const dela = process.env.EMAIL_DE_LA ?? 'CASARTFIN <onboarding@resend.dev>';
+  const dela = process.env.EMAIL_DE_LA ?? 'CASARTFIN CONSTRUCT <oferte@casartfin.ro>';
 
   const randuri = Object.entries(date)
     .filter(([cheieCamp, val]) => {
@@ -162,12 +159,9 @@ export default async function handler(cerere: Request): Promise<Response> {
 
     // ---- 2. Confirmarea catre client. Optionala, nu blocheaza raspunsul. ----
     //
-    // ATENTIE: cat timp expeditorul e onboarding@resend.dev, aceasta trimitere
-    // ESUEAZA intotdeauna cu 403 — pe domeniul partajat Resend livreaza doar
-    // catre adresa contului, iar aici destinatarul e clientul. E in regula:
-    // esecul e doar logat, iar confirmarile incep sa plece singure din clipa in
-    // care casartfin.ro e verificat in Resend si EMAIL_DE_LA devine
-    // oferte@casartfin.ro. Nu e nevoie de nicio modificare de cod atunci.
+    // Functioneaza de cand casartfin.ro e verificat in Resend. Inainte esua
+    // mereu cu 403, pentru ca pe domeniul partajat Resend livreaza doar catre
+    // adresa contului.
     //
     // Ii confirma omului ca solicitarea a ajuns si ii da datele de contact.
     // Daca a gresit adresa, nu primeste nimic si isi da seama sa ne sune.

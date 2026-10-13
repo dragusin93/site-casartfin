@@ -218,9 +218,15 @@ utilizatorul trebuie să vadă eroarea și numărul de telefon.
       ceea ce e obligatoriu cât timp expeditorul e `onboarding@resend.dev`
       (pe domeniul partajat, Resend livrează doar către adresa contului).
 
-      `EMAIL_CATRE` și `EMAIL_DE_LA` nu sunt setate; se folosesc valorile
-      implicite din `api/contact.ts`. După ce `casartfin.ro` e verificat în
-      Resend, `EMAIL_DE_LA` devine `oferte@casartfin.ro` și restricția dispare.
+      **Domeniul e verificat în Resend.** Expeditorul e
+      `oferte@casartfin.ro` (valoare implicită în `api/contact.ts`, se poate
+      suprascrie cu `EMAIL_DE_LA`). Adresa nu are căsuță poștală și nici nu-i
+      trebuie — expeditorul e doar un nume. Solicitările ajung la
+      `casartfin@gmail.com` (`EMAIL_CATRE`).
+
+      Confirmările automate către clienți funcționează de acum. Înainte eșuau
+      mereu cu 403: pe domeniul partajat `resend.dev`, Resend livrează doar
+      către adresa contului.
 
       **Dacă formularele se strică vreodată**, verifică întâi în Vercel →
       Settings → Environment Variables că numele variabilei e
