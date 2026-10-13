@@ -19,8 +19,14 @@ export default defineConfig({
   site: SITE,
   integrations: [sitemap()],
   build: {
-    // Vercel serveste /termeni in loc de /termeni.html (cleanUrls in vercel.json)
-    format: 'file',
+    // 'directory' produce termeni/index.html, pe care Vercel il serveste la
+    // /termeni fara nicio regula in plus.
+    //
+    // NU trece inapoi pe 'file': aceea cerea cleanUrls in vercel.json, iar
+    // cleanUrls redirectioneaza ORICE cerere .html catre varianta fara
+    // extensie — inclusiv fisierele din public/, care apoi dau 404. Asa a
+    // devenit inaccesibil fisierul de verificare Google.
+    format: 'directory',
   },
 });
 
