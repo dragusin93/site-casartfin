@@ -111,6 +111,38 @@ const { titlu, descriere, cale, antet, actualizat } = Astro.props;
     color: var(--ink);
   }
 
+  /* Rezumatul in limbaj simplu, inaintea textului juridic. */
+  .pagina-text__continut :global(.rezumat) {
+    padding: 1.5rem 1.6rem;
+    margin-bottom: 2rem;
+    background: var(--stone-2);
+    border: 1px solid var(--line);
+  }
+
+  .pagina-text__continut :global(.rezumat__titlu) {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 1rem;
+  }
+
+  .pagina-text__continut :global(.rezumat ul) {
+    margin: 0 0 0 1.1rem;
+  }
+
+  .pagina-text__continut :global(.rezumat li) {
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .pagina-text__continut :global(.rezumat li:last-child) {
+    margin-bottom: 0;
+  }
+
   .pagina-text__continut :global(.nota-revizuire) {
     padding: 1rem 1.2rem;
     margin-bottom: 2rem;

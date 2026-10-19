@@ -1,5 +1,6 @@
 ---
 import { FIRMA, WHATSAPP_URL } from '~/data/firma';
+import NotaDate from '~/components/NotaDate.astro';
 
 // Harta arata BIROUL, nu sediul social — acolo vin efectiv clientii.
 const hartaSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
@@ -125,6 +126,8 @@ const hartaSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
           </div>
 
           <p class="form-raspuns" role="status" aria-live="polite"></p>
+
+          <NotaDate />
         </form>
       </div>
     </div>

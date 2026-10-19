@@ -1,0 +1,82 @@
+---
+/**
+ * Nota scurta de transparenta, pusa chiar sub formular — acolo unde omul sta
+ * sa-si scrie numarul de telefon si are nevoie de asigurare, nu intr-o pagina
+ * pe care n-o deschide nimeni.
+ *
+ * ATENTIE LA ACURATETE. Textul separa deliberat doua situatii diferite:
+ *
+ *   - cat timp vizitatorul doar navigheaza, NU se colecteaza nimic. Verificat
+ *     pe site-ul live: zero cookie-uri, zero localStorage, zero analytics.
+ *
+ *   - daca trimite formularul, datele CHIAR se stocheaza — ajung pe email si
+ *     raman acolo. Politica de confidentialitate spune maximum 24 de luni.
+ *
+ * Nu scrie aici ca "nu stocam nimic": ar contrazice politica si ar fi fals.
+ * O afirmatie de confidentialitate gresita face mai mult rau decat lipsa ei.
+ */
+---
+
+<aside class="nota-date">
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+  </svg>
+
+  <p>
+    Folosim numele și telefonul <strong>doar ca să îți răspundem la această
+    solicitare</strong>. Nu le dăm nimănui, nu îți trimitem reclame și nu le
+    folosim în alt scop. Cât timp doar te uiți pe site, nu colectăm nimic — nu
+    avem cookie-uri de urmărire și nici statistici de trafic.
+    <a href="/politica-confidentialitate">Detalii și drepturile tale</a>.
+  </p>
+</aside>
+
+<style>
+  .nota-date {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-top: 1.25rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .nota-date svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--indigo);
+  }
+
+  .nota-date p {
+    font-size: 0.78rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+
+  .nota-date strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .nota-date a {
+    color: var(--indigo);
+    border-bottom: 1px solid var(--line-indigo);
+    white-space: nowrap;
+  }
+
+  .nota-date a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+</style>

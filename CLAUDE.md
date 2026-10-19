@@ -255,6 +255,16 @@ utilizatorul trebuie să vadă eroarea și numărul de telefon.
 - [ ] **Google Business Profile** — pentru o firmă locală e canalul principal;
       schema.org `GeneralContractor` e deja pusă și îl alimentează
 
+**Nota de transparență de sub formulare** (`NotaDate.astro`) separă deliberat
+două situații, și trebuie să rămână așa: *cât timp vizitatorul navighează* nu
+se colectează nimic (verificat live: zero cookie-uri, zero localStorage, zero
+analytics), dar *dacă trimite formularul* datele chiar se stochează — ajung pe
+email și rămân acolo până la 24 de luni, cum scrie în politică.
+
+**Nu scrie nicăieri „nu stocăm nimic".** Clientul a cerut odată formularea
+asta; ar contrazice propria politică de confidențialitate și ar fi falsă. O
+afirmație greșită despre date face mai mult rău decât lipsa ei.
+
 ## Ce NU are site-ul (intenționat)
 
 Fără cookie-uri de urmărire, fără Google Analytics, fără bandă de consimțământ

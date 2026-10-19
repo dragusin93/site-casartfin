@@ -1,6 +1,7 @@
 ---
 import { TOATE_SERVICIILE, TIPURI_MASURATOARE } from '~/data/servicii';
 import { FIRMA } from '~/data/firma';
+import NotaDate from '~/components/NotaDate.astro';
 ---
 
 <section class="sectiune calculator" id="calculator">
@@ -132,6 +133,8 @@ import { FIRMA } from '~/data/firma';
           </div>
 
           <p class="form-raspuns" role="status" aria-live="polite"></p>
+
+          <NotaDate />
         </form>
       </div>
 
