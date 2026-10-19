@@ -26,7 +26,7 @@ export const INTREBARI: Intrebare[] = [
   {
     intrebare: 'Lucrați la înălțime, în hale cu tavane înalte?',
     raspuns:
-      'Da. Avem schele certificate și echipament pentru lucru până la 10 metri. E una dintre lucrările pe care le facem cel mai des, pentru că multe firme de finisaje se opresc la înălțimea la care ajunge o scară obișnuită.',
+      'Da. Avem schele certificate și echipament pentru lucrul la înălțime. E una dintre lucrările pe care le facem cel mai des, pentru că multe firme de finisaje se opresc la înălțimea la care ajunge o scară obișnuită.',
   },
   {
     intrebare: 'Cât durează o lucrare de compartimentare?',

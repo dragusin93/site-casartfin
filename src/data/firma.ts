@@ -15,10 +15,17 @@ export const FIRMA = {
   nume: 'CASARTFIN CONSTRUCT S.R.L.',
   numeScurt: 'CASARTFIN',
   descriere:
-    'Finisaje interioare, gips-carton și renovări pentru proiecte rezidențiale, comerciale și instituționale în Râmnicu Vâlcea și județul Vâlcea.',
+    'Compartimentări și finisaje pentru hale industriale, depozite și spații comerciale în Râmnicu Vâlcea și județul Vâlcea. Echipă cu experiență făcută pe șantiere din străinătate.',
 
-  anInfiintare: 2025,
-  /** Format ISO pentru schema.org: inmatriculata in noiembrie 2025. */
+  /**
+   * Data inmatricularii, folosita DOAR in schema.org, unde descrie entitatea
+   * juridica si trebuie sa fie exacta.
+   *
+   * NU o afisa pe site si nu construi mesaje in jurul vechimii firmei:
+   * experienta echipei s-a facut in afara tarii, iar firma din Romania e
+   * noua. Povestea corecta e "zeci de ani de experienta, adusa acasa", nu
+   * "firma cu traditie".
+   */
   dataInfiintare: '2025-11',
 
   cui: '52979450',
@@ -38,7 +45,7 @@ export const FIRMA = {
 
   /** Biroul unde vin clientii. Adresa afisata la Contact si pe harta. */
   birou: {
-    strada: 'Strada Gib Mihăescu',
+    strada: 'Strada Gib Mihăescu nr. 8',
     oras: 'Râmnicu Vâlcea',
     judet: 'Vâlcea',
     codPostal: '240178',

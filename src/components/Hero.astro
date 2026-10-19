@@ -10,11 +10,14 @@ import IneleUnelte from '~/components/IneleUnelte.astro';
 import CaruselHero from '~/components/CaruselHero.astro';
 import { FIRMA } from '~/data/firma';
 
+// Fapte verificabile, nu vechime. Firma e noua in Romania; experienta echipei
+// s-a facut afara, iar asta se spune in Despre, nu intr-o cifra scoasa din
+// context. Nu readauga "ani de meserie" aici.
 const DATE = [
-  { valoare: '20+', eticheta: 'Ani de meserie' },
-  { valoare: '10 m', eticheta: 'Înălțime de lucru' },
   { valoare: '24h', eticheta: 'Timp de răspuns' },
   { valoare: '2 ani', eticheta: 'Garanție scrisă' },
+  { valoare: 'Gratuit', eticheta: 'Deviz și măsurătoare' },
+  { valoare: 'Proprie', eticheta: 'Echipă, fără subcontractare' },
 ];
 ---
 

@@ -6,9 +6,19 @@ modifici ceva.
 ## Despre firmă
 
 CASARTFIN CONSTRUCT S.R.L. — **compartimentări și finisaje pentru hale și
-spații industriale**, în Râmnicu Vâlcea și județul Vâlcea. Firmă de familie,
-înmatriculată noiembrie 2025, cu peste 20 de ani de meserie în spate (tatăl a
-transmis meseria fiilor).
+spații industriale**, în Râmnicu Vâlcea și județul Vâlcea.
+
+**Povestea firmei: experiența s-a făcut pe șantiere din străinătate, iar echipa
+s-a întors recent în țară și a înființat firma aici.** Formularea corectă e
+*„meseria învățată afară, adusă acasă”* — ea explică firesc și de ce societatea
+e recentă.
+
+**NU construi mesaje pe vechimea firmei.** Nu scrie „20 de ani de meserie”,
+„firmă cu tradiție”, anul înființării ca argument, sau cifre de ani în dreptul
+societății. Data înmatriculării (noiembrie 2025) e publică și se verifică în 20
+de secunde; o afirmație de vechime care nu se susține strică încrederea exact la
+clienții care fac due diligence. Experiența se menționează ca a **oamenilor**,
+făcută **afară** — niciodată ca vechime a SRL-ului.
 
 **Poziționarea e pe lucrări mari: hale, depozite, spații comerciale, birouri în
 hale, spații tehnice.** Rezidențialul se execută, dar e secundar și trebuie să

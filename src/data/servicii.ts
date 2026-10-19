@@ -78,7 +78,7 @@ export const SERVICII_PRINCIPALE: Serviciu[] = [
     id: 'lucrari-inaltime',
     titlu: 'Lucrări la înălțime',
     descriere:
-      'Schele certificate și echipament specializat pentru hale și spații cu tavane înalte. Execuție impecabilă și la 10 metri.',
+      'Schele certificate și echipament specializat pentru hale și spații cu tavane înalte, unde o scară obișnuită nu ajunge.',
     icon: 'schela',
     poza: pozaInaltime,
     pozaAlt: 'Placare cu gips carton pe perete de înălțime mare, în hală industrială',
@@ -93,8 +93,8 @@ export const MOTIVE = [
     icon: 'echipa',
   },
   {
-    titlu: 'Peste 20 de ani de meserie',
-    text: 'Experiență transmisă de la tată la fii, pe șantiere reale.',
+    titlu: 'Experiență din străinătate',
+    text: 'Zeci de ani de șantiere lucrate afară, la standardele de acolo.',
     icon: 'experienta',
   },
   {
@@ -104,7 +104,7 @@ export const MOTIVE = [
   },
   {
     titlu: 'Lucrări la înălțime',
-    text: 'Hale și spații cu tavane înalte, în siguranță, până la 10 metri.',
+    text: 'Schele certificate pentru hale și spații cu tavane înalte.',
     icon: 'schela',
   },
   {
